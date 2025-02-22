@@ -1,22 +1,39 @@
 package commands;
 
+import modules.Collection;
+
 import java.util.ArrayList;
+import java.util.Collections;
 
-public class Help {
+public class Help implements Helpable {
 
-    ArrayList<Commands> commands;
+    ArrayList<Helpable> commands;
 
     public Help() {
         commands = new ArrayList<>();
     }
 
-    public void help() {
-        for (Commands command : commands) {
-            System.out.println(command.getHelp());
-        }
+    /**
+     * Return information about command that was requested
+     */
+    public static void help(Helpable command) {
+        System.out.println(command.getHelp());
     }
 
-    public void addCommand(Commands command) {
-        commands.add(command);
+    /**
+     * Add ability to request help from the command and
+     * get information about it
+     * @param commandArgs array of supporting commands
+     */
+    public void addCommand(Helpable... commandArgs) {
+        Collections.addAll(commands, commandArgs);
+    }
+
+    /**
+     * add an information about help
+     * @return String with information about command
+     */
+    public String getHelp() {
+        return "Return information about commands";
     }
 }

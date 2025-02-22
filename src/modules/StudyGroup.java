@@ -3,8 +3,11 @@ package modules;
 import java.io.Serializable;
 import java.util.Objects;
 
-public class StudyGroup implements Comparable<StudyGroup> {
 
+public class StudyGroup implements Comparable<StudyGroup> {
+    /**
+     * Class of object in collection
+     */
     private Integer id;
     private String name;
     private Coordinates coordinates;
@@ -27,6 +30,10 @@ public class StudyGroup implements Comparable<StudyGroup> {
         this.groupAdmin = groupAdmin;
     }
 
+    /**
+     * @param other the object to be compared.
+     * @return comparison of objects
+     */
     @Override
     public int compareTo(StudyGroup other) {
         return this.id.compareTo(other.id);

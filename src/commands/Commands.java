@@ -1,7 +1,8 @@
 package commands;
 
-public interface Commands {
-
-    String getHelp();
-
+public enum Commands {
+    ADD,
+    HELP,
+    INFO,
+    SHOW,
 }
