@@ -1,6 +1,6 @@
 package input;
 
-import modules.Coordinates;
+import relatedToTheCollection.Coordinates;
 
 import java.util.Scanner;
 

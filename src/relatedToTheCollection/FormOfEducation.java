@@ -1,4 +1,4 @@
-package modules;
+package relatedToTheCollection;
 
 public enum FormOfEducation {
     DISTANCE_EDUCATION,

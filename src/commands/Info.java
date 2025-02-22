@@ -1,6 +1,6 @@
 package commands;
 
-import modules.Collection;
+import relatedToTheCollection.Collection;
 
 public class Info implements Helpable {
 

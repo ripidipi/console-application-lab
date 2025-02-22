@@ -1,6 +1,5 @@
-package modules;
+package relatedToTheCollection;
 
-import java.io.Serializable;
 import java.util.Objects;
 
 
@@ -18,12 +17,12 @@ public class StudyGroup implements Comparable<StudyGroup> {
     private Person groupAdmin;
 
     public StudyGroup(Integer id, String name, Coordinates coordinates,
-                      java.time.LocalDateTime creationDate, Integer studentCount,
-                      FormOfEducation formOfEducation, Semester semesterEnum, Person groupAdmin) {
+                      Integer studentCount, FormOfEducation formOfEducation,
+                      Semester semesterEnum, Person groupAdmin) {
         this.id = id;
         this.name = name;
         this.coordinates = coordinates;
-        this.creationDate = creationDate;
+        this.creationDate = java.time.LocalDateTime.now();
         this.studentCount = studentCount;
         this.formOfEducation = formOfEducation;
         this.semesterEnum = semesterEnum;

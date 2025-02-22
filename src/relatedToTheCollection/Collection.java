@@ -1,12 +1,11 @@
-package modules;
+package relatedToTheCollection;
 
-import java.util.ArrayList;
 import java.util.TreeSet;
 
 public class Collection {
 
-    TreeSet<StudyGroup> collection = new TreeSet<>();
-    java.time.LocalDateTime date;
+    private TreeSet<StudyGroup> collection = new TreeSet<>();
+    private java.time.LocalDateTime date;
 
     Collection() {
         date = java.time.LocalDateTime.now();
@@ -19,4 +18,9 @@ public class Collection {
     public TreeSet<StudyGroup> getContent() {
         return collection;
     }
+
+    public int getSize() {
+        return collection.size();
+    }
+
 }

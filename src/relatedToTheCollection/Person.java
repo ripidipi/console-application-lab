@@ -1,4 +1,4 @@
-package modules;
+package relatedToTheCollection;
 
 public class Person{
     private String name;
