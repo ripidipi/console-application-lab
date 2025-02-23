@@ -6,9 +6,17 @@ public class Collection {
 
     private TreeSet<StudyGroup> collection = new TreeSet<>();
     private final java.time.LocalDateTime date;
+    private static Collection instance;
 
-    Collection() {
+    private Collection() {
         date = java.time.LocalDateTime.now();
+    }
+
+    public static Collection getInstance() {
+        if (instance == null) {
+            instance = new Collection();
+        }
+        return instance;
     }
 
     public String getInfo() {

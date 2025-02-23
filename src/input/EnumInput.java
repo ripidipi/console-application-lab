@@ -1,10 +1,12 @@
 package input;
 
 import exeptions.IncorrectConstant;
-
 import java.util.Scanner;
 
-public class EnumInput {
+/**
+ * class with static methods for enum value readings
+ */
+public class EnumInput implements Inputable{
 
     /**
      * Input manager for enums
@@ -16,11 +18,13 @@ public class EnumInput {
     public static <T extends Enum<T>> T Input(Class<T> enumType) throws IncorrectConstant {
         try {
             Scanner scanner = new Scanner(System.in);
-            System.out.println("Enter " + enumType.getSimpleName() + ":");
+            System.out.print("Enter " + enumType.getSimpleName() + ": ");
             String e = scanner.nextLine().toUpperCase();
             return Enum.valueOf(enumType, e);
         } catch (IllegalArgumentException e) {
             System.out.println(new IncorrectConstant(enumType.getSimpleName()).getMessage());
+        } catch (Exception e) {
+            System.out.println("Invalid data. Try again");
         }
         return Input(enumType);
     }

@@ -2,16 +2,27 @@ package input;
 
 import exeptions.EmptyLine;
 import exeptions.ZeroValue;
-
 import java.util.Scanner;
 
-public class BasicDataTypesInput {
+/**
+ * class with static methods for basic types readings
+ */
+public class BasicDataTypesInput implements Inputable{
 
     private static final Scanner scanner = new Scanner(System.in);
 
-    public static <T> T readInput(String name, Class<T> type) throws EmptyLine, ZeroValue {
+    /**
+     * Input manager for some basic data types, which should be taken in my program
+     * @param name names the type of information that is expected from the user
+     * @param type take expected type of information
+     * @return input data in right format
+     * @param <T> show type of data expected to work with
+     * @throws EmptyLine for empty gaps, if it incorrect format for it
+     * @throws ZeroValue for numeric gaps <= 0, if it incorrect format for it
+     */
+    public static <T> T Input(String name, Class<T> type) throws EmptyLine, ZeroValue {
         try {
-            System.out.println("Enter " + name + ": ");
+            System.out.print("Enter " + name + ": ");
             String input = scanner.nextLine();
             if (input.isEmpty())
                 throw new EmptyLine(name);
@@ -42,20 +53,29 @@ public class BasicDataTypesInput {
             }
         } catch (EmptyLine | ZeroValue e) {
             System.err.println(e.getMessage());
-            return readInput(name, type);
         } catch (Exception e) {
             System.err.println("Invalid input. Try again");
-            return readInput(name, type);
         }
         System.err.println("Unsupported type " + type);
-        return type.cast("");
+        return Input(name, type);
     }
 
-    public static <T> T readInput(String name, Class<T> type, Boolean... checkers) throws EmptyLine, ZeroValue {
+    /**
+     * Input manager for some basic data types, which should be taken in my program with option of setting exceptions checking
+     * @param name names the type of information that is expected from the user
+     * @param type take expected type of information
+     * @param EmptyLineCheck responsible for using or not checking for EmptyLineCheck
+     * @param ZeroValueCheck responsible for using or not checking for ZeroValueCheck
+     * @return input data in right format
+     * @param <T> show type of data expected to work with
+     * @throws EmptyLine for empty gaps, if it incorrect format for it
+     * @throws ZeroValue for numeric gaps <= 0, if it incorrect format for it
+     */
+    public static <T> T Input(String name, Class<T> type, Boolean EmptyLineCheck, Boolean ZeroValueCheck) throws EmptyLine, ZeroValue {
         try {
-            System.out.println("Enter " + name + ": ");
+            System.out.print("Enter " + name + ": ");
             String input = scanner.nextLine();
-            if (input.isEmpty() && checkers[0])
+            if (input.isEmpty() && EmptyLineCheck)
                 throw new EmptyLine(name);
             if (input.isEmpty())
                 return type.cast("");
@@ -63,22 +83,22 @@ public class BasicDataTypesInput {
                 return type.cast(input);
             } else if (type == Integer.class) {
                 int value = Integer.parseInt(input);
-                if (value <= 0 && checkers[1])
+                if (value <= 0 && ZeroValueCheck)
                     throw new ZeroValue(name);
                 return type.cast(value);
             } else if (type == Double.class) {
                 double value = Double.parseDouble(input);
-                if (value <= 0 && checkers[1])
+                if (value <= 0 && ZeroValueCheck)
                     throw new ZeroValue(name);
                 return type.cast(value);
             } else if (type == Float.class) {
                 double value = Float.parseFloat(input);
-                if (value <= 0 && checkers[1])
+                if (value <= 0 && ZeroValueCheck)
                     throw new ZeroValue(name);
                 return type.cast(value);
             } else if (type == Long.class) {
                 double value = Long.parseLong(input);
-                if (value <= 0 && checkers[1])
+                if (value <= 0 && ZeroValueCheck)
                     throw new ZeroValue(name);
                 return type.cast(value);
             } else if (type == java.time.LocalDateTime.class) {
@@ -86,13 +106,11 @@ public class BasicDataTypesInput {
             }
         } catch (EmptyLine | ZeroValue e) {
             System.err.println(e.getMessage());
-            return readInput(name, type);
         } catch (Exception e) {
             System.err.println("Invalid input. Try again");
-            return readInput(name, type);
         }
         System.err.println("Unsupported type " + type);
-        return type.cast("");
+        return Input(name, type);
     }
 
 }

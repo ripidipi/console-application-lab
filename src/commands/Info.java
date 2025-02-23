@@ -5,10 +5,10 @@ import relatedToTheCollection.Collection;
 public class Info implements Helpable {
 
     /**
-     * @param collection shows what information to return about
+     * Print info about collection (type, initialization date, number of elements)
      */
-    public static void info(Collection collection) {
-        System.out.println(collection.getInfo());
+    public static void info() {
+        System.out.println(Collection.getInstance().getInfo());
     }
 
     /**

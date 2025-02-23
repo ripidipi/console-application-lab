@@ -1,26 +1,29 @@
 package input;
 
-import exeptions.EmptyLine;
-import exeptions.ZeroValue;
 import relatedToTheCollection.*;
 
-import java.util.Scanner;
+/**
+ * class with static method for StudyGroup object readings
+ */
+public class StudyGroupInput implements Inputable{
 
-public class StudyGroupInput {
-
-    public static StudyGroup Input(int id) {
+    /**
+     * Input manager to create object with class StudyGroup
+     * @return object with class StudyGroup
+     */
+    public static StudyGroup Input() {
         try {
-            String name = BasicDataTypesInput.readInput("name", String.class);
+            String name = BasicDataTypesInput.Input("name", String.class);
             Coordinates coordinates = CoordinatesInput.Input();
-            Integer studentCount = BasicDataTypesInput.readInput("students count", Integer.class);
+            Integer studentCount = BasicDataTypesInput.Input("students count", Integer.class);
             FormOfEducation formOfEducation = EnumInput.Input(FormOfEducation.class);
             Semester semester = EnumInput.Input(Semester.class);
             Person groupAdmin = PersonInput.Input();
-            return new StudyGroup(id, name, coordinates, studentCount, formOfEducation, semester, groupAdmin);
+            return new StudyGroup(name, coordinates, studentCount, formOfEducation, semester, groupAdmin);
         } catch (Exception e) {
             System.err.println("Invalid input. Try again.");
         }
-        return Input(id);
+        return Input();
     }
 
 }

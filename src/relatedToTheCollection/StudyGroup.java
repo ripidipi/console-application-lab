@@ -1,13 +1,16 @@
 package relatedToTheCollection;
 
+import java.security.SecureRandom;
 import java.time.format.DateTimeFormatter;
+import java.util.Map;
 import java.util.Objects;
+import java.util.concurrent.ConcurrentHashMap;
 
-
+/**
+ * Class of objects in collection
+ */
 public class StudyGroup implements Comparable<StudyGroup> {
-    /**
-     * Class of object in collection
-     */
+    private static Map<Integer, Boolean> IDs = new ConcurrentHashMap<>();
     private final Integer id;
     private final String name;
     private final Coordinates coordinates;
@@ -17,10 +20,16 @@ public class StudyGroup implements Comparable<StudyGroup> {
     private final Semester semesterEnum;
     private final Person groupAdmin;
 
-    public StudyGroup(Integer id, String name, Coordinates coordinates,
+    public StudyGroup(String name, Coordinates coordinates,
                       Integer studentCount, FormOfEducation formOfEducation,
                       Semester semesterEnum, Person groupAdmin) {
-        this.id = id;
+        int randomID;
+        SecureRandom random = new SecureRandom();
+        do {
+            randomID = 100000 + random.nextInt(900000); // 6 digits
+        } while (IDs.containsKey(randomID));
+        this.id = randomID;
+        IDs.put(randomID, true);
         this.name = name;
         this.coordinates = coordinates;
         this.creationDate = java.time.LocalDateTime.now();
