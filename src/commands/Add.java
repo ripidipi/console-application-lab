@@ -12,6 +12,6 @@ public class Add implements Helpable {
     }
 
     public String getHelp() {
-        return "";
+        return "add";
     }
 }

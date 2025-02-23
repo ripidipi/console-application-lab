@@ -67,12 +67,12 @@ public class StudyGroup implements Comparable<StudyGroup> {
         return "StudyGroup {" +
                 "\nid: " + id +
                 "\nname: " + name +
-                "\ncoordinates: " + coordinates +
-                "\ncreation date: " + creationDate +
+                "\n" + coordinates +
+                "\ncreation date: " + getCreationDateString() +
                 "\nstudent count: " + studentCount +
                 "\nfrom of education: " + formOfEducation +
-                "\nsemester enum: " + semesterEnum +
-                "\ngroup admin" + groupAdmin + '}';
+                "\nsemester: " + semesterEnum +
+                "\n" + groupAdmin + '}';
     }
 
     public Integer getId() {return id;}

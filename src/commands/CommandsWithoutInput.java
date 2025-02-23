@@ -3,7 +3,8 @@ package commands;
 public enum CommandsWithoutInput {
     ADD(Add::add),
     INFO(Info::info),
-    HELP(Help::help),;
+    HELP(Help::help),
+    SHOW(Show::show);
 
     private final Runnable command;
 

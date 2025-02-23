@@ -1,8 +1,9 @@
 package relatedToTheCollection;
 
+import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 
-public record Person(String name, java.time.LocalDateTime birthday, double height, String passportID) {
+public record Person(String name, LocalDateTime birthday, Double height, String passportID) {
 
     public String getBirthdayString() {
         DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd/MM/yyyy");
@@ -11,10 +12,10 @@ public record Person(String name, java.time.LocalDateTime birthday, double heigh
 
     @Override
     public String toString() {
-        return "Person {" +
+        return "Group admin {" +
                 "\nname: " + name +
                 "\nbirthday: " + getBirthdayString() +
-                "\nheight: " + height +
+                "\nheight: " + (height==null ? "" : height) +
                 "\npassportID: " + passportID + '}';
 
     }

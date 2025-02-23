@@ -23,7 +23,7 @@ public class PersonInput implements Inputable {
             String name = BasicDataTypesInput.Input("name", String.class);
             LocalDateTime birthday = BasicDataTypesInput.Input("birthday data in format DD.MM.YYYY",
                                                                                 LocalDateTime.class);
-            double height = BasicDataTypesInput.Input("height", Double.class, false, true);
+            Double height = BasicDataTypesInput.Input("height", Double.class, false, true);
             String passportID = BasicDataTypesInput.Input("passportID", String.class);
             return new Person(name, birthday, height, passportID);
         } catch (Exception e) {

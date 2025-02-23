@@ -17,8 +17,13 @@ public class EnumInput implements Inputable{
      */
     public static <T extends Enum<T>> T Input(Class<T> enumType) throws IncorrectConstant {
         try {
+            T[] enumConstants = enumType.getEnumConstants();
+            StringBuilder enumValues = new StringBuilder();
+            for (T constant : enumConstants) {
+                enumValues.append(constant.name()).append(" ");
+            }
             Scanner scanner = new Scanner(System.in);
-            System.out.print("Enter " + enumType.getSimpleName() + ": ");
+            System.out.print("Enter " + enumType.getSimpleName() + " (" + enumValues.toString().trim().toLowerCase() + "): ");
             String s = scanner.nextLine().toUpperCase();
             return Enum.valueOf(enumType, s);
         } catch (IllegalArgumentException e) {

@@ -1,12 +1,12 @@
 package relatedToTheCollection;
 
-public record Coordinates(long x, float y) {
+public record Coordinates(Long x, Float y) {
 
     @Override
     public String toString() {
         return "Coordinates {" +
-                "\nx coordinate: " + x +
-                "\nx coordinate: " + y + '}';
+                "\nx coordinate: " + (x==null ? " " : x) +
+                "\nx coordinate: " + (y==null ? " " : y) + '}';
 
     }
 
