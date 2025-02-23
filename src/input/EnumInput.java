@@ -19,13 +19,14 @@ public class EnumInput implements Inputable{
         try {
             Scanner scanner = new Scanner(System.in);
             System.out.print("Enter " + enumType.getSimpleName() + ": ");
-            String e = scanner.nextLine().toUpperCase();
-            return Enum.valueOf(enumType, e);
+            String s = scanner.nextLine().toUpperCase();
+            return Enum.valueOf(enumType, s);
         } catch (IllegalArgumentException e) {
             System.out.println(new IncorrectConstant(enumType.getSimpleName()).getMessage());
         } catch (Exception e) {
             System.out.println("Invalid data. Try again");
         }
+
         return Input(enumType);
     }
 }

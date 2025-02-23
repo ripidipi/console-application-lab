@@ -15,12 +15,14 @@ public class CoordinatesInput implements Inputable{
      */
     public static Coordinates Input() throws EmptyLine {
         try {
+            System.out.println("Enter information about coordinates");
             Long x = BasicDataTypesInput.Input("x coordinate", Long.class, true, false);
             Float y = BasicDataTypesInput.Input("y coordinate", Float.class, true, false);
             return new Coordinates(x, y);
         } catch (Exception e) {
             System.out.println("Invalid data. Try again");
         }
+        System.out.flush();
         return Input();
     }
 }

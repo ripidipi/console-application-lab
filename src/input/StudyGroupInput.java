@@ -13,6 +13,7 @@ public class StudyGroupInput implements Inputable{
      */
     public static StudyGroup Input() {
         try {
+            System.out.print("Enter information about study group");
             String name = BasicDataTypesInput.Input("name", String.class);
             Coordinates coordinates = CoordinatesInput.Input();
             Integer studentCount = BasicDataTypesInput.Input("students count", Integer.class);
@@ -21,7 +22,7 @@ public class StudyGroupInput implements Inputable{
             Person groupAdmin = PersonInput.Input();
             return new StudyGroup(name, coordinates, studentCount, formOfEducation, semester, groupAdmin);
         } catch (Exception e) {
-            System.err.println("Invalid input. Try again.");
+            System.out.println("Invalid input. Try again.");
         }
         return Input();
     }

@@ -2,6 +2,10 @@ package input;
 
 import exeptions.EmptyLine;
 import exeptions.ZeroValue;
+
+import java.time.LocalDate;
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
 import java.util.Scanner;
 
 /**
@@ -39,24 +43,24 @@ public class BasicDataTypesInput implements Inputable{
                     throw new ZeroValue(name);
                 return type.cast(value);
             } else if (type == Float.class) {
-                double value = Float.parseFloat(input);
+                float value = Float.parseFloat(input);
                 if (value <= 0)
                     throw new ZeroValue(name);
                 return type.cast(value);
             } else if (type == Long.class) {
-                double value = Long.parseLong(input);
+                long value = Long.parseLong(input);
                 if (value <= 0)
                     throw new ZeroValue(name);
                 return type.cast(value);
-            } else if (type == java.time.LocalDateTime.class) {
-                return type.cast(java.time.LocalDateTime.parse(input));
+            } else if (type == LocalDateTime.class) {
+                DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd.MM.yyyy");
+                return type.cast(LocalDate.parse(input, formatter).atStartOfDay());
             }
         } catch (EmptyLine | ZeroValue e) {
-            System.err.println(e.getMessage());
+            System.out.println(e.getMessage());
         } catch (Exception e) {
-            System.err.println("Invalid input. Try again");
+            System.out.println("Invalid input. Try again");
         }
-        System.err.println("Unsupported type " + type);
         return Input(name, type);
     }
 
@@ -75,41 +79,41 @@ public class BasicDataTypesInput implements Inputable{
         try {
             System.out.print("Enter " + name + ": ");
             String input = scanner.nextLine();
-            if (input.isEmpty() && EmptyLineCheck)
+            if (input.isEmpty() & EmptyLineCheck)
                 throw new EmptyLine(name);
             if (input.isEmpty())
-                return type.cast("");
+                return type.cast(null);
             if (type == String.class) {
                 return type.cast(input);
             } else if (type == Integer.class) {
                 int value = Integer.parseInt(input);
-                if (value <= 0 && ZeroValueCheck)
+                if (value <= 0 & ZeroValueCheck)
                     throw new ZeroValue(name);
                 return type.cast(value);
             } else if (type == Double.class) {
                 double value = Double.parseDouble(input);
-                if (value <= 0 && ZeroValueCheck)
+                if (value <= 0 & ZeroValueCheck)
                     throw new ZeroValue(name);
                 return type.cast(value);
             } else if (type == Float.class) {
-                double value = Float.parseFloat(input);
-                if (value <= 0 && ZeroValueCheck)
+                float value = Float.parseFloat(input);
+                if (value <= 0 & ZeroValueCheck)
                     throw new ZeroValue(name);
                 return type.cast(value);
             } else if (type == Long.class) {
-                double value = Long.parseLong(input);
-                if (value <= 0 && ZeroValueCheck)
+                long value = Long.parseLong(input);
+                if (value <= 0 & ZeroValueCheck)
                     throw new ZeroValue(name);
                 return type.cast(value);
-            } else if (type == java.time.LocalDateTime.class) {
-                return type.cast(java.time.LocalDateTime.parse(input));
+            } else if (type == LocalDateTime.class) {
+                DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd.MM.yyyy");
+                return type.cast(LocalDate.parse(input, formatter).atStartOfDay());
             }
         } catch (EmptyLine | ZeroValue e) {
-            System.err.println(e.getMessage());
+            System.out.println(e.getMessage());
         } catch (Exception e) {
-            System.err.println("Invalid input. Try again");
+            System.out.println("Invalid input. Try again");
         }
-        System.err.println("Unsupported type " + type);
         return Input(name, type);
     }
 

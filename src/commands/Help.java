@@ -1,21 +1,33 @@
 package commands;
 
+import relatedToTheCollection.Collection;
+
 import java.util.ArrayList;
 import java.util.Collections;
 
 public class Help implements Helpable {
 
-    ArrayList<Helpable> commands;
+    private static ArrayList<Helpable> commands;
+    private static Help instance;
 
-    public Help() {
+    private Help() {
         commands = new ArrayList<>();
+    }
+
+    public static Help getInstance() {
+        if (instance == null) {
+            instance = new Help();
+        }
+        return instance;
     }
 
     /**
      * Return information about command that was requested
      */
-    public static void help(Helpable command) {
-        System.out.println(command.getHelp());
+    public static void help() {
+        for(Helpable command: commands) {
+            System.out.println(command.getHelp());
+        }
     }
 
     /**
