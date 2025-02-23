@@ -17,12 +17,12 @@ public class StudyGroup implements Comparable<StudyGroup> {
     private final java.time.LocalDateTime creationDate;
     private final Integer studentCount;
     private final FormOfEducation formOfEducation;
-    private final Semester semesterEnum;
+    private final Semester semester;
     private final Person groupAdmin;
 
     public StudyGroup(String name, Coordinates coordinates,
                       Integer studentCount, FormOfEducation formOfEducation,
-                      Semester semesterEnum, Person groupAdmin) {
+                      Semester semester, Person groupAdmin) {
         int randomID;
         SecureRandom random = new SecureRandom();
         do {
@@ -35,7 +35,7 @@ public class StudyGroup implements Comparable<StudyGroup> {
         this.creationDate = java.time.LocalDateTime.now();
         this.studentCount = studentCount;
         this.formOfEducation = formOfEducation;
-        this.semesterEnum = semesterEnum;
+        this.semester = semester;
         this.groupAdmin = groupAdmin;
     }
 
@@ -59,7 +59,7 @@ public class StudyGroup implements Comparable<StudyGroup> {
     @Override
     public int hashCode() {
         return Objects.hash(id, name, coordinates, creationDate, studentCount,
-                            formOfEducation, semesterEnum, groupAdmin);
+                            formOfEducation, semester, groupAdmin);
     }
 
     @Override
@@ -71,7 +71,7 @@ public class StudyGroup implements Comparable<StudyGroup> {
                 "\ncreation date: " + getCreationDateString() +
                 "\nstudent count: " + studentCount +
                 "\nfrom of education: " + formOfEducation +
-                "\nsemester: " + semesterEnum +
+                "\nsemester: " + semester +
                 "\n" + groupAdmin + '}';
     }
 
@@ -92,7 +92,7 @@ public class StudyGroup implements Comparable<StudyGroup> {
 
     public FormOfEducation getFormOfEducation() { return formOfEducation;}
 
-    public Semester getSemesterEnum() { return semesterEnum;}
+    public Semester getSemester() { return semester;}
 
     public Person getGroupAdmin() { return groupAdmin;}
 

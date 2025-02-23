@@ -7,7 +7,8 @@ public enum CommandsWithoutInput {
     SHOW(Show::show),
     CLEAR(Clear::clear),
     UPDATE(Update::update),
-    EXIT(Exit::exit);
+    EXIT(Exit::exit),
+    SAVE(Save::save);
 
     private final Runnable command;
 

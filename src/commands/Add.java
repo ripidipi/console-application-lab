@@ -1,6 +1,6 @@
 package commands;
 
-import input.StudyGroupInput;
+import inputOutput.StudyGroupInput;
 import relatedToTheCollection.Collection;
 import relatedToTheCollection.StudyGroup;
 

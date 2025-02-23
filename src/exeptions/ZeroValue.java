@@ -7,6 +7,6 @@ public class ZeroValue extends RuntimeException {
 
     @Override
     public String getMessage() {
-        return super.getMessage() + " can't be <= 0. \nIf you have a questions check help()";
+        return super.getMessage() + " can't be <= 0. If you have a questions check help";
     }
 }

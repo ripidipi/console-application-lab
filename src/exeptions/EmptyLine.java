@@ -7,6 +7,6 @@ public class EmptyLine extends RuntimeException {
 
     @Override
     public String getMessage() {
-        return super.getMessage() + " field can't be empty. \nIf you have a questions check help()";
+        return super.getMessage() + " field can't be empty. If you have a questions check help()";
     }
 }

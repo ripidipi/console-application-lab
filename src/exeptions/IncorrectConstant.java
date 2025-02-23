@@ -7,6 +7,6 @@ public class IncorrectConstant extends RuntimeException {
 
     @Override
     public String getMessage() {
-        return super.getMessage() + " can't have that value. \nIf you have a questions check help()";
+        return super.getMessage() + " can't have that value. If you have a questions check help()";
     }
 }

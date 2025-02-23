@@ -7,6 +7,6 @@ public class IncorrectCommand extends RuntimeException {
 
     @Override
     public String getMessage() {
-        return super.getMessage() + " command doesn't exist. \nIf you have a questions check help";
+        return super.getMessage() + " command doesn't exist. If you have a questions check help";
     }
 }

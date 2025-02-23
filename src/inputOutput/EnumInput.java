@@ -1,4 +1,4 @@
-package input;
+package inputOutput;
 
 import exeptions.IncorrectConstant;
 import java.util.Scanner;

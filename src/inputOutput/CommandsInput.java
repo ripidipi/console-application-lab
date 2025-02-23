@@ -1,13 +1,11 @@
-package input;
+package inputOutput;
 
 import commands.CommandsWithInput;
 import commands.CommandsWithoutInput;
 import exeptions.EmptyLine;
 import exeptions.IncorrectCommand;
-import exeptions.IncorrectConstant;
 import exeptions.ZeroValue;
 
-import java.util.Arrays;
 import java.util.Scanner;
 
 public class CommandsInput implements Inputable{
