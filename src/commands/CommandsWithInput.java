@@ -6,13 +6,13 @@ public enum CommandsWithInput {
 
     REMOVE_BY_ID(RemoveById::removeById);
 
-    private final Consumer<String> command;
+    private final Consumer<Integer> command;
 
-    CommandsWithInput(Consumer<String> command) {
+    CommandsWithInput(Consumer<Integer> command) {
         this.command = command;
     }
 
-    public void execute(String arg) {
+    public void execute(Integer arg) {
         command.accept(arg);
     }
 
