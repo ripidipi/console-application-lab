@@ -5,7 +5,7 @@ import java.util.TreeSet;
 public class Collection {
 
     private TreeSet<StudyGroup> collection = new TreeSet<>();
-    private java.time.LocalDateTime date;
+    private final java.time.LocalDateTime date;
 
     Collection() {
         date = java.time.LocalDateTime.now();

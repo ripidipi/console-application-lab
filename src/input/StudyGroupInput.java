@@ -10,20 +10,15 @@ public class StudyGroupInput {
 
     public static StudyGroup Input(int id) {
         try {
-            Scanner scanner = new Scanner(System.in);
-            System.out.println("Enter study group name:");
-            String name = scanner.nextLine();
-            if(name.isEmpty()) {throw new EmptyLine("name");}
+            String name = BasicDataTypesInput.readInput("name", String.class);
             Coordinates coordinates = CoordinatesInput.Input();
-            System.out.println("Enter students count:");
-            int studentCount = scanner.nextInt();
-            if (studentCount <= 0) {throw new ZeroValue("students count");}
+            Integer studentCount = BasicDataTypesInput.readInput("students count", Integer.class);
             FormOfEducation formOfEducation = EnumInput.Input(FormOfEducation.class);
             Semester semester = EnumInput.Input(Semester.class);
-            Person person = PersonInput.Input();
-            return new StudyGroup(id, name, coordinates, studentCount, formOfEducation, semester, person);
-        } catch (EmptyLine e) {
-            System.out.println(e.getMessage());
+            Person groupAdmin = PersonInput.Input();
+            return new StudyGroup(id, name, coordinates, studentCount, formOfEducation, semester, groupAdmin);
+        } catch (Exception e) {
+            System.err.println("Invalid input. Try again.");
         }
         return Input(id);
     }

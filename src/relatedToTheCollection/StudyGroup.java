@@ -1,5 +1,6 @@
 package relatedToTheCollection;
 
+import java.time.format.DateTimeFormatter;
 import java.util.Objects;
 
 
@@ -7,14 +8,14 @@ public class StudyGroup implements Comparable<StudyGroup> {
     /**
      * Class of object in collection
      */
-    private Integer id;
-    private String name;
-    private Coordinates coordinates;
-    private java.time.LocalDateTime creationDate;
-    private Integer studentCount;
-    private FormOfEducation formOfEducation;
-    private Semester semesterEnum;
-    private Person groupAdmin;
+    private final Integer id;
+    private final String name;
+    private final Coordinates coordinates;
+    private final java.time.LocalDateTime creationDate;
+    private final Integer studentCount;
+    private final FormOfEducation formOfEducation;
+    private final Semester semesterEnum;
+    private final Person groupAdmin;
 
     public StudyGroup(Integer id, String name, Coordinates coordinates,
                       Integer studentCount, FormOfEducation formOfEducation,
@@ -62,7 +63,7 @@ public class StudyGroup implements Comparable<StudyGroup> {
                 "\nstudent count: " + studentCount +
                 "\nfrom of education: " + formOfEducation +
                 "\nsemester enum: " + semesterEnum +
-                "\ngroup admin" + groupAdmin;
+                "\ngroup admin" + groupAdmin + '}';
     }
 
     public Integer getId() {return id;}
@@ -72,6 +73,11 @@ public class StudyGroup implements Comparable<StudyGroup> {
     public Coordinates getCoordinates() {return coordinates;}
 
     public java.time.LocalDateTime getCreationDate() {return creationDate;}
+
+    public String  getCreationDateString() {
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd/MM/yyyy");
+        return creationDate.format(formatter);
+    }
 
     public Integer getStudentCount() {return studentCount;}
 
