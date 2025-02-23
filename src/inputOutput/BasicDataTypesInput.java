@@ -86,6 +86,7 @@ public class BasicDataTypesInput implements Inputable{
             if (type == String.class) {
                 return type.cast(input);
             } else if (type == Integer.class) {
+
                 int value = Integer.parseInt(input);
                 if (value <= 0 & ZeroValueCheck)
                     throw new ZeroValue(name);
