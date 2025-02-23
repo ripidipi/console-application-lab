@@ -17,6 +17,6 @@ public record Person(String name, LocalDateTime birthday, Double height, String 
                 "\nbirthday: " + getBirthdayString() +
                 "\nheight: " + (height==null ? "" : height) +
                 "\npassportID: " + passportID + '}';
-
     }
+
 }

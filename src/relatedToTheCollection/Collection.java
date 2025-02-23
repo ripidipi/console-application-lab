@@ -26,7 +26,15 @@ public class Collection {
         return "TreeSet " + date.format(formatter) + " " + collection.size();
     }
 
-    public TreeSet<StudyGroup> getContent() {
+    public void clearCollection() {
+        collection.clear();
+    }
+
+    public void removeElement(StudyGroup studyGroup) {
+        collection.remove(studyGroup);
+    }
+
+    public TreeSet<StudyGroup> getCollection() {
         return collection;
     }
 
