@@ -14,6 +14,7 @@ import java.util.concurrent.ConcurrentHashMap;
  * Class of objects in collection
  */
 public class StudyGroup implements Comparable<StudyGroup>, Inputable {
+
     private static Map<Integer, Boolean> IDs = new ConcurrentHashMap<>();
     private final Integer id;
     private final String name;
@@ -110,8 +111,8 @@ public class StudyGroup implements Comparable<StudyGroup>, Inputable {
             String name = BasicDataTypesInput.Input("name", String.class);
             Coordinates coordinates = Coordinates.Input();
             Integer studentCount = BasicDataTypesInput.Input("students count", Integer.class);
-            FormOfEducation formOfEducation = EnumInput.Input(FormOfEducation.class);
-            Semester semester = EnumInput.Input(Semester.class);
+            FormOfEducation formOfEducation = EnumInput.InputFromConsole(FormOfEducation.class);
+            Semester semester = EnumInput.InputFromConsole(Semester.class);
             Person groupAdmin = Person.Input();
             return new StudyGroup(name, coordinates, studentCount, formOfEducation, semester, groupAdmin);
         } catch (Exception e) {

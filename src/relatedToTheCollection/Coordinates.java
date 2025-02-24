@@ -2,7 +2,6 @@ package relatedToTheCollection;
 
 import exeptions.EmptyLine;
 import inputOutput.BasicDataTypesInput;
-import inputOutput.Inputable;
 
 public record Coordinates(Long x, Float y) {
 

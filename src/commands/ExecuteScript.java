@@ -5,7 +5,7 @@ import inputOutput.CommandsInput;
 public class ExecuteScript implements Helpable{
 
     public static void executeScript(String fileName) {
-        CommandsInput.InputFromFile(fileName);
+        CommandsInput.inputFromFile(fileName);
     }
 
     public String getHelp() {

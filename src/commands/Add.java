@@ -11,6 +11,10 @@ public class Add implements Helpable {
         Collection.getInstance().addElement(studyGroup);
     }
 
+    public static void addFromFile(String input) {
+
+    }
+
     public String getHelp() {
         return "add";
     }

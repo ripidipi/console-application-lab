@@ -8,6 +8,7 @@ import java.util.Scanner;
  */
 public class EnumInput implements Inputable{
 
+
     /**
      * Input manager for enums
      * @param enumType show type of enum the object that is expected to be received from console
@@ -15,7 +16,7 @@ public class EnumInput implements Inputable{
      * @param <T>  show type of enum expected to work with
      * @throws IncorrectConstant if input isn't a valid value from the enum
      */
-    public static <T extends Enum<T>> T Input(Class<T> enumType) throws IncorrectConstant {
+    public static <T extends Enum<T>> T InputFromConsole(Class<T> enumType) throws IncorrectConstant {
         try {
             T[] enumConstants = enumType.getEnumConstants();
             StringBuilder enumValues = new StringBuilder();
@@ -24,14 +25,25 @@ public class EnumInput implements Inputable{
             }
             Scanner scanner = new Scanner(System.in);
             System.out.print("Enter " + enumType.getSimpleName() + " (" + enumValues.toString().trim().toLowerCase() + "): ");
-            String s = scanner.nextLine().toUpperCase();
-            return Enum.valueOf(enumType, s);
+            String input = scanner.nextLine().toUpperCase();
+            return TransformToEnum(enumType, input);
+        } catch (Exception e) {
+            System.out.println("Invalid data. Try again");
+        }
+
+        return InputFromConsole(enumType);
+    }
+
+    private static <T extends Enum<T>> T TransformToEnum(Class<T> enumType, String input) throws IncorrectConstant {
+        try {
+            return Enum.valueOf(enumType, input.toUpperCase());
         } catch (IllegalArgumentException e) {
             System.out.println(new IncorrectConstant(enumType.getSimpleName()).getMessage());
         } catch (Exception e) {
             System.out.println("Invalid data. Try again");
         }
-
-        return Input(enumType);
+        return InputFromConsole(enumType);
     }
+
+
 }

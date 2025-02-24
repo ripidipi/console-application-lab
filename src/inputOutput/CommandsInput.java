@@ -1,65 +1,58 @@
 package inputOutput;
 
-import commands.CommandsWithInput;
-import commands.CommandsWithoutInput;
-import exeptions.ConnectionToFileFailed;
-import exeptions.EmptyLine;
-import exeptions.IncorrectCommand;
-import exeptions.ZeroValue;
+import commands.Commands;
+import exeptions.*;
 
 import java.io.File;
 import java.io.FileNotFoundException;
+import java.util.Arrays;
 import java.util.Scanner;
 
 public class CommandsInput implements Inputable{
 
-    private static boolean isWith(String s) {
+    private static boolean convertToEnum(String s) {
         try {
-            Enum.valueOf(CommandsWithInput.class, s.toUpperCase());
+            Enum.valueOf(Commands.class, s.toUpperCase());
             return true;
         } catch (IllegalArgumentException e) {
             return false;
         }
     }
 
-    private static boolean isWithout(String s) {
-        try {
-            Enum.valueOf(CommandsWithoutInput.class, s.toUpperCase());
-            return true;
-        } catch (IllegalArgumentException e) {
-            return false;
-        }
-    }
-
-    private static Integer argumentValidator(String s) throws EmptyLine, ZeroValue{
+    private static void argumentValidator(String s) throws EmptyLine, ZeroValue{
         try {
             int arg = Integer.parseInt(s);
             if (arg <= 0) throw new ZeroValue("ID argument for remove");
-            return arg;
         } catch (ZeroValue e) {
             System.out.println(e.getMessage());
         } catch (Exception e) {
             System.out.println("Invalid input for command. Try again");
         }
-        return null;
     }
 
-    public static void InputFromConsole() {
+    private static void isCommand(String[] inputSplit) {
+
+        if (convertToEnum(inputSplit[0])) {
+            Commands command = Enum.valueOf(Commands.class, inputSplit[0].toUpperCase());
+            if (inputSplit.length > 2) {
+                if (command == Commands.REMOVE_BY_ID) {
+                    argumentValidator(inputSplit[1]);
+                }
+                command.execute(String.join(",", Arrays.copyOfRange(inputSplit, 1, inputSplit.length)));
+            } else {
+                command.execute("");
+            }
+        } else {
+            throw new IncorrectCommand(inputSplit[0]);
+        }
+    }
+
+    public static void inputFromConsole() {
         try {
             Scanner scanner = new Scanner(System.in);
             String input = scanner.nextLine();
             String[] inputSplit = input.split(" ");
-            if (isWith(inputSplit[0])) {
-                CommandsWithInput command = Enum.valueOf(CommandsWithInput.class, inputSplit[0].toUpperCase());
-                Integer i = argumentValidator(inputSplit[1]);
-                if (i == null & command == CommandsWithInput.REMOVE_BY_ID) {return;}
-                command.execute(inputSplit[1]);
-            } else if(isWithout(inputSplit[0])) {
-                CommandsWithoutInput command = Enum.valueOf(CommandsWithoutInput.class, inputSplit[0].toUpperCase());
-                command.execute();
-            } else {
-                throw new IncorrectCommand(inputSplit[0]);
-            }
+            isCommand(inputSplit);
         } catch (IllegalArgumentException e) {
             System.out.println(new IncorrectCommand("Command").getMessage());
         } catch (Exception e) {
@@ -68,7 +61,7 @@ public class CommandsInput implements Inputable{
 
     }
 
-    public static void InputFromFile(String filePath) {
+    public static void inputFromFile(String filePath) {
         try {
             String fileName;
             if (filePath.isEmpty()) {
@@ -87,10 +80,11 @@ public class CommandsInput implements Inputable{
                 while (scanner.hasNextLine()) {
                     String line = scanner.nextLine();
                     String[] values = line.split(",");
+                    values[0] = values[0] + "_F";
+                    isCommand(values);
                 }
             } catch (FileNotFoundException e) {
                 System.out.println("Couldn't open the file " + fileName);
-                return;
             }
         } catch (Exception e) {
             System.out.println(e.getMessage());

@@ -11,7 +11,7 @@ public class Main {
         while(true) {
             System.err.flush();
             System.out.print("Enter the command: ");
-            CommandsInput.InputFromConsole();
+            CommandsInput.inputFromConsole();
         }
     }
 

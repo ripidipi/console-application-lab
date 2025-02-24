@@ -20,6 +20,10 @@ public class Update implements Helpable{
         }
     }
 
+    public static void updateFromFile(String input) {
+
+    }
+
     public String getHelp() {
         return "update";
     }
