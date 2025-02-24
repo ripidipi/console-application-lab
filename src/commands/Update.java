@@ -1,6 +1,5 @@
 package commands;
 
-import inputOutput.StudyGroupInput;
 import relatedToTheCollection.Collection;
 import relatedToTheCollection.StudyGroup;
 
@@ -10,7 +9,7 @@ import java.util.TreeSet;
 public class Update implements Helpable{
 
     public static void update() {
-        StudyGroup studyGroup = StudyGroupInput.Input();
+        StudyGroup studyGroup = StudyGroup.Input();
         TreeSet<StudyGroup> collection = Collection.getInstance().getCollection();
         for (StudyGroup sG : collection) {
             if(Objects.equals(sG.getId(), studyGroup.getId())) {

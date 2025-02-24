@@ -12,6 +12,9 @@ public class Show implements Helpable {
         for (StudyGroup studyGroup : collection) {
             System.out.println(studyGroup);
         }
+        if (collection.isEmpty()) {
+            System.out.println("Collection is empty");
+        }
     }
 
     public String getHelp() {

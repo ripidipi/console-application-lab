@@ -4,15 +4,16 @@ import java.util.function.Consumer;
 
 public enum CommandsWithInput {
 
-    REMOVE_BY_ID(RemoveById::removeById);
+    REMOVE_BY_ID(RemoveById::removeById),
+    EXECUTE_SCRIPT(ExecuteScript::executeScript);
 
-    private final Consumer<Integer> command;
+    private final Consumer<String> command;
 
-    CommandsWithInput(Consumer<Integer> command) {
+    CommandsWithInput(Consumer<String> command) {
         this.command = command;
     }
 
-    public void execute(Integer arg) {
+    public void execute(String arg) {
         command.accept(arg);
     }
 

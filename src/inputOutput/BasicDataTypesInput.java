@@ -1,5 +1,6 @@
 package inputOutput;
 
+import exeptions.BirthdayInTheFuture;
 import exeptions.EmptyLine;
 import exeptions.ZeroValue;
 
@@ -24,7 +25,7 @@ public class BasicDataTypesInput implements Inputable{
      * @throws EmptyLine for empty gaps, if it incorrect format for it
      * @throws ZeroValue for numeric gaps <= 0, if it incorrect format for it
      */
-    public static <T> T Input(String name, Class<T> type) throws EmptyLine, ZeroValue {
+    public static <T> T Input(String name, Class<T> type) throws EmptyLine, ZeroValue, BirthdayInTheFuture {
         try {
             System.out.print("Enter " + name + ": ");
             String input = scanner.nextLine();
@@ -54,9 +55,11 @@ public class BasicDataTypesInput implements Inputable{
                 return type.cast(value);
             } else if (type == LocalDateTime.class) {
                 DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd.MM.yyyy");
-                return type.cast(LocalDate.parse(input, formatter).atStartOfDay());
+                LocalDateTime date = LocalDate.parse(input, formatter).atStartOfDay();
+                if (LocalDateTime.now().isAfter(date)) { throw new BirthdayInTheFuture(name);}
+                return type.cast(date);
             }
-        } catch (EmptyLine | ZeroValue e) {
+        } catch (EmptyLine | ZeroValue | BirthdayInTheFuture e) {
             System.out.println(e.getMessage());
         } catch (Exception e) {
             System.out.println("Invalid input. Try again");
@@ -75,7 +78,7 @@ public class BasicDataTypesInput implements Inputable{
      * @throws EmptyLine for empty gaps, if it incorrect format for it
      * @throws ZeroValue for numeric gaps <= 0, if it incorrect format for it
      */
-    public static <T> T Input(String name, Class<T> type, Boolean EmptyLineCheck, Boolean ZeroValueCheck) throws EmptyLine, ZeroValue {
+    public static <T> T Input(String name, Class<T> type, Boolean EmptyLineCheck, Boolean ZeroValueCheck, Boolean BirthdayInTheFutureCheck) throws EmptyLine, ZeroValue, BirthdayInTheFuture {
         try {
             System.out.print("Enter " + name + ": ");
             String input = scanner.nextLine();
@@ -108,9 +111,11 @@ public class BasicDataTypesInput implements Inputable{
                 return type.cast(value);
             } else if (type == LocalDateTime.class) {
                 DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd.MM.yyyy");
-                return type.cast(LocalDate.parse(input, formatter).atStartOfDay());
+                LocalDateTime date = LocalDate.parse(input, formatter).atStartOfDay();
+                if (LocalDateTime.now().isAfter(date) & BirthdayInTheFutureCheck) { throw new BirthdayInTheFuture(name);}
+                return type.cast(date);
             }
-        } catch (EmptyLine | ZeroValue e) {
+        } catch (EmptyLine | ZeroValue | BirthdayInTheFuture e) {
             System.out.println(e.getMessage());
         } catch (Exception e) {
             System.out.println("Invalid input. Try again");

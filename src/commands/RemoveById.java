@@ -8,10 +8,11 @@ import java.util.TreeSet;
 
 public class RemoveById implements Helpable{
 
-    public static void removeById(Integer id) {
+    public static void removeById(String id) {
+        int ID = Integer.parseInt(id);
         TreeSet<StudyGroup> collection = Collection.getInstance().getCollection();
         for (StudyGroup sG : collection) {
-            if(Objects.equals(sG.getId(), id)) {
+            if(Objects.equals(sG.getId(), ID)) {
                 Collection.getInstance().removeElement(sG);
                 break;
             }

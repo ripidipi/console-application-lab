@@ -1,11 +1,12 @@
 package commands;
 
-import inputOutput.CollectionOutputToCSV;
+import relatedToTheCollection.Collection;
 
 public class Save implements Helpable{
 
     public  static void save() {
-        CollectionOutputToCSV.output();
+        Collection.getInstance();
+        Collection.output();
     }
 
     public String getHelp() {
