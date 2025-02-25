@@ -8,6 +8,7 @@ public class Main {
         Collection.getInstance();
         Help.getInstance().addCommand(Help.getInstance(),new Add(), new Info(), new Show(),
                                         new Update(), new Exit(), new Save());
+        Commands.EXECUTE_SCRIPT.execute("file.csv");
         while(true) {
             System.err.flush();
             System.out.print("Enter the command: ");

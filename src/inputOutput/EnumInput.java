@@ -6,7 +6,7 @@ import java.util.Scanner;
 /**
  * class with static methods for enum value readings
  */
-public class EnumInput implements Inputable{
+public class EnumInput {
 
 
     /**
@@ -34,7 +34,7 @@ public class EnumInput implements Inputable{
         return InputFromConsole(enumType);
     }
 
-    private static <T extends Enum<T>> T TransformToEnum(Class<T> enumType, String input) throws IncorrectConstant {
+    public static <T extends Enum<T>> T TransformToEnum(Class<T> enumType, String input) throws IncorrectConstant {
         try {
             return Enum.valueOf(enumType, input.toUpperCase());
         } catch (IllegalArgumentException e) {

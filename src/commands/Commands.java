@@ -5,7 +5,7 @@ import java.util.function.Consumer;
 public enum Commands {
     ADD(Add::add),
     ADD_F(Add::addFromFile),
-    INFO(Help::help),
+    INFO(Info::info),
     HELP(Help::help),
     SHOW(Show::show),
     CLEAR(Clear::clear),

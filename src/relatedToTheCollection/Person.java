@@ -23,6 +23,13 @@ public record Person(String name, LocalDateTime birthday, Double height, String 
                 "\npassportID: " + passportID + '}';
     }
 
+    public static boolean isRightFill(Person person) {
+        if (person == null) {
+            return false;
+        }
+        return person.name != null && person.birthday != null && person.passportID != null;
+    }
+
     /**
      * Input manager to create object with class Person
      * @return object with class Person
@@ -34,8 +41,9 @@ public record Person(String name, LocalDateTime birthday, Double height, String 
             System.out.println("Enter information about group admin");
             String name = BasicDataTypesInput.Input("name", String.class);
             LocalDateTime birthday = BasicDataTypesInput.Input("birthday data in format DD.MM.YYYY",
-                    LocalDateTime.class);
-            Double height = BasicDataTypesInput.Input("height", Double.class, false, true, false);
+                    LocalDateTime.class, false, false,
+                    false, DateTimeFormatter.ofPattern("dd.MM.yyyy"));
+            Double height = BasicDataTypesInput.Input("height", Double.class, false, true, false, null);
             String passportID = BasicDataTypesInput.Input("passportID", String.class);
             return new Person(name, birthday, height, passportID);
         } catch (Exception e) {
@@ -43,5 +51,19 @@ public record Person(String name, LocalDateTime birthday, Double height, String 
         }
         return Input();
 
+    }
+
+    public static Person InputFromFile(String name, String birthday, String height, String passportID) {
+        try {
+            return new Person(BasicDataTypesInput.InputFromFile("groupAdminName", name, String.class),
+                    BasicDataTypesInput.InputFromFile("adminBirthday", birthday, LocalDateTime.class, false, false,
+                            false, DateTimeFormatter.ofPattern("dd/MM/yyyy")),
+                    BasicDataTypesInput.InputFromFile("adminHeight", height, Double.class, false, true,
+                            false, null),
+                    BasicDataTypesInput.InputFromFile("adminPassportID", passportID, String.class));
+        } catch (Exception e) {
+            System.out.println(e.getMessage());
+        }
+        return null;
     }
 }

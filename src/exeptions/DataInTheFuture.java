@@ -1,7 +1,7 @@
 package exeptions;
 
-public class BirthdayInTheFuture extends RuntimeException {
-    public BirthdayInTheFuture(String message) {
+public class DataInTheFuture extends RuntimeException {
+    public DataInTheFuture(String message) {
         super(message);
     }
 

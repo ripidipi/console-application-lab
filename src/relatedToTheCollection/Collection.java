@@ -56,7 +56,8 @@ public class Collection {
             writer.write("ID,Name,CoordinateX,CoordinateY,CreationDate,StudentsCount," +
                     "FormOfEducation,Semester,AdminName,AdminBirthday,Height,PassportID\n");  // Заголовки
             for (StudyGroup studyGroup : collection) {
-                String writeRequest = studyGroup.getId().toString() + "," + studyGroup.getCoordinates().xToString() + "," +
+                String writeRequest = studyGroup.getId().toString() + "," + studyGroup.getName() + "," +
+                        studyGroup.getCoordinates().xToString() + "," +
                         studyGroup.getCoordinates().yToString() + "," + studyGroup.getCreationDateString() + "," +
                         studyGroup.getStudentCount().toString() + "," + studyGroup.getFormOfEducation().toString() + "," +
                         studyGroup.getSemester().toString() + "," + studyGroup.getGroupAdmin().name() + "," +

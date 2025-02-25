@@ -8,7 +8,7 @@ import java.io.FileNotFoundException;
 import java.util.Arrays;
 import java.util.Scanner;
 
-public class CommandsInput implements Inputable{
+public class CommandsInput {
 
     private static boolean convertToEnum(String s) {
         try {
@@ -31,7 +31,6 @@ public class CommandsInput implements Inputable{
     }
 
     private static void isCommand(String[] inputSplit) {
-
         if (convertToEnum(inputSplit[0])) {
             Commands command = Enum.valueOf(Commands.class, inputSplit[0].toUpperCase());
             if (inputSplit.length > 2) {

@@ -1,10 +1,11 @@
 package relatedToTheCollection;
 
+import exeptions.CommandDataFromTheFileIsIncorrect;
 import inputOutput.BasicDataTypesInput;
 import inputOutput.EnumInput;
-import inputOutput.Inputable;
 
 import java.security.SecureRandom;
+import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.util.Map;
 import java.util.Objects;
@@ -13,7 +14,7 @@ import java.util.concurrent.ConcurrentHashMap;
 /**
  * Class of objects in collection
  */
-public class StudyGroup implements Comparable<StudyGroup>, Inputable {
+public class StudyGroup implements Comparable<StudyGroup> {
 
     private static Map<Integer, Boolean> IDs = new ConcurrentHashMap<>();
     private final Integer id;
@@ -38,6 +39,21 @@ public class StudyGroup implements Comparable<StudyGroup>, Inputable {
         this.name = name;
         this.coordinates = coordinates;
         this.creationDate = java.time.LocalDateTime.now();
+        this.studentCount = studentCount;
+        this.formOfEducation = formOfEducation;
+        this.semester = semester;
+        this.groupAdmin = groupAdmin;
+    }
+
+    public StudyGroup(Integer id, String name, Coordinates coordinates,
+                      LocalDateTime creationDate, Integer studentCount,
+                      FormOfEducation formOfEducation,
+                      Semester semester, Person groupAdmin) {
+        this.id = id;
+        IDs.put(id, true);
+        this.name = name;
+        this.coordinates = coordinates;
+        this.creationDate = creationDate;
         this.studentCount = studentCount;
         this.formOfEducation = formOfEducation;
         this.semester = semester;
@@ -89,7 +105,7 @@ public class StudyGroup implements Comparable<StudyGroup>, Inputable {
     public java.time.LocalDateTime getCreationDate() {return creationDate;}
 
     public String  getCreationDateString() {
-        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd/MM/yyyy");
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd/MM/yyyy HH:mm:ss");
         return creationDate.format(formatter);
     }
 
@@ -100,6 +116,13 @@ public class StudyGroup implements Comparable<StudyGroup>, Inputable {
     public Semester getSemester() { return semester;}
 
     public Person getGroupAdmin() { return groupAdmin;}
+
+    private static boolean isRightFill(StudyGroup studyGroup) {
+        if (studyGroup == null) {return false;}
+        return Person.isRightFill(studyGroup.groupAdmin) && Coordinates.isRightFill(studyGroup.coordinates) &&
+                studyGroup.name != null && studyGroup.creationDate != null && studyGroup.studentCount != null &&
+                studyGroup.formOfEducation != null && studyGroup.semester != null;
+    }
 
     /**
      * Input manager to create object with class StudyGroup
@@ -119,6 +142,32 @@ public class StudyGroup implements Comparable<StudyGroup>, Inputable {
             System.out.println("Invalid input. Try again.");
         }
         return Input();
+    }
+
+    public static StudyGroup InputFromFile(String[] inputSplit) {
+        try {
+            Integer id = Integer.parseInt(inputSplit[0]);
+            String name = BasicDataTypesInput.InputFromFile("name", inputSplit[1], String.class);
+            Coordinates coordinates = Coordinates.InputFromFile(inputSplit[2], inputSplit[3]);
+            LocalDateTime creationDate = BasicDataTypesInput.InputFromFile("creationDate", inputSplit[4],
+                    LocalDateTime.class, false, false, false,
+                    DateTimeFormatter.ofPattern("dd/MM/yyyy HH:mm:ss"));
+            Integer studentCount = BasicDataTypesInput.InputFromFile("students count", inputSplit[5], Integer.class);
+            FormOfEducation formOfEducation = EnumInput.TransformToEnum(FormOfEducation.class, inputSplit[6]);
+            Semester semester = EnumInput.TransformToEnum(Semester.class, inputSplit[7]);
+            Person groupAdmin = Person.InputFromFile(inputSplit[8], inputSplit[9], inputSplit[10], inputSplit[11]);
+            if (IDs.containsKey(id)) {
+                id = null;
+            }
+            StudyGroup studyGroup = new StudyGroup(id, name, coordinates, creationDate, studentCount, formOfEducation, semester, groupAdmin);
+            if (!isRightFill(studyGroup)) {
+                throw new CommandDataFromTheFileIsIncorrect(String.join(",", inputSplit));
+            }
+            return studyGroup;
+        } catch (Exception e) {
+            System.out.println(e.getMessage());
+        }
+        return null;
     }
 }
 
