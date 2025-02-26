@@ -47,9 +47,9 @@ public record Coordinates(Long x, Float y) {
     public static Coordinates InputFromFile(String x, String y) {
         try {
             return new Coordinates(BasicDataTypesInput.InputFromFile("CoordinateX", x, Long.class,
-                    false, false, false, null),
+                    false, false, false, null, false),
                     BasicDataTypesInput.InputFromFile("CoordinateY", y, Float.class, false,
-                            false, false, null));
+                            false, false, null, false));
         } catch (Exception e) {
             System.out.println(e.getMessage());
         }

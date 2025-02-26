@@ -16,10 +16,11 @@ public class Add implements Helpable {
         try {
             String[] inputSplit = input.split(",");
             if (inputSplit.length != 12) {
-                throw new InsufficientNumberOfArguments("Add");
+                throw new InsufficientNumberOfArguments("Fill");
             }
             StudyGroup studyGroup = StudyGroup.InputFromFile(inputSplit);
-            Collection.getInstance().addElement(studyGroup);
+            if (studyGroup != null)
+                Collection.getInstance().addElement(studyGroup);
         } catch (Exception e) {
             System.out.println(e.getMessage());
         }

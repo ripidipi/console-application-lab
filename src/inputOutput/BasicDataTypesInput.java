@@ -7,6 +7,7 @@ import exeptions.ZeroValue;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
+import java.util.Objects;
 import java.util.Scanner;
 
 /**
@@ -34,7 +35,7 @@ public class BasicDataTypesInput {
             System.out.print("Enter " + name + ": ");
             String input = scanner.nextLine();
             return TransformToBasicType(name, type, EmptyLineCheck, ZeroValueCheck, BirthdayInTheFutureCheck, input,
-                    false, formatter);
+                    false, formatter, false);
         } catch (Exception e) {
             System.out.println("Invalid input. Try again");
         }
@@ -46,7 +47,7 @@ public class BasicDataTypesInput {
             System.out.print("Enter " + name + ": ");
             String input = scanner.nextLine();
             return TransformToBasicType(name, type, true, true, true, input,
-                                false, DateTimeFormatter.ofPattern("dd/MM/yyyy HH:mm:ss"));
+                                false, DateTimeFormatter.ofPattern("dd/MM/yyyy HH:mm:ss"), false);
         } catch (Exception e) {
             System.out.println("Invalid input. Try again");
         }
@@ -55,8 +56,8 @@ public class BasicDataTypesInput {
 
     public static <T> T InputFromFile(String name, String input, Class<T> type) throws EmptyLine, ZeroValue, DataInTheFuture {
         try {
-            return TransformToBasicType(name, type, true, true, true, input,
-                                true, DateTimeFormatter.ofPattern("dd/MM/yyyy HH:mm:ss"));
+            return TransformToBasicType(name, type, true, true, true, (Objects.equals(input, " ") ? "" : input),
+                                true, DateTimeFormatter.ofPattern("dd/MM/yyyy HH:mm:ss"), false);
         } catch (Exception e) {
             System.out.println("Invalid input. Try again");
         }
@@ -65,18 +66,27 @@ public class BasicDataTypesInput {
 
     public static <T> T InputFromFile(String name, String input, Class<T> type, Boolean EmptyLineCheck,
                                       Boolean ZeroValueCheck, Boolean DateInTheFutureCheck,
-                                      DateTimeFormatter formatter) throws EmptyLine, ZeroValue, DataInTheFuture {
+                                      DateTimeFormatter formatter, Boolean muteMode) throws EmptyLine, ZeroValue, DataInTheFuture {
         try {
-            return TransformToBasicType(name, type, EmptyLineCheck, ZeroValueCheck, DateInTheFutureCheck, input, true, formatter);
+            return TransformToBasicType(name, type, EmptyLineCheck, ZeroValueCheck, DateInTheFutureCheck, (Objects.equals(input,
+                                    " ") ? "" : input), true, formatter, muteMode);
         } catch (Exception e) {
             System.out.println("Invalid input. Try again");
         }
         return null;
     }
 
+    private static LocalDateTime applyFormater(String input, DateTimeFormatter formatter) {
+        try {
+            return LocalDateTime.parse(input, formatter);
+        }catch (Exception e) {
+            return LocalDate.parse(input, formatter).atStartOfDay();
+        }
+    }
+
     public static <T> T TransformToBasicType(String name, Class<T> type, Boolean emptyLineCheck, Boolean zeroValueCheck,
                                              Boolean dateInTheFutureCheck, String input, Boolean fileMode,
-                                             DateTimeFormatter formatter) throws EmptyLine, ZeroValue, DataInTheFuture {
+                                             DateTimeFormatter formatter, Boolean muteMode) throws EmptyLine, ZeroValue, DataInTheFuture {
         try {
             if (input.isEmpty() & emptyLineCheck)
                 throw new EmptyLine(name);
@@ -105,7 +115,7 @@ public class BasicDataTypesInput {
                     throw new ZeroValue(name);
                 return type.cast(value);
             } else if (type == LocalDateTime.class) {
-                LocalDateTime date = LocalDate.parse(input, formatter).atStartOfDay();
+                LocalDateTime date = applyFormater(input, formatter);
                 if (date.isAfter(LocalDateTime.now()) & dateInTheFutureCheck) {
                     throw new DataInTheFuture(name);
                 }
@@ -114,7 +124,8 @@ public class BasicDataTypesInput {
         } catch (EmptyLine | ZeroValue | DataInTheFuture e) {
             System.out.println(e.getMessage());
         } catch (Exception e) {
-            System.out.println("Invalid input. Try again");
+            if(!muteMode)
+                System.out.println("Invalid input. Try again");
         }
         if (fileMode) {
             return null;

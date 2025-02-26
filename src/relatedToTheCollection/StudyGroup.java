@@ -50,7 +50,8 @@ public class StudyGroup implements Comparable<StudyGroup> {
                       FormOfEducation formOfEducation,
                       Semester semester, Person groupAdmin) {
         this.id = id;
-        IDs.put(id, true);
+        if (id != null)
+            IDs.put(id, true);
         this.name = name;
         this.coordinates = coordinates;
         this.creationDate = creationDate;
@@ -121,7 +122,7 @@ public class StudyGroup implements Comparable<StudyGroup> {
         if (studyGroup == null) {return false;}
         return Person.isRightFill(studyGroup.groupAdmin) && Coordinates.isRightFill(studyGroup.coordinates) &&
                 studyGroup.name != null && studyGroup.creationDate != null && studyGroup.studentCount != null &&
-                studyGroup.formOfEducation != null && studyGroup.semester != null;
+                studyGroup.formOfEducation != null && studyGroup.semester != null && studyGroup.id != null;
     }
 
     /**
@@ -151,7 +152,7 @@ public class StudyGroup implements Comparable<StudyGroup> {
             Coordinates coordinates = Coordinates.InputFromFile(inputSplit[2], inputSplit[3]);
             LocalDateTime creationDate = BasicDataTypesInput.InputFromFile("creationDate", inputSplit[4],
                     LocalDateTime.class, false, false, false,
-                    DateTimeFormatter.ofPattern("dd/MM/yyyy HH:mm:ss"));
+                    DateTimeFormatter.ofPattern("dd/MM/yyyy HH:mm:ss"), false);
             Integer studentCount = BasicDataTypesInput.InputFromFile("students count", inputSplit[5], Integer.class);
             FormOfEducation formOfEducation = EnumInput.TransformToEnum(FormOfEducation.class, inputSplit[6]);
             Semester semester = EnumInput.TransformToEnum(Semester.class, inputSplit[7]);

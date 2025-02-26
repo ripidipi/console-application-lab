@@ -1,5 +1,6 @@
 package inputOutput;
 
+import com.sun.tools.javac.Main;
 import commands.Commands;
 import exeptions.*;
 
@@ -7,6 +8,8 @@ import java.io.File;
 import java.io.FileNotFoundException;
 import java.util.Arrays;
 import java.util.Scanner;
+import java.util.Set;
+import java.util.function.Function;
 
 public class CommandsInput {
 
@@ -30,10 +33,13 @@ public class CommandsInput {
         }
     }
 
-    private static void isCommand(String[] inputSplit) {
+    public static Void isCommand(String[] inputSplit) {
+        if (convertToEnum(inputSplit[0] + "_F")) {
+            inputSplit[0] = inputSplit[0] + "_F";
+        }
         if (convertToEnum(inputSplit[0])) {
             Commands command = Enum.valueOf(Commands.class, inputSplit[0].toUpperCase());
-            if (inputSplit.length > 2) {
+            if (inputSplit.length >= 2) {
                 if (command == Commands.REMOVE_BY_ID) {
                     argumentValidator(inputSplit[1]);
                 }
@@ -44,6 +50,7 @@ public class CommandsInput {
         } else {
             throw new IncorrectCommand(inputSplit[0]);
         }
+        return null;
     }
 
     public static void inputFromConsole() {
@@ -60,30 +67,27 @@ public class CommandsInput {
 
     }
 
-    public static void inputFromFile(String filePath) {
+    public static void inputFromFile(String filePath, Function<String[], Void> handler) {
         try {
-            String fileName;
-            if (filePath.isEmpty()) {
-                fileName = System.getenv("CSV_FILE_NAME");
-            } else {
-                fileName = filePath;
+            if (filePath == null || filePath.isEmpty()) {
+                throw new ConnectionToFileFailed("Connection to environment path failed " + filePath);
             }
-            if (fileName == null || fileName.isEmpty()) {
-                throw new ConnectionToFileFailed("Connection to environment path failed " + fileName);
-            }
-            File file = new File(fileName);
+            File file = new File(filePath);
             if (!file.exists() || !file.isFile()) {
-                throw new ConnectionToFileFailed("File path doesn't found " + fileName);
+                throw new ConnectionToFileFailed("File path doesn't found " + filePath);
             }
             try (Scanner scanner = new Scanner(file)) {
                 while (scanner.hasNextLine()) {
-                    String line = scanner.nextLine();
-                    String[] values = line.split(",");
-                    values[0] = values[0] + "_F";
-                    isCommand(values);
+                    try {
+                        String line = scanner.nextLine();
+                        String[] values = line.split(",");
+                        handler.apply(values);
+                    } catch (Exception e) {
+                        System.out.println("Invalid input. Try again");
+                    }
                 }
             } catch (FileNotFoundException e) {
-                System.out.println("Couldn't open the file " + fileName);
+                System.out.println("Couldn't open the file " + filePath);
             }
         } catch (Exception e) {
             System.out.println(e.getMessage());

@@ -57,9 +57,9 @@ public record Person(String name, LocalDateTime birthday, Double height, String 
         try {
             return new Person(BasicDataTypesInput.InputFromFile("groupAdminName", name, String.class),
                     BasicDataTypesInput.InputFromFile("adminBirthday", birthday, LocalDateTime.class, false, false,
-                            false, DateTimeFormatter.ofPattern("dd/MM/yyyy")),
+                            false, DateTimeFormatter.ofPattern("dd/MM/yyyy"), false),
                     BasicDataTypesInput.InputFromFile("adminHeight", height, Double.class, false, true,
-                            false, null),
+                            false, null, false),
                     BasicDataTypesInput.InputFromFile("adminPassportID", passportID, String.class));
         } catch (Exception e) {
             System.out.println(e.getMessage());
