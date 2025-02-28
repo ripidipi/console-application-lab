@@ -11,26 +11,29 @@ import java.util.Objects;
 import java.util.Scanner;
 
 /**
- * class with static methods for basic types readings
+ * Class with static methods for reading basic data types from the user input or file.
  */
 public class PrimitiveDataTransform {
 
     private static final Scanner scanner = new Scanner(System.in);
 
     /**
-     * Input manager for some basic data types, which should be taken in my program with option of setting exceptions checking
-     * @param name names the type of information that is expected from the user
-     * @param type take expected type of information
-     * @param emptyLineCheck responsible for using or not checking for emptyLineCheck
-     * @param zeroValueCheck responsible for using or not checking for ZeroValueCheck
-     * @return input data in right format
-     * @param <T> show type of data expected to work with
-     * @throws EmptyLine for empty gaps, if it incorrect format for it
-     * @throws ZeroValue for numeric gaps <= 0, if it incorrect format for it
+     * Manages input for various basic data types with options for validation checks.
+     * @param name The name of the expected input type.
+     * @param type The class type of the expected input.
+     * @param emptyLineCheck Whether to check for empty input.
+     * @param zeroValueCheck Whether to check for numeric inputs less than or equal to zero.
+     * @param dateInTheFutureCheck Whether to check if the date is in the future.
+     * @param formatter The date-time formatter to use for parsing dates.
+     * @param <T> The type of data expected.
+     * @return The input data in the correct format.
+     * @throws EmptyLine If the input is empty, and empty line check is enabled.
+     * @throws ZeroValue If the input is numeric and less than or equal to zero, and zero value check is enabled.
+     * @throws DataInTheFuture If the date is in the future, and date in the future check is enabled.
      */
     public static <T> T input(String name, Class<T> type, Boolean emptyLineCheck, Boolean zeroValueCheck,
                               Boolean dateInTheFutureCheck, DateTimeFormatter formatter)
-                                throws EmptyLine, ZeroValue, DataInTheFuture {
+            throws EmptyLine, ZeroValue, DataInTheFuture {
         try {
             System.out.print("Enter " + name + ": ");
             String input = scanner.nextLine();
@@ -43,18 +46,39 @@ public class PrimitiveDataTransform {
         return input(name, type, emptyLineCheck, zeroValueCheck, dateInTheFutureCheck, formatter);
     }
 
+    /**
+     * Overloaded method for basic input without advanced checks.
+     * @param name The name of the expected input type.
+     * @param type The class type of the expected input.
+     * @param <T> The type of data expected.
+     * @return The input data in the correct format.
+     * @throws EmptyLine If the input is empty.
+     * @throws ZeroValue If the input is numeric and less than or equal to zero.
+     * @throws DataInTheFuture If the date is in the future.
+     */
     public static <T> T input(String name, Class<T> type) throws EmptyLine, ZeroValue, DataInTheFuture {
         try {
             System.out.print("Enter " + name + ": ");
             String input = scanner.nextLine();
             return transformToBasicType(name, type, true, true, true, input,
-                                false, DateTimeFormatter.ofPattern("dd/MM/yyyy HH:mm:ss"), false);
+                    false, DateTimeFormatter.ofPattern("dd/MM/yyyy HH:mm:ss"), false);
         } catch (Exception e) {
             System.out.println("Invalid input. Try again");
         }
         return input(name, type);
     }
 
+    /**
+     * Reads input data from a file and converts it to the specified data type.
+     * @param name The name of the expected input type.
+     * @param input The string data from the file.
+     * @param type The class type of the expected input.
+     * @param <T> The type of data expected.
+     * @return The converted data or null if the input is invalid.
+     * @throws EmptyLine If the input is empty.
+     * @throws ZeroValue If the input is numeric and less than or equal to zero.
+     * @throws DataInTheFuture If the date is in the future.
+     */
     public static <T> T inputFromFile(String name, String input, Class<T> type) throws EmptyLine, ZeroValue, DataInTheFuture {
         try {
             return transformToBasicType(name, type, true, true, true,
@@ -65,26 +89,65 @@ public class PrimitiveDataTransform {
         return null;
     }
 
+    /**
+     * Overloaded method for file-based input with additional validation options.
+     * @param name The name of the expected input type.
+     * @param input The string data from the file.
+     * @param type The class type of the expected input.
+     * @param emptyLineCheck Whether to check for empty input.
+     * @param zeroValueCheck Whether to check for numeric inputs less than or equal to zero.
+     * @param dateInTheFutureCheck Whether to check if the date is in the future.
+     * @param formatter The date-time formatter to use for parsing dates.
+     * @param muteMode Whether to suppress error messages.
+     * @param <T> The type of data expected.
+     * @return The converted data or null if the input is invalid.
+     * @throws EmptyLine If the input is empty.
+     * @throws ZeroValue If the input is numeric and less than or equal to zero.
+     * @throws DataInTheFuture If the date is in the future.
+     */
     public static <T> T inputFromFile(String name, String input, Class<T> type, Boolean emptyLineCheck,
                                       Boolean zeroValueCheck, Boolean dateInTheFutureCheck,
                                       DateTimeFormatter formatter, Boolean muteMode) throws EmptyLine, ZeroValue, DataInTheFuture {
         try {
             return transformToBasicType(name, type, emptyLineCheck, zeroValueCheck, dateInTheFutureCheck, (Objects.equals(input,
-                                    " ") ? "" : input), true, formatter, muteMode);
+                    " ") ? "" : input), true, formatter, muteMode);
         } catch (Exception e) {
             System.out.println("Invalid input. Try again");
         }
         return null;
     }
 
+    /**
+     * Helper method for applying a date-time formatter to the input string.
+     * @param input The date-time input string.
+     * @param formatter The formatter to apply.
+     * @return The formatted LocalDateTime or LocalDate.
+     */
     private static LocalDateTime applyFormater(String input, DateTimeFormatter formatter) {
         try {
             return LocalDateTime.parse(input, formatter);
-        }catch (Exception e) {
+        } catch (Exception e) {
             return LocalDate.parse(input, formatter).atStartOfDay();
         }
     }
 
+    /**
+     * Converts the input string to the specified data type with validation checks.
+     * @param name The name of the expected input type.
+     * @param type The class type of the expected input.
+     * @param emptyLineCheck Whether to check for empty input.
+     * @param zeroValueCheck Whether to check for numeric inputs less than or equal to zero.
+     * @param dateInTheFutureCheck Whether to check if the date is in the future.
+     * @param input The input string.
+     * @param fileMode Whether the input is coming from a file.
+     * @param formatter The date-time formatter to use.
+     * @param muteMode Whether to suppress error messages.
+     * @param <T> The type of data expected.
+     * @return The converted data or null if invalid.
+     * @throws EmptyLine If the input is empty.
+     * @throws ZeroValue If the input is numeric and less than or equal to zero.
+     * @throws DataInTheFuture If the date is in the future.
+     */
     public static <T> T transformToBasicType(String name, Class<T> type, Boolean emptyLineCheck, Boolean zeroValueCheck,
                                              Boolean dateInTheFutureCheck, String input, Boolean fileMode,
                                              DateTimeFormatter formatter, Boolean muteMode) throws EmptyLine, ZeroValue, DataInTheFuture {
@@ -125,7 +188,7 @@ public class PrimitiveDataTransform {
         } catch (EmptyLine | ZeroValue | DataInTheFuture e) {
             System.out.println(e.getMessage());
         } catch (Exception e) {
-            if(!muteMode)
+            if (!muteMode)
                 System.out.println("Invalid input. Try again");
         }
         if (fileMode) {
