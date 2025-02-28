@@ -9,13 +9,12 @@ import java.util.Set;
 
 public class Main {
 
-    public static Set<String> runningFiles = new HashSet<String>();
-
     public static void main(String[] args) {
         Collection.getInstance();
         RunningFiles.getInstance();
         Help.getInstance().addCommand(Help.getInstance(),new Add(), new Info(), new Show(),
                                         new Update(), new Exit(), new Save());
+        FillCollectionFromFile.fillCollectionFromFile();
         while(true) {
             System.out.print("Enter the command: ");
             CommandsInput.inputFromConsole();

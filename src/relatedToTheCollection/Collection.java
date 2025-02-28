@@ -1,5 +1,6 @@
 package relatedToTheCollection;
 
+import java.io.File;
 import java.io.FileOutputStream;
 import java.io.OutputStreamWriter;
 import java.nio.charset.StandardCharsets;
@@ -54,16 +55,18 @@ public class Collection {
     public static void output() {
         TreeSet<StudyGroup> collection = Collection.getInstance().getCollection();
         String csvFile = "collection.csv";
+        File file = new File("collection.csv");
+        file.delete();
         try (OutputStreamWriter writer = new OutputStreamWriter(new FileOutputStream(csvFile), StandardCharsets.UTF_8)) {
             writer.write("ID,Name,CoordinateX,CoordinateY,CreationDate,StudentsCount," +
-                    "FormOfEducation,Semester,AdminName,AdminBirthday,Height,PassportID\n");  // Заголовки
+                    "FormOfEducation,Semester,AdminName,AdminBirthday,Height,PassportID\n");
             for (StudyGroup studyGroup : collection) {
                 String writeRequest = studyGroup.getId().toString() + "," + studyGroup.getName() + "," +
                         studyGroup.getCoordinates().xToString() + "," +
                         studyGroup.getCoordinates().yToString() + "," + studyGroup.getCreationDateString() + "," +
                         studyGroup.getStudentCount().toString() + "," + studyGroup.getFormOfEducation().toString() + "," +
                         studyGroup.getSemester().toString() + "," + studyGroup.getGroupAdmin().name() + "," +
-                        studyGroup.getGroupAdmin().getBirthdayString() + "," + studyGroup.getGroupAdmin().height().toString() + "," +
+                        studyGroup.getGroupAdmin().getBirthdayString() + "," + studyGroup.getGroupAdmin().heightToString() + "," +
                         studyGroup.getGroupAdmin().passportID() + '\n';
                 writer.write(writeRequest);
             }

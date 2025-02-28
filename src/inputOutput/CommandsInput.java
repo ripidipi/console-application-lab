@@ -34,9 +34,6 @@ public class CommandsInput {
     }
 
     public static Void isCommand(String[] inputSplit) {
-        if (convertToEnum(inputSplit[0] + "_F")) {
-            inputSplit[0] = inputSplit[0] + "_F";
-        }
         if (convertToEnum(inputSplit[0])) {
             Commands command = Enum.valueOf(Commands.class, inputSplit[0].toUpperCase());
             if (inputSplit.length >= 2) {
@@ -81,6 +78,9 @@ public class CommandsInput {
                     try {
                         String line = scanner.nextLine();
                         String[] values = line.split(",");
+                        if (convertToEnum(values[0] + "_F")) {
+                            values[0] = values[0] + "_F";
+                        }
                         handler.apply(values);
                     } catch (Exception e) {
                         System.out.println("Invalid input. Try again");

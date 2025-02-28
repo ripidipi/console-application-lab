@@ -14,12 +14,12 @@ public class ExecuteScript implements Helpable{
             if (fileName.isEmpty()) {
                 throw new IncorrectValue("Execute_script");
             }
-            if (RunningFiles.getInstance().isThere(fileName)) {
+            if (RunningFiles.getInstance().isThere(fileName.toUpperCase())) {
                 throw new InfiniteRecursion(fileName);
             }
-            RunningFiles.getInstance().addFilesNames(fileName);
+            RunningFiles.getInstance().addFilesNames(fileName.toUpperCase());
             CommandsInput.inputFromFile(fileName, CommandsInput::isCommand);
-            RunningFiles.getInstance().removeFilesNames(fileName);
+            RunningFiles.getInstance().removeFilesNames(fileName.toUpperCase());
         } catch(Exception e){
             System.out.println(e.getMessage());
         }

@@ -129,8 +129,12 @@ public class StudyGroup implements Comparable<StudyGroup> {
      * Input manager to create object with class StudyGroup
      * @return object with class StudyGroup
      */
-    public static StudyGroup Input() {
+    public static StudyGroup Input(String... Arg) {
         try {
+            Integer id = null;
+            if (Arg.length > 0) {
+                id = BasicDataTypesInput.InputFromFile("id", Arg[0], Integer.class);
+            }
             System.out.print("Enter information about study group");
             String name = BasicDataTypesInput.Input("name", String.class);
             Coordinates coordinates = Coordinates.Input();
@@ -138,11 +142,17 @@ public class StudyGroup implements Comparable<StudyGroup> {
             FormOfEducation formOfEducation = EnumInput.InputFromConsole(FormOfEducation.class);
             Semester semester = EnumInput.InputFromConsole(Semester.class);
             Person groupAdmin = Person.Input();
-            return new StudyGroup(name, coordinates, studentCount, formOfEducation, semester, groupAdmin);
+            if (id != null) {
+                return new StudyGroup(id, name, coordinates, LocalDateTime.now(), studentCount,
+                        formOfEducation, semester, groupAdmin);
+            } else {
+                return new StudyGroup(name, coordinates, studentCount, formOfEducation, semester, groupAdmin);
+            }
+
         } catch (Exception e) {
             System.out.println("Invalid input. Try again.");
+            return Input(Arg);
         }
-        return Input();
     }
 
     public static StudyGroup InputFromFile(String[] inputSplit) {
