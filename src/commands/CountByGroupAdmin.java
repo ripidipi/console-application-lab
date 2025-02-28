@@ -1,5 +1,6 @@
 package commands;
 
+import exeptions.InsufficientNumberOfArguments;
 import relatedToTheCollection.Collection;
 import relatedToTheCollection.Person;
 import relatedToTheCollection.StudyGroup;
@@ -25,4 +26,19 @@ public class CountByGroupAdmin {
         }
     }
 
+    public static void countByGroupAdminFromFile(String input) {
+        String[] inputSplit = input.split(",");
+        if (inputSplit.length != 4) {
+            throw new InsufficientNumberOfArguments("");
+        }
+        Person person = Person.InputFromFile(inputSplit[0], inputSplit[1], inputSplit[2], inputSplit[3]);
+        TreeSet<StudyGroup> studyGroups = Collection.getInstance().getCollection();
+        int adminCounter = 0;
+        for (StudyGroup studyGroup : studyGroups) {
+            if (Objects.equals(studyGroup.getGroupAdmin(), person)) {
+                adminCounter++;
+            }
+        }
+        System.out.println("Person is admin in " + adminCounter + " groups");
+    }
 }

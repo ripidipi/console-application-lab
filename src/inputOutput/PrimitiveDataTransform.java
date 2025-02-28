@@ -13,7 +13,7 @@ import java.util.Scanner;
 /**
  * class with static methods for basic types readings
  */
-public class BasicDataTypesInput {
+public class PrimitiveDataTransform {
 
     private static final Scanner scanner = new Scanner(System.in);
 
@@ -21,54 +21,55 @@ public class BasicDataTypesInput {
      * Input manager for some basic data types, which should be taken in my program with option of setting exceptions checking
      * @param name names the type of information that is expected from the user
      * @param type take expected type of information
-     * @param EmptyLineCheck responsible for using or not checking for EmptyLineCheck
-     * @param ZeroValueCheck responsible for using or not checking for ZeroValueCheck
+     * @param emptyLineCheck responsible for using or not checking for emptyLineCheck
+     * @param zeroValueCheck responsible for using or not checking for ZeroValueCheck
      * @return input data in right format
      * @param <T> show type of data expected to work with
      * @throws EmptyLine for empty gaps, if it incorrect format for it
      * @throws ZeroValue for numeric gaps <= 0, if it incorrect format for it
      */
-    public static <T> T Input(String name, Class<T> type, Boolean EmptyLineCheck, Boolean ZeroValueCheck,
-                              Boolean BirthdayInTheFutureCheck, DateTimeFormatter formatter)
+    public static <T> T input(String name, Class<T> type, Boolean emptyLineCheck, Boolean zeroValueCheck,
+                              Boolean dateInTheFutureCheck, DateTimeFormatter formatter)
                                 throws EmptyLine, ZeroValue, DataInTheFuture {
         try {
             System.out.print("Enter " + name + ": ");
             String input = scanner.nextLine();
-            return TransformToBasicType(name, type, EmptyLineCheck, ZeroValueCheck, BirthdayInTheFutureCheck, input,
+            return transformToBasicType(name, type, emptyLineCheck,
+                    zeroValueCheck, dateInTheFutureCheck, input,
                     false, formatter, false);
         } catch (Exception e) {
             System.out.println("Invalid input. Try again");
         }
-        return Input(name, type, EmptyLineCheck, ZeroValueCheck, BirthdayInTheFutureCheck, formatter);
+        return input(name, type, emptyLineCheck, zeroValueCheck, dateInTheFutureCheck, formatter);
     }
 
-    public static <T> T Input(String name, Class<T> type) throws EmptyLine, ZeroValue, DataInTheFuture {
+    public static <T> T input(String name, Class<T> type) throws EmptyLine, ZeroValue, DataInTheFuture {
         try {
             System.out.print("Enter " + name + ": ");
             String input = scanner.nextLine();
-            return TransformToBasicType(name, type, true, true, true, input,
+            return transformToBasicType(name, type, true, true, true, input,
                                 false, DateTimeFormatter.ofPattern("dd/MM/yyyy HH:mm:ss"), false);
         } catch (Exception e) {
             System.out.println("Invalid input. Try again");
         }
-        return Input(name, type);
+        return input(name, type);
     }
 
-    public static <T> T InputFromFile(String name, String input, Class<T> type) throws EmptyLine, ZeroValue, DataInTheFuture {
+    public static <T> T inputFromFile(String name, String input, Class<T> type) throws EmptyLine, ZeroValue, DataInTheFuture {
         try {
-            return TransformToBasicType(name, type, true, true, true, (Objects.equals(input, " ") ? "" : input),
-                                true, DateTimeFormatter.ofPattern("dd/MM/yyyy HH:mm:ss"), false);
+            return transformToBasicType(name, type, true, true, true,
+                    (Objects.equals(input, " ") ? "" : input), true, DateTimeFormatter.ofPattern("dd/MM/yyyy HH:mm:ss"), false);
         } catch (Exception e) {
             System.out.println("Invalid input. Try again");
         }
         return null;
     }
 
-    public static <T> T InputFromFile(String name, String input, Class<T> type, Boolean EmptyLineCheck,
-                                      Boolean ZeroValueCheck, Boolean DateInTheFutureCheck,
+    public static <T> T inputFromFile(String name, String input, Class<T> type, Boolean emptyLineCheck,
+                                      Boolean zeroValueCheck, Boolean dateInTheFutureCheck,
                                       DateTimeFormatter formatter, Boolean muteMode) throws EmptyLine, ZeroValue, DataInTheFuture {
         try {
-            return TransformToBasicType(name, type, EmptyLineCheck, ZeroValueCheck, DateInTheFutureCheck, (Objects.equals(input,
+            return transformToBasicType(name, type, emptyLineCheck, zeroValueCheck, dateInTheFutureCheck, (Objects.equals(input,
                                     " ") ? "" : input), true, formatter, muteMode);
         } catch (Exception e) {
             System.out.println("Invalid input. Try again");
@@ -84,7 +85,7 @@ public class BasicDataTypesInput {
         }
     }
 
-    public static <T> T TransformToBasicType(String name, Class<T> type, Boolean emptyLineCheck, Boolean zeroValueCheck,
+    public static <T> T transformToBasicType(String name, Class<T> type, Boolean emptyLineCheck, Boolean zeroValueCheck,
                                              Boolean dateInTheFutureCheck, String input, Boolean fileMode,
                                              DateTimeFormatter formatter, Boolean muteMode) throws EmptyLine, ZeroValue, DataInTheFuture {
         try {
@@ -130,7 +131,7 @@ public class BasicDataTypesInput {
         if (fileMode) {
             return null;
         }
-        return Input(name, type, emptyLineCheck, zeroValueCheck, dateInTheFutureCheck, formatter);
+        return input(name, type, emptyLineCheck, zeroValueCheck, dateInTheFutureCheck, formatter);
     }
 
 }

@@ -15,11 +15,16 @@ public enum Commands {
     SAVE(Save::save),
     REMOVE_BY_ID(RemoveById::removeById),
     EXECUTE_SCRIPT(ExecuteScript::executeScript),
-    ADD_IF_MAX(AddIfMax::addIdMax),
+    ADD_IF_MAX(AddIfMax::addIfMax),
+    ADD_IF_MAX_F(AddIfMax::addIfMaxFromFile),
     REMOVE_GREATER(RemoveGreater::removeGreater),
+    REMOVE_GREATER_F(RemoveGreater::removeGreaterFromFile),
     REMOVE_LOWER(RemoveLower::removeLower),
+    REMOVE_LOWER_F(RemoveLower::removeLowerFromFile),
     COUNT_BY_GROUP_ADMIN(CountByGroupAdmin::countByGroupAdmin),
+    COUNT_BY_GROUP_ADMIN_F(CountByGroupAdmin::countByGroupAdminFromFile),
     REMOVE_ANY_BY_GROUP_ADMIN(RemoveAnyByGroupAdmin::removeAnyByGroupAdmin),
+    REMOVE_ANY_BY_GROUP_ADMIN_F(RemoveAnyByGroupAdmin::removeAnyByGroupAdminFromFile),
     GROUP_COUNTING_BY_ID(GroupCountingById::groupCountingById);
 
 

@@ -44,10 +44,6 @@ public class Collection {
         return collection;
     }
 
-    public int getSize() {
-        return collection.size();
-    }
-
     public void addElement(StudyGroup studyGroup) {
         collection.add(studyGroup);
     }
@@ -58,12 +54,12 @@ public class Collection {
         File file = new File("collection.csv");
         file.delete();
         try (OutputStreamWriter writer = new OutputStreamWriter(new FileOutputStream(csvFile), StandardCharsets.UTF_8)) {
-            writer.write("ID,Name,CoordinateX,CoordinateY,CreationDate,StudentsCount," +
+            writer.write("ID,Name,CoordinateX,CoordinateY,StudentsCount," +
                     "FormOfEducation,Semester,AdminName,AdminBirthday,Height,PassportID\n");
             for (StudyGroup studyGroup : collection) {
                 String writeRequest = studyGroup.getId().toString() + "," + studyGroup.getName() + "," +
                         studyGroup.getCoordinates().xToString() + "," +
-                        studyGroup.getCoordinates().yToString() + "," + studyGroup.getCreationDateString() + "," +
+                        studyGroup.getCoordinates().yToString() +  "," +
                         studyGroup.getStudentCount().toString() + "," + studyGroup.getFormOfEducation().toString() + "," +
                         studyGroup.getSemester().toString() + "," + studyGroup.getGroupAdmin().name() + "," +
                         studyGroup.getGroupAdmin().getBirthdayString() + "," + studyGroup.getGroupAdmin().heightToString() + "," +

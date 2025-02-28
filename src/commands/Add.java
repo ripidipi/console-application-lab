@@ -15,10 +15,10 @@ public class Add implements Helpable {
     public static void addFromFile(String input) {
         try {
             String[] inputSplit = input.split(",");
-            if (inputSplit.length != 12) {
-                throw new InsufficientNumberOfArguments("Fill");
+            if (inputSplit.length != 11) {
+                throw new InsufficientNumberOfArguments("Add");
             }
-            StudyGroup studyGroup = StudyGroup.InputFromFile(inputSplit);
+            StudyGroup studyGroup = StudyGroup.InputFromFile(inputSplit, false);
             if (studyGroup != null)
                 Collection.getInstance().addElement(studyGroup);
         } catch (Exception e) {

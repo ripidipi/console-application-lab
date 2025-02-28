@@ -1,6 +1,5 @@
 package inputOutput;
 
-import com.sun.tools.javac.Main;
 import commands.Commands;
 import exeptions.*;
 
@@ -8,7 +7,6 @@ import java.io.File;
 import java.io.FileNotFoundException;
 import java.util.Arrays;
 import java.util.Scanner;
-import java.util.Set;
 import java.util.function.Function;
 
 public class CommandsInput {
@@ -22,30 +20,20 @@ public class CommandsInput {
         }
     }
 
-    private static void argumentValidator(String s) throws EmptyLine, ZeroValue{
-        try {
-            int arg = Integer.parseInt(s);
-            if (arg <= 0) throw new ZeroValue("ID argument for remove");
-        } catch (ZeroValue e) {
-            System.out.println(e.getMessage());
-        } catch (Exception e) {
-            System.out.println("Invalid input for command. Try again");
-        }
-    }
-
     public static Void isCommand(String[] inputSplit) {
-        if (convertToEnum(inputSplit[0])) {
-            Commands command = Enum.valueOf(Commands.class, inputSplit[0].toUpperCase());
-            if (inputSplit.length >= 2) {
-                if (command == Commands.REMOVE_BY_ID) {
-                    argumentValidator(inputSplit[1]);
+        try {
+            if (convertToEnum(inputSplit[0])) {
+                Commands command = Enum.valueOf(Commands.class, inputSplit[0].toUpperCase());
+                if (inputSplit.length >= 2) {
+                    command.execute(String.join(",", Arrays.copyOfRange(inputSplit, 1, inputSplit.length)));
+                } else {
+                    command.execute("");
                 }
-                command.execute(String.join(",", Arrays.copyOfRange(inputSplit, 1, inputSplit.length)));
             } else {
-                command.execute("");
+                throw new IncorrectCommand(inputSplit[0]);
             }
-        } else {
-            throw new IncorrectCommand(inputSplit[0]);
+        } catch (Exception e) {
+            System.out.println(e.getMessage());
         }
         return null;
     }
@@ -57,8 +45,6 @@ public class CommandsInput {
             String[] inputSplit = input.split(" ");
             isCommand(inputSplit);
         } catch (IllegalArgumentException e) {
-            System.out.println(new IncorrectCommand("Command").getMessage());
-        } catch (Exception e) {
             System.out.println("Invalid input for command. Try again");
         }
 

@@ -2,7 +2,7 @@ package relatedToTheCollection;
 
 import exeptions.EmptyLine;
 import exeptions.ZeroValue;
-import inputOutput.BasicDataTypesInput;
+import inputOutput.PrimitiveDataTransform;
 
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
@@ -43,12 +43,12 @@ public record Person(String name, LocalDateTime birthday, Double height, String 
     public static Person Input() throws EmptyLine, ZeroValue {
         try {
             System.out.println("Enter information about group admin");
-            String name = BasicDataTypesInput.Input("name", String.class);
-            LocalDateTime birthday = BasicDataTypesInput.Input("birthday data in format DD.MM.YYYY",
+            String name = PrimitiveDataTransform.input("name", String.class);
+            LocalDateTime birthday = PrimitiveDataTransform.input("birthday data in format DD.MM.YYYY",
                     LocalDateTime.class, false, false,
                     true, DateTimeFormatter.ofPattern("dd.MM.yyyy"));
-            Double height = BasicDataTypesInput.Input("height", Double.class, false, true, false, null);
-            String passportID = BasicDataTypesInput.Input("passportID", String.class);
+            Double height = PrimitiveDataTransform.input("height", Double.class, false, true, false, null);
+            String passportID = PrimitiveDataTransform.input("passportID", String.class);
             return new Person(name, birthday, height, passportID);
         } catch (Exception e) {
             System.out.println("Invalid data. Try again");
@@ -59,12 +59,12 @@ public record Person(String name, LocalDateTime birthday, Double height, String 
 
     public static Person InputFromFile(String name, String birthday, String height, String passportID) {
         try {
-            return new Person(BasicDataTypesInput.InputFromFile("groupAdminName", name, String.class),
-                    BasicDataTypesInput.InputFromFile("adminBirthday", birthday, LocalDateTime.class, false, false,
+            return new Person(PrimitiveDataTransform.inputFromFile("groupAdminName", name, String.class),
+                    PrimitiveDataTransform.inputFromFile("adminBirthday", birthday, LocalDateTime.class, false, false,
                             true, DateTimeFormatter.ofPattern("dd/MM/yyyy"), false),
-                    BasicDataTypesInput.InputFromFile("adminHeight", height, Double.class, false, true,
+                    PrimitiveDataTransform.inputFromFile("adminHeight", height, Double.class, false, true,
                             false, null, false),
-                    BasicDataTypesInput.InputFromFile("adminPassportID", passportID, String.class));
+                    PrimitiveDataTransform.inputFromFile("adminPassportID", passportID, String.class));
         } catch (Exception e) {
             System.out.println(e.getMessage());
         }

@@ -1,7 +1,7 @@
 package relatedToTheCollection;
 
 import exeptions.EmptyLine;
-import inputOutput.BasicDataTypesInput;
+import inputOutput.PrimitiveDataTransform;
 
 public record Coordinates(Long x, Float y) {
 
@@ -32,9 +32,9 @@ public record Coordinates(Long x, Float y) {
     public static Coordinates Input() throws EmptyLine {
         try {
             System.out.println("Enter information about coordinates");
-            Long x = BasicDataTypesInput.Input("x coordinate", Long.class, false,
+            Long x = PrimitiveDataTransform.input("x coordinate", Long.class, false,
                     false, false, null);
-            Float y = BasicDataTypesInput.Input("y coordinate", Float.class, false,
+            Float y = PrimitiveDataTransform.input("y coordinate", Float.class, false,
                     false, false, null);
             return new Coordinates(x, y);
         } catch (Exception e) {
@@ -46,9 +46,9 @@ public record Coordinates(Long x, Float y) {
 
     public static Coordinates InputFromFile(String x, String y) {
         try {
-            return new Coordinates(BasicDataTypesInput.InputFromFile("CoordinateX", x, Long.class,
+            return new Coordinates(PrimitiveDataTransform.inputFromFile("CoordinateX", x, Long.class,
                     false, false, false, null, false),
-                    BasicDataTypesInput.InputFromFile("CoordinateY", y, Float.class, false,
+                    PrimitiveDataTransform.inputFromFile("CoordinateY", y, Float.class, false,
                             false, false, null, false));
         } catch (Exception e) {
             System.out.println(e.getMessage());

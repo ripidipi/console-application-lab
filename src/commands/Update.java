@@ -1,7 +1,7 @@
 package commands;
 
 import exeptions.InsufficientNumberOfArguments;
-import inputOutput.BasicDataTypesInput;
+import inputOutput.PrimitiveDataTransform;
 import relatedToTheCollection.Collection;
 import relatedToTheCollection.StudyGroup;
 
@@ -11,7 +11,7 @@ import java.util.TreeSet;
 public class Update implements Helpable{
 
     public static void update(String id) {
-        if (BasicDataTypesInput.TransformToBasicType("id", Integer.class, true,
+        if (PrimitiveDataTransform.transformToBasicType("id", Integer.class, true,
                 true, false, id, false, null, true) == null) {
             System.out.println("Invalid input. Try again.");
             return;
@@ -23,10 +23,10 @@ public class Update implements Helpable{
     public static void updateFromFile(String input) {
         try {
             String[] inputSplit = input.split(",");
-            if (inputSplit.length != 13) {
+            if (inputSplit.length != 11) {
                 throw new InsufficientNumberOfArguments("Update");
             }
-            StudyGroup studyGroup = StudyGroup.InputFromFile(inputSplit);
+            StudyGroup studyGroup = StudyGroup.InputFromFile(inputSplit, true);
             replacementInTheCollection(studyGroup);
         } catch (Exception e) {
             System.out.println(e.getMessage());

@@ -1,9 +1,6 @@
 package inputOutput;
 
 import commands.Add;
-import commands.Commands;
-
-import java.util.Arrays;
 
 public class FillCollectionFromFile {
 
@@ -19,7 +16,7 @@ public class FillCollectionFromFile {
 
     public static Void adderForFill(String[] input) {
         try {
-            if (BasicDataTypesInput.InputFromFile("Id", input[0], Integer.class, false,
+            if (PrimitiveDataTransform.inputFromFile("Id", input[0], Integer.class, false,
                     false, false, null, true) == null) {
                 return null;
             }

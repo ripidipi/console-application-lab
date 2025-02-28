@@ -1,7 +1,7 @@
 package relatedToTheCollection;
 
 import exeptions.CommandDataFromTheFileIsIncorrect;
-import inputOutput.BasicDataTypesInput;
+import inputOutput.PrimitiveDataTransform;
 import inputOutput.EnumInput;
 
 import java.security.SecureRandom;
@@ -32,21 +32,20 @@ public class StudyGroup implements Comparable<StudyGroup> {
         int randomID;
         SecureRandom random = new SecureRandom();
         do {
-            randomID = 100000 + random.nextInt(900000); // 6 digits
+            randomID = 10000000 + random.nextInt(90000000); // 8 digits
         } while (IDs.containsKey(randomID));
         this.id = randomID;
         IDs.put(randomID, true);
         this.name = name;
         this.coordinates = coordinates;
-        this.creationDate = java.time.LocalDateTime.now();
+        this.creationDate = LocalDateTime.now();
         this.studentCount = studentCount;
         this.formOfEducation = formOfEducation;
         this.semester = semester;
         this.groupAdmin = groupAdmin;
     }
 
-    public StudyGroup(Integer id, String name, Coordinates coordinates,
-                      LocalDateTime creationDate, Integer studentCount,
+    public StudyGroup(Integer id, String name, Coordinates coordinates, Integer studentCount,
                       FormOfEducation formOfEducation,
                       Semester semester, Person groupAdmin) {
         this.id = id;
@@ -54,7 +53,7 @@ public class StudyGroup implements Comparable<StudyGroup> {
             IDs.put(id, true);
         this.name = name;
         this.coordinates = coordinates;
-        this.creationDate = creationDate;
+        this.creationDate = LocalDateTime.now();
         this.studentCount = studentCount;
         this.formOfEducation = formOfEducation;
         this.semester = semester;
@@ -133,17 +132,17 @@ public class StudyGroup implements Comparable<StudyGroup> {
         try {
             Integer id = null;
             if (Arg.length > 0) {
-                id = BasicDataTypesInput.InputFromFile("id", Arg[0], Integer.class);
+                id = PrimitiveDataTransform.inputFromFile("id", Arg[0], Integer.class);
             }
             System.out.print("Enter information about study group");
-            String name = BasicDataTypesInput.Input("name", String.class);
+            String name = PrimitiveDataTransform.input("name", String.class);
             Coordinates coordinates = Coordinates.Input();
-            Integer studentCount = BasicDataTypesInput.Input("students count", Integer.class);
+            Integer studentCount = PrimitiveDataTransform.input("students count", Integer.class);
             FormOfEducation formOfEducation = EnumInput.InputFromConsole(FormOfEducation.class);
             Semester semester = EnumInput.InputFromConsole(Semester.class);
             Person groupAdmin = Person.Input();
             if (id != null) {
-                return new StudyGroup(id, name, coordinates, LocalDateTime.now(), studentCount,
+                return new StudyGroup(id, name, coordinates, studentCount,
                         formOfEducation, semester, groupAdmin);
             } else {
                 return new StudyGroup(name, coordinates, studentCount, formOfEducation, semester, groupAdmin);
@@ -155,22 +154,22 @@ public class StudyGroup implements Comparable<StudyGroup> {
         }
     }
 
-    public static StudyGroup InputFromFile(String[] inputSplit) {
+    public static StudyGroup InputFromFile(String[] inputSplit, boolean notAdded) {
         try {
             Integer id = Integer.parseInt(inputSplit[0]);
-            String name = BasicDataTypesInput.InputFromFile("name", inputSplit[1], String.class);
+            String name = PrimitiveDataTransform.inputFromFile("name", inputSplit[1], String.class);
             Coordinates coordinates = Coordinates.InputFromFile(inputSplit[2], inputSplit[3]);
-            LocalDateTime creationDate = BasicDataTypesInput.InputFromFile("creationDate", inputSplit[4],
-                    LocalDateTime.class, false, false, false,
-                    DateTimeFormatter.ofPattern("dd/MM/yyyy HH:mm:ss"), false);
-            Integer studentCount = BasicDataTypesInput.InputFromFile("students count", inputSplit[5], Integer.class);
-            FormOfEducation formOfEducation = EnumInput.TransformToEnum(FormOfEducation.class, inputSplit[6]);
-            Semester semester = EnumInput.TransformToEnum(Semester.class, inputSplit[7]);
-            Person groupAdmin = Person.InputFromFile(inputSplit[8], inputSplit[9], inputSplit[10], inputSplit[11]);
-            if (IDs.containsKey(id)) {
+            Integer studentCount = PrimitiveDataTransform.inputFromFile("students count", inputSplit[4],
+                                                                            Integer.class);
+            FormOfEducation formOfEducation = EnumInput.TransformToEnum(FormOfEducation.class, inputSplit[5]);
+            Semester semester = EnumInput.TransformToEnum(Semester.class, inputSplit[6]);
+            Person groupAdmin = Person.InputFromFile(inputSplit[7], inputSplit[8], inputSplit[9], inputSplit[10]);
+            if (IDs.containsKey(id) & !notAdded) {
                 id = null;
+                System.out.print("Id is reserved ");
             }
-            StudyGroup studyGroup = new StudyGroup(id, name, coordinates, creationDate, studentCount, formOfEducation, semester, groupAdmin);
+            StudyGroup studyGroup = new StudyGroup(id, name, coordinates, studentCount,
+                                                    formOfEducation, semester, groupAdmin);
             if (!isRightFill(studyGroup)) {
                 throw new CommandDataFromTheFileIsIncorrect(String.join(",", inputSplit));
             }
