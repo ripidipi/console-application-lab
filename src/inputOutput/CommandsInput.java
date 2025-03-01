@@ -10,16 +10,15 @@ import java.util.Scanner;
 import java.util.function.Function;
 
 /**
- * Class responsible for handling command inputs either from the console or a file.
- * Provides methods to process user commands and validate input.
+ * Handles command input from the console or a file.
  */
 public class CommandsInput {
 
     /**
-     * Tries to convert a string to a valid command enum from the Commands enum.
+     * Checks if a given string can be converted to an enum value of {@link Commands}.
      *
-     * @param s The string to check for validity.
-     * @return True if the string corresponds to a valid command, false otherwise.
+     * @param s the string to check
+     * @return true if the string corresponds to a valid command, false otherwise
      */
     private static boolean convertToEnum(String s) {
         try {
@@ -31,10 +30,10 @@ public class CommandsInput {
     }
 
     /**
-     * Checks if the provided input corresponds to a valid command and executes it.
-     * If the command is not valid, throws an IncorrectCommand exception.
+     * Processes and executes a command if it is valid.
      *
-     * @param inputSplit Array of strings representing the command and its arguments.
+     * @param inputSplit an array containing the command and its arguments
+     * @return null
      */
     public static Void isCommand(String[] inputSplit) {
         try {
@@ -55,25 +54,24 @@ public class CommandsInput {
     }
 
     /**
-     * Reads input from the console and processes the command.
-     * Splits the input into arguments and checks if it matches a valid command.
+     * Reads and processes command input from the console.
      */
     public static void inputFromConsole() {
-        try (Scanner scanner = new Scanner(System.in)) {
+        try {
+            Scanner scanner = new Scanner(System.in);
             String input = scanner.nextLine();
             String[] inputSplit = input.split(" ");
             isCommand(inputSplit);
         } catch (IllegalArgumentException e) {
-            System.out.println("Invalid input for command. Try again.");
+            System.out.println("Invalid input for command. Try again");
         }
     }
 
     /**
-     * Reads commands from a file and processes them.
-     * Each line in the file should represent a command with arguments, if any.
+     * Reads and processes command input from a file.
      *
-     * @param filePath Path to the file containing the commands.
-     * @param handler  A handler function to process the command from the file.
+     * @param filePath the path to the input file
+     * @param handler  a function to process each line of input
      */
     public static void inputFromFile(String filePath, Function<String[], Void> handler) {
         try {
@@ -94,7 +92,7 @@ public class CommandsInput {
                         }
                         handler.apply(values);
                     } catch (Exception e) {
-                        System.out.println("Invalid input. Try again.");
+                        System.out.println("Invalid input. Try again");
                     }
                 }
             } catch (FileNotFoundException e) {

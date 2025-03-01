@@ -27,7 +27,8 @@ public class Help implements Helpable {
      */
     public static void help() {
         for (Helpable command : commands) {
-            System.out.println(command.getHelp());
+            System.out.println(command.getClass().getSimpleName());
+            System.out.println("\t" + command.getHelp());
         }
     }
 

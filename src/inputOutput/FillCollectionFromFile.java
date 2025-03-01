@@ -3,13 +3,14 @@ package inputOutput;
 import commands.Add;
 
 /**
- * Class responsible for filling the collection from a file.
+ * A utility class to populate a collection from a file.
  */
 public class FillCollectionFromFile {
 
     /**
-     * Fills the collection by reading data from a specified file.
-     * The file should contain the necessary information to add elements to the collection.
+     * Reads a collection from a file and populates it.
+     * The file name is predefined as "collection.csv".
+     * If an error occurs, the method prints an error message.
      */
     public static void fillCollectionFromFile() {
         try {
@@ -22,11 +23,10 @@ public class FillCollectionFromFile {
     }
 
     /**
-     * Adds a study group to the collection based on the data provided in the input array.
-     * This method is used as a callback to process each line of the input file.
+     * Processes an input line from the file and adds a study group if the ID is valid.
      *
-     * @param input The input data parsed from the file.
-     * @return Returns null to indicate successful processing of the input line.
+     * @param input An array of strings representing the fields of a study group.
+     * @return Always returns null.
      */
     public static Void adderForFill(String[] input) {
         try {
@@ -34,11 +34,10 @@ public class FillCollectionFromFile {
                     false, false, null, true) == null) {
                 return null;
             }
-            Add.addStudyGroupFromFile(String.join(",",input));
+            Add.addStudyGroupFromFile(String.join(",", input));
         } catch (Exception e) {
             System.out.println(e.getMessage());
         }
         return null;
     }
-
 }

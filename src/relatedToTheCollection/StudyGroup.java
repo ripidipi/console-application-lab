@@ -233,8 +233,8 @@ public class StudyGroup implements Comparable<StudyGroup> {
             String name = PrimitiveDataTransform.input("name", String.class);
             Coordinates coordinates = Coordinates.input();
             Integer studentCount = PrimitiveDataTransform.input("students count", Integer.class);
-            FormOfEducation formOfEducation = EnumInput.InputFromConsole(FormOfEducation.class);
-            Semester semester = EnumInput.InputFromConsole(Semester.class);
+            FormOfEducation formOfEducation = EnumInput.inputFromConsole(FormOfEducation.class);
+            Semester semester = EnumInput.inputFromConsole(Semester.class);
             Person groupAdmin = Person.input();
             if (id != null) {
                 return new StudyGroup(id, name, coordinates, studentCount,

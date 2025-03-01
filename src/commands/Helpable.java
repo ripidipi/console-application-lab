@@ -11,4 +11,5 @@ public interface Helpable {
      * @return A string containing the help information about the command.
      */
     String getHelp();
+
 }

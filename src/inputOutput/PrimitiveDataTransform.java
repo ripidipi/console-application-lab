@@ -11,25 +11,26 @@ import java.util.Objects;
 import java.util.Scanner;
 
 /**
- * Class with static methods for reading basic data types from the user input or file.
+ * A utility class for reading and transforming basic data types from user input or file.
  */
 public class PrimitiveDataTransform {
 
     private static final Scanner scanner = new Scanner(System.in);
 
     /**
-     * Manages input for various basic data types with options for validation checks.
-     * @param name The name of the expected input type.
-     * @param type The class type of the expected input.
-     * @param emptyLineCheck Whether to check for empty input.
-     * @param zeroValueCheck Whether to check for numeric inputs less than or equal to zero.
-     * @param dateInTheFutureCheck Whether to check if the date is in the future.
-     * @param formatter The date-time formatter to use for parsing dates.
-     * @param <T> The type of data expected.
-     * @return The input data in the correct format.
-     * @throws EmptyLine If the input is empty, and empty line check is enabled.
-     * @throws ZeroValue If the input is numeric and less than or equal to zero, and zero value check is enabled.
-     * @throws DataInTheFuture If the date is in the future, and date in the future check is enabled.
+     * Reads and transforms user input into a specified data type.
+     *
+     * @param name                The name of the expected input.
+     * @param type                The expected data type.
+     * @param emptyLineCheck      Whether to check for empty input.
+     * @param zeroValueCheck      Whether to check for zero or negative values.
+     * @param dateInTheFutureCheck Whether to check if a date is in the future.
+     * @param formatter           The formatter to use for date parsing.
+     * @param <T>                 The type of the expected data.
+     * @return The transformed user input.
+     * @throws EmptyLine        If input is empty and emptyLineCheck is enabled.
+     * @throws ZeroValue        If input is a non-positive number and zeroValueCheck is enabled.
+     * @throws DataInTheFuture  If input is a future date and dateInTheFutureCheck is enabled.
      */
     public static <T> T input(String name, Class<T> type, Boolean emptyLineCheck, Boolean zeroValueCheck,
                               Boolean dateInTheFutureCheck, DateTimeFormatter formatter)
@@ -47,14 +48,15 @@ public class PrimitiveDataTransform {
     }
 
     /**
-     * Overloaded method for basic input without advanced checks.
-     * @param name The name of the expected input type.
-     * @param type The class type of the expected input.
-     * @param <T> The type of data expected.
-     * @return The input data in the correct format.
-     * @throws EmptyLine If the input is empty.
-     * @throws ZeroValue If the input is numeric and less than or equal to zero.
-     * @throws DataInTheFuture If the date is in the future.
+     * Reads and transforms user input with default validation settings.
+     *
+     * @param name The name of the expected input.
+     * @param type The expected data type.
+     * @param <T>  The type of the expected data.
+     * @return The transformed user input.
+     * @throws EmptyLine        If input is empty.
+     * @throws ZeroValue        If input is a non-positive number.
+     * @throws DataInTheFuture  If input is a future date.
      */
     public static <T> T input(String name, Class<T> type) throws EmptyLine, ZeroValue, DataInTheFuture {
         try {
@@ -69,15 +71,16 @@ public class PrimitiveDataTransform {
     }
 
     /**
-     * Reads input data from a file and converts it to the specified data type.
-     * @param name The name of the expected input type.
-     * @param input The string data from the file.
-     * @param type The class type of the expected input.
-     * @param <T> The type of data expected.
-     * @return The converted data or null if the input is invalid.
-     * @throws EmptyLine If the input is empty.
-     * @throws ZeroValue If the input is numeric and less than or equal to zero.
-     * @throws DataInTheFuture If the date is in the future.
+     * Transforms an input string from a file into a specified data type.
+     *
+     * @param name The name of the expected input.
+     * @param input The input string to transform.
+     * @param type The expected data type.
+     * @param <T> The type of the expected data.
+     * @return The transformed input.
+     * @throws EmptyLine        If input is empty.
+     * @throws ZeroValue        If input is a non-positive number.
+     * @throws DataInTheFuture  If input is a future date.
      */
     public static <T> T inputFromFile(String name, String input, Class<T> type) throws EmptyLine, ZeroValue, DataInTheFuture {
         try {
@@ -90,20 +93,21 @@ public class PrimitiveDataTransform {
     }
 
     /**
-     * Overloaded method for file-based input with additional validation options.
-     * @param name The name of the expected input type.
-     * @param input The string data from the file.
-     * @param type The class type of the expected input.
+     * Transforms an input string from a file into a specified data type with custom validation settings.
+     *
+     * @param name The name of the expected input.
+     * @param input The input string to transform.
+     * @param type The expected data type.
      * @param emptyLineCheck Whether to check for empty input.
-     * @param zeroValueCheck Whether to check for numeric inputs less than or equal to zero.
-     * @param dateInTheFutureCheck Whether to check if the date is in the future.
-     * @param formatter The date-time formatter to use for parsing dates.
+     * @param zeroValueCheck Whether to check for zero or negative values.
+     * @param dateInTheFutureCheck Whether to check if a date is in the future.
+     * @param formatter The formatter to use for date parsing.
      * @param muteMode Whether to suppress error messages.
-     * @param <T> The type of data expected.
-     * @return The converted data or null if the input is invalid.
-     * @throws EmptyLine If the input is empty.
-     * @throws ZeroValue If the input is numeric and less than or equal to zero.
-     * @throws DataInTheFuture If the date is in the future.
+     * @param <T> The type of the expected data.
+     * @return The transformed input.
+     * @throws EmptyLine        If input is empty and emptyLineCheck is enabled.
+     * @throws ZeroValue        If input is a non-positive number and zeroValueCheck is enabled.
+     * @throws DataInTheFuture  If input is a future date and dateInTheFutureCheck is enabled.
      */
     public static <T> T inputFromFile(String name, String input, Class<T> type, Boolean emptyLineCheck,
                                       Boolean zeroValueCheck, Boolean dateInTheFutureCheck,
@@ -118,10 +122,11 @@ public class PrimitiveDataTransform {
     }
 
     /**
-     * Helper method for applying a date-time formatter to the input string.
-     * @param input The date-time input string.
-     * @param formatter The formatter to apply.
-     * @return The formatted LocalDateTime or LocalDate.
+     * Parses a date-time string using a specified formatter.
+     *
+     * @param input The input string to parse.
+     * @param formatter The formatter to use.
+     * @return The parsed LocalDateTime.
      */
     private static LocalDateTime applyFormater(String input, DateTimeFormatter formatter) {
         try {
@@ -132,21 +137,22 @@ public class PrimitiveDataTransform {
     }
 
     /**
-     * Converts the input string to the specified data type with validation checks.
-     * @param name The name of the expected input type.
-     * @param type The class type of the expected input.
+     * Transforms an input string into a specified basic data type.
+     *
+     * @param name The name of the expected input.
+     * @param type The expected data type.
      * @param emptyLineCheck Whether to check for empty input.
-     * @param zeroValueCheck Whether to check for numeric inputs less than or equal to zero.
-     * @param dateInTheFutureCheck Whether to check if the date is in the future.
-     * @param input The input string.
-     * @param fileMode Whether the input is coming from a file.
-     * @param formatter The date-time formatter to use.
+     * @param zeroValueCheck Whether to check for zero or negative values.
+     * @param dateInTheFutureCheck Whether to check if a date is in the future.
+     * @param input The input string to transform.
+     * @param fileMode Whether the input comes from a file.
+     * @param formatter The formatter to use for date parsing.
      * @param muteMode Whether to suppress error messages.
-     * @param <T> The type of data expected.
-     * @return The converted data or null if invalid.
-     * @throws EmptyLine If the input is empty.
-     * @throws ZeroValue If the input is numeric and less than or equal to zero.
-     * @throws DataInTheFuture If the date is in the future.
+     * @param <T> The type of the expected data.
+     * @return The transformed input.
+     * @throws EmptyLine        If input is empty and emptyLineCheck is enabled.
+     * @throws ZeroValue        If input is a non-positive number and zeroValueCheck is enabled.
+     * @throws DataInTheFuture  If input is a future date and dateInTheFutureCheck is enabled.
      */
     public static <T> T transformToBasicType(String name, Class<T> type, Boolean emptyLineCheck, Boolean zeroValueCheck,
                                              Boolean dateInTheFutureCheck, String input, Boolean fileMode,
@@ -185,8 +191,6 @@ public class PrimitiveDataTransform {
                 }
                 return type.cast(date);
             }
-        } catch (EmptyLine | ZeroValue | DataInTheFuture e) {
-            System.out.println(e.getMessage());
         } catch (Exception e) {
             if (!muteMode)
                 System.out.println("Invalid input. Try again");
@@ -196,5 +200,4 @@ public class PrimitiveDataTransform {
         }
         return input(name, type, emptyLineCheck, zeroValueCheck, dateInTheFutureCheck, formatter);
     }
-
 }

@@ -85,7 +85,6 @@ public class Collection {
         String csvFile = "collection.csv";
         File file = new File(csvFile);
 
-        // Check if the file exists before deleting it
         if (file.exists()) {
             file.delete();
         }
