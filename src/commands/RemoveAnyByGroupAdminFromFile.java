@@ -26,7 +26,7 @@ public class RemoveAnyByGroupAdminFromFile implements Command {
     }
 
     @Override
-    public void execute(String arg) {
+    public void execute(String arg, String inputMode) {
         removeAnyByGroupAdminFromFile(arg);
     }
 

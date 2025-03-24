@@ -1,6 +1,7 @@
 package commands;
 
 import exceptions.RemoveOfTheNextSymbol;
+import input_output.DistributionOfTheOutputStream;
 import input_output.Logging;
 import related_to_the_collection.Collection;
 import related_to_the_collection.StudyGroup;
@@ -20,7 +21,7 @@ public class GroupCountingById implements Helpable, Command {
             TreeSet<StudyGroup> studyGroups = Collection.getInstance().getCollection();
             int setSize = studyGroups.size();
             if (setSize == 0) {
-                System.out.println("The collection is empty.");
+                DistributionOfTheOutputStream.println("The collection is empty.");
                 return;
             }
             int groupCount = (int) Math.ceil(Math.sqrt(setSize));
@@ -34,24 +35,24 @@ public class GroupCountingById implements Helpable, Command {
                 index++;
             }
             groups.removeIf(List::isEmpty);
-            System.out.println("There are " + groups.size() + " groups.");
+            DistributionOfTheOutputStream.println("There are " + groups.size() + " groups.");
             int lastID = 1;
             for (List<StudyGroup> group : groups) {
                 if (!group.isEmpty()) {
                     int groupSize = group.size();
                     int endID = group.get(group.size() - 1).getId();
-                    System.out.print("In ID range " + lastID + "-" + (endID + 1) + " - " + groupSize + " elements, ");
+                    DistributionOfTheOutputStream.println("In ID range " + lastID + "-" + (endID + 1) + " - " + groupSize + " elements, ");
                     lastID = endID + 1;
                 }
             }
-            System.out.println();
+            DistributionOfTheOutputStream.println("");
         } catch (Exception e) {
             Logging.log(Logging.makeMessage(e.getMessage(), e.getStackTrace()));
         }
     }
 
     @Override
-    public void execute(String arg) {
+    public void execute(String arg, String inputMode) {
         groupCountingById();
     }
 

@@ -1,7 +1,7 @@
 package commands;
 
+import input_output.DistributionOfTheOutputStream;
 import input_output.Logging;
-import input_output.PrimitiveDataTransform;
 import related_to_the_collection.Collection;
 import related_to_the_collection.StudyGroup;
 
@@ -21,7 +21,7 @@ public class RemoveById implements Helpable, Command {
      */
     public static void removeById(String idInput) {
         try {
-            int id = Update.validateId(idInput);
+            int id = IsElementWithId.validateId(idInput);
             TreeSet<StudyGroup> collection = Collection.getInstance().getCollection();
             Iterator<StudyGroup> iterator = collection.iterator();
 
@@ -32,16 +32,16 @@ public class RemoveById implements Helpable, Command {
                     break;
                 }
             }
-            System.out.println("Object has been removed.");
+            DistributionOfTheOutputStream.println("Object has been removed.");
         } catch (RuntimeException e) {
-            System.out.println(e.getMessage());
+            DistributionOfTheOutputStream.println(e.getMessage());
         } catch (Exception e) {
             Logging.log(Logging.makeMessage(e.getMessage(), e.getStackTrace()));
         }
     }
 
     @Override
-    public void execute(String arg) {
+    public void execute(String arg, String inputMode) {
         removeById(arg);
     }
 

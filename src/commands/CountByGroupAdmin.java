@@ -1,6 +1,7 @@
 package commands;
 
 import exceptions.RemoveOfTheNextSymbol;
+import input_output.DistributionOfTheOutputStream;
 import input_output.Logging;
 import related_to_the_collection.Collection;
 import related_to_the_collection.Person;
@@ -12,7 +13,7 @@ import java.util.TreeSet;
 /**
  * Command that counts the number of study groups where a specified person is the admin from console.
  */
-public class CountByGroupAdmin implements Helpable, Command {
+public class CountByGroupAdmin implements Helpable, Command{
 
     /**
      * Counts the number of study groups where the user-specified person is the admin.
@@ -27,9 +28,9 @@ public class CountByGroupAdmin implements Helpable, Command {
                     adminCounter++;
                 }
             }
-            System.out.println("The person is an admin in " + adminCounter + " groups.");
+            DistributionOfTheOutputStream.println("The person is an admin in " + adminCounter + " groups.");
         } catch (RemoveOfTheNextSymbol e) {
-            System.out.println(e.getMessage());
+            DistributionOfTheOutputStream.println(e.getMessage());
             Exit.exit();
         } catch (Exception e) {
             Logging.log(Logging.makeMessage(e.getMessage(), e.getStackTrace()));
@@ -37,7 +38,7 @@ public class CountByGroupAdmin implements Helpable, Command {
     }
 
     @Override
-    public void execute(String arg) {
+    public void execute(String arg, String inputMode) {
         countByGroupAdmin();
     }
 

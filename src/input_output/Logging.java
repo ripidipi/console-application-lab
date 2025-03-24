@@ -25,7 +25,8 @@ public class Logging {
         if (file.exists()) {
             file.delete();
         }
-        try (OutputStreamWriter writer = new OutputStreamWriter(new FileOutputStream(fileName), StandardCharsets.UTF_8)) {
+        try (OutputStreamWriter writer = new OutputStreamWriter(
+                new FileOutputStream(fileName), StandardCharsets.UTF_8)) {
             writer.write("Logging Initialized\n");
         } catch (Exception e) {
             System.out.println("Logging error");

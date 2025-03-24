@@ -1,5 +1,6 @@
 package commands;
 
+import input_output.DistributionOfTheOutputStream;
 import related_to_the_collection.Collection;
 import related_to_the_collection.StudyGroup;
 
@@ -14,11 +15,11 @@ public class Clear implements Helpable, Command {
     public static void clearCollection() {
         Collection.getInstance().clearCollection();
         StudyGroup.clearIds();
-        System.out.println("The collection has been cleared.");
+        DistributionOfTheOutputStream.println("The collection has been cleared.");
     }
 
     @Override
-    public void execute(String arg) {
+    public void execute(String arg, String inputMode) {
         clearCollection();
     }
 

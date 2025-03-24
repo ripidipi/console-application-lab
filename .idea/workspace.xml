@@ -13,9 +13,9 @@
   <component name="FileTemplateManagerImpl">
     <option name="RECENT_TEMPLATES">
       <list>
-        <option value="Interface" />
         <option value="Class" />
         <option value="Exception" />
+        <option value="Interface" />
       </list>
     </option>
   </component>
@@ -36,7 +36,7 @@
   </component>
   <component name="PropertiesComponent"><![CDATA[{
   "keyToString": {
-    "Application.Main.executor": "Run",
+    "Application.Main.executor": "Debug",
     "Application.Unnamed.executor": "Run",
     "RunOnceActivity.ShowReadmeOnStart": "true",
     "RunOnceActivity.git.unshallow": "true",
@@ -103,7 +103,7 @@
       <workItem from="1742129144394" duration="2457000" />
       <workItem from="1742198194007" duration="7447000" />
       <workItem from="1742281224964" duration="9695000" />
-      <workItem from="1742323412499" duration="21773000" />
+      <workItem from="1742323412499" duration="44909000" />
     </task>
     <servers />
   </component>
@@ -126,7 +126,7 @@
       <breakpoints>
         <line-breakpoint enabled="true" type="java-method">
           <url>file://$PROJECT_DIR$/src/commands/Exit.java</url>
-          <line>12</line>
+          <line>14</line>
           <properties class="commands.Exit" method="exit">
             <option name="EMULATED" value="true" />
             <option name="WATCH_EXIT" value="false" />
@@ -141,24 +141,6 @@
             <option name="WATCH_EXIT" value="false" />
           </properties>
           <option name="timeStamp" value="17" />
-        </line-breakpoint>
-        <line-breakpoint enabled="true" type="java-method">
-          <url>file://$PROJECT_DIR$/src/input_output/SavingAnEmergencyStop.java</url>
-          <line>39</line>
-          <properties class="input_output.SavingAnEmergencyStop" method="recapCommandFromFile">
-            <option name="EMULATED" value="true" />
-            <option name="WATCH_EXIT" value="false" />
-          </properties>
-          <option name="timeStamp" value="18" />
-        </line-breakpoint>
-        <line-breakpoint enabled="true" type="java-method">
-          <url>file://$PROJECT_DIR$/src/input_output/SavingAnEmergencyStop.java</url>
-          <line>56</line>
-          <properties class="input_output.SavingAnEmergencyStop" method="checkIfFile">
-            <option name="EMULATED" value="true" />
-            <option name="WATCH_EXIT" value="false" />
-          </properties>
-          <option name="timeStamp" value="19" />
         </line-breakpoint>
         <line-breakpoint enabled="true" type="java-method">
           <url>file://$PROJECT_DIR$/src/input_output/CommandsInput.java</url>

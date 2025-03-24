@@ -1,6 +1,7 @@
 package commands;
 
 import exceptions.RemoveOfTheNextSymbol;
+import input_output.DistributionOfTheOutputStream;
 import input_output.Logging;
 import related_to_the_collection.Collection;
 import related_to_the_collection.Person;
@@ -40,7 +41,7 @@ public class RemoveAnyByGroupAdmin implements Helpable, Command{
             Person person = Person.input();
             removeGroupByAdmin(person);
         } catch (RemoveOfTheNextSymbol e) {
-            System.out.println(e.getMessage());
+            DistributionOfTheOutputStream.println(e.getMessage());
             Exit.exit();
         } catch (Exception e) {
             Logging.log(Logging.makeMessage(e.getMessage(), e.getStackTrace()));
@@ -48,7 +49,7 @@ public class RemoveAnyByGroupAdmin implements Helpable, Command{
     }
 
     @Override
-    public void execute(String arg) {
+    public void execute(String arg, String inputMode) {
         removeAnyByGroupAdmin();
     }
 

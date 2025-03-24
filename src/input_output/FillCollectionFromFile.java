@@ -38,7 +38,7 @@ public class FillCollectionFromFile {
                     false, false, null, true) == null) {
                 return null;
             }
-            AddFromFile.addStudyGroupFromFile(String.join(",", input));
+            new Add().execute((String.join(",", input)), "F");
         } catch (InsufficientNumberOfArguments e) {
             System.out.println(e.getMessage());
         } catch (Exception e) {

@@ -4,6 +4,6 @@ public interface Command {
     /**
      * Method for all commands. Perform main functional
      */
-    void execute(String arg);
+    void execute(String arg, String inputMode);
 
 }

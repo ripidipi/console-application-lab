@@ -1,5 +1,7 @@
 package commands;
 
+import input_output.DistributionOfTheOutputStream;
+
 /**
  * Command that exits the program.
  */
@@ -12,12 +14,12 @@ public class Exit implements Helpable, Command {
      */
     public static void exit() {
         if (running)
-            System.out.println("Exiting the program.");
+            DistributionOfTheOutputStream.println("Exiting the program.");
         running = false;
     }
 
     @Override
-    public void execute(String arg) {
+    public void execute(String arg, String inputMode) {
         exit();
     }
 

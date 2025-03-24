@@ -1,5 +1,7 @@
 package commands;
 
+import input_output.DistributionOfTheOutputStream;
+
 import java.util.ArrayList;
 import java.util.Collections;
 
@@ -27,8 +29,8 @@ public class Help implements Helpable,Command {
      */
     public static void help() {
         for (Helpable command : commands) {
-            System.out.println(String.join("_", command.getClass().getSimpleName().split("(?=[A-Z])")));
-            System.out.println("\t" + command.getHelp());
+            DistributionOfTheOutputStream.println(String.join("_", command.getClass().getSimpleName().split("(?=[A-Z])")));
+            DistributionOfTheOutputStream.println("\t" + command.getHelp());
         }
     }
 
@@ -42,7 +44,7 @@ public class Help implements Helpable,Command {
     }
 
     @Override
-    public void execute(String arg) {
+    public void execute(String arg, String inputMode) {
         help();
     }
 

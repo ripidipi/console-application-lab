@@ -1,10 +1,13 @@
 package commands;
 
 
+import exceptions.InsufficientNumberOfArguments;
 import exceptions.RemoveOfTheNextSymbol;
+import input_output.DistributionOfTheOutputStream;
 import input_output.Logging;
 import related_to_the_collection.Collection;
 import related_to_the_collection.StudyGroup;
+import related_to_the_collection.StudyGroupFabric;
 
 import java.util.Objects;
 
@@ -16,12 +19,16 @@ public class Add implements Helpable, Command {
     /**
      * Adds a new study group based on user input.
      */
-    private static void addStudyGroup(StudyGroup inputStudyGroup) {
+    public static void addStudyGroup(StudyGroup studyGroup) {
         try {
-            StudyGroup studyGroup = Objects.requireNonNullElseGet(inputStudyGroup, StudyGroup::input);
             Collection.getInstance().addElement(studyGroup);
+            if (studyGroup != null) {
+                Collection.getInstance().addElement(studyGroup);
+            }
+        } catch (InsufficientNumberOfArguments e) {
+            DistributionOfTheOutputStream.println(e.getMessage());
         } catch (RemoveOfTheNextSymbol e) {
-            System.out.println(e.getMessage());
+            DistributionOfTheOutputStream.println(e.getMessage());
             Exit.exit();
         } catch (Exception e) {
             Logging.log(Logging.makeMessage(e.getMessage(), e.getStackTrace()));
@@ -29,13 +36,19 @@ public class Add implements Helpable, Command {
     }
 
     @Override
-    public void execute(String arg) {
-        addStudyGroup(null);
-    }
-
-    public void execute(StudyGroup studyGroup) {
+    public void execute(String arg, String inputMode) {
+        boolean isId = false;
+        String[] inputSplit = arg.split(",");
+        if (inputMode.equalsIgnoreCase("F") &&
+                Collection.formatStudyGroupToCSV(StudyGroup.getEmptyStudyGroup()).split(",").length
+                        != inputSplit.length) {
+            throw new InsufficientNumberOfArguments("Add");
+        }
+        StudyGroup studyGroup = StudyGroupFabric.getStudyGroup(inputMode, inputSplit, false, isId);
         addStudyGroup(studyGroup);
     }
+
+
 
     @Override
     public String getHelp() {

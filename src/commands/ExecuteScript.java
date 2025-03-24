@@ -3,6 +3,7 @@ package commands;
 import exceptions.IncorrectValue;
 import exceptions.InfiniteRecursion;
 import input_output.CommandsInput;
+import input_output.DistributionOfTheOutputStream;
 import input_output.Logging;
 import input_output.RunningFiles;
 
@@ -36,12 +37,12 @@ public class ExecuteScript implements Helpable, Command {
             RunningFiles.getInstance().removeFileName(fileName.toUpperCase());
 
         } catch (IncorrectValue | InfiniteRecursion e) {
-            System.out.println(e.getMessage());
+            DistributionOfTheOutputStream.println(e.getMessage());
         } catch (Exception e) {
             Logging.log(Logging.makeMessage(e.getMessage(), e.getStackTrace()));
         } finally {
             executeScriptMode = false;
-            System.out.println("ExecuteScript from " + fileName + " finished");
+            DistributionOfTheOutputStream.println("ExecuteScript from " + fileName + " finished");
         }
     }
 
@@ -53,7 +54,7 @@ public class ExecuteScript implements Helpable, Command {
     }
 
     @Override
-    public void execute(String arg) {
+    public void execute(String arg, String inputMode) {
         executeScript(arg);
     }
 
