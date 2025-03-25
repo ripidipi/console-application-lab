@@ -37,14 +37,13 @@ public class Add implements Helpable, Command {
 
     @Override
     public void execute(String arg, String inputMode) {
-        boolean isId = false;
         String[] inputSplit = arg.split(",");
         if (inputMode.equalsIgnoreCase("F") &&
                 Collection.formatStudyGroupToCSV(StudyGroup.getEmptyStudyGroup()).split(",").length
                         != inputSplit.length) {
             throw new InsufficientNumberOfArguments("Add");
         }
-        StudyGroup studyGroup = StudyGroupFabric.getStudyGroup(inputMode, inputSplit, false, isId);
+        StudyGroup studyGroup = StudyGroupFabric.getStudyGroup(inputMode, inputSplit, false, false);
         addStudyGroup(studyGroup);
     }
 

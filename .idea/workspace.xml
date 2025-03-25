@@ -36,7 +36,7 @@
   </component>
   <component name="PropertiesComponent"><![CDATA[{
   "keyToString": {
-    "Application.Main.executor": "Debug",
+    "Application.Main.executor": "Run",
     "Application.Unnamed.executor": "Run",
     "RunOnceActivity.ShowReadmeOnStart": "true",
     "RunOnceActivity.git.unshallow": "true",
@@ -103,7 +103,7 @@
       <workItem from="1742129144394" duration="2457000" />
       <workItem from="1742198194007" duration="7447000" />
       <workItem from="1742281224964" duration="9695000" />
-      <workItem from="1742323412499" duration="44909000" />
+      <workItem from="1742323412499" duration="56363000" />
     </task>
     <servers />
   </component>
@@ -134,58 +134,67 @@
           <option name="timeStamp" value="14" />
         </line-breakpoint>
         <line-breakpoint enabled="true" type="java-method">
-          <url>file://$PROJECT_DIR$/src/Main.java</url>
-          <line>49</line>
-          <properties class="Main" method="runCommandLoop">
+          <url>file://$PROJECT_DIR$/src/input_output/SavingAnEmergencyStop.java</url>
+          <line>39</line>
+          <properties class="input_output.SavingAnEmergencyStop" method="recapCommandFromFile">
             <option name="EMULATED" value="true" />
             <option name="WATCH_EXIT" value="false" />
           </properties>
-          <option name="timeStamp" value="17" />
+          <option name="timeStamp" value="25" />
         </line-breakpoint>
         <line-breakpoint enabled="true" type="java-method">
-          <url>file://$PROJECT_DIR$/src/input_output/CommandsInput.java</url>
-          <line>42</line>
-          <properties class="input_output.CommandsInput" method="isCommand">
+          <url>file://$PROJECT_DIR$/src/input_output/EnumInput.java</url>
+          <line>25</line>
+          <properties class="input_output.EnumInput" method="inputFromConsole">
             <option name="EMULATED" value="true" />
             <option name="WATCH_EXIT" value="false" />
           </properties>
-          <option name="timeStamp" value="20" />
+          <option name="timeStamp" value="28" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" type="java-method">
+          <url>file://$PROJECT_DIR$/src/input_output/EnumInput.java</url>
+          <line>53</line>
+          <properties class="input_output.EnumInput" method="TransformToEnum">
+            <option name="EMULATED" value="true" />
+            <option name="WATCH_EXIT" value="false" />
+          </properties>
+          <option name="timeStamp" value="29" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" type="java-method">
+          <url>file://$PROJECT_DIR$/src/related_to_the_collection/StudyGroup.java</url>
+          <line>288</line>
+          <properties class="related_to_the_collection.StudyGroup" method="inputMixed">
+            <option name="EMULATED" value="true" />
+            <option name="WATCH_EXIT" value="false" />
+          </properties>
+          <option name="timeStamp" value="30" />
         </line-breakpoint>
         <line-breakpoint enabled="true" type="java-method">
           <url>file://$PROJECT_DIR$/src/input_output/PrimitiveDataTransform.java</url>
-          <line>160</line>
-          <properties class="input_output.PrimitiveDataTransform" method="transformToRequiredType">
+          <line>73</line>
+          <properties class="input_output.PrimitiveDataTransform" method="input">
             <option name="EMULATED" value="true" />
             <option name="WATCH_EXIT" value="false" />
           </properties>
-          <option name="timeStamp" value="21" />
+          <option name="timeStamp" value="31" />
         </line-breakpoint>
         <line-breakpoint enabled="true" type="java-method">
-          <url>file://$PROJECT_DIR$/src/Main.java</url>
-          <line>20</line>
-          <properties class="Main" method="initializeApplication">
+          <url>file://$PROJECT_DIR$/src/input_output/PrimitiveDataTransform.java</url>
+          <line>53</line>
+          <properties class="input_output.PrimitiveDataTransform" method="input">
             <option name="EMULATED" value="true" />
             <option name="WATCH_EXIT" value="false" />
           </properties>
-          <option name="timeStamp" value="22" />
+          <option name="timeStamp" value="32" />
         </line-breakpoint>
         <line-breakpoint enabled="true" type="java-method">
-          <url>file://$PROJECT_DIR$/src/Main.java</url>
-          <line>12</line>
-          <properties class="Main" method="main">
+          <url>file://$PROJECT_DIR$/src/input_output/SavingAnEmergencyStop.java</url>
+          <line>18</line>
+          <properties class="input_output.SavingAnEmergencyStop" method="addStringToFile">
             <option name="EMULATED" value="true" />
             <option name="WATCH_EXIT" value="false" />
           </properties>
-          <option name="timeStamp" value="23" />
-        </line-breakpoint>
-        <line-breakpoint enabled="true" type="java-method">
-          <url>file://$PROJECT_DIR$/src/Main.java</url>
-          <line>57</line>
-          <properties class="Main" method="runPreviousSession">
-            <option name="EMULATED" value="true" />
-            <option name="WATCH_EXIT" value="false" />
-          </properties>
-          <option name="timeStamp" value="24" />
+          <option name="timeStamp" value="34" />
         </line-breakpoint>
       </breakpoints>
     </breakpoint-manager>

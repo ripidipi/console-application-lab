@@ -3,6 +3,7 @@ package related_to_the_collection;
 import commands.ExecuteScript;
 import exceptions.EmptyLine;
 import exceptions.RemoveOfTheNextSymbol;
+import input_output.DistributionOfTheOutputStream;
 import input_output.Logging;
 import input_output.PrimitiveDataTransform;
 
@@ -63,7 +64,7 @@ public record Coordinates(Long x, Float y) {
      * @throws EmptyLine if the input is empty and not allowed.
      */
     public static Coordinates input() throws RemoveOfTheNextSymbol {
-        System.out.println("Enter information about coordinates");
+        DistributionOfTheOutputStream.println("Enter information about coordinates");
         Long x = PrimitiveDataTransform.input("x coordinate", Long.class, false,
                 false, false, null);
         Float y = PrimitiveDataTransform.input("y coordinate", Float.class, false,

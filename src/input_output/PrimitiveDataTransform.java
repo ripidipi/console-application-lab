@@ -21,6 +21,21 @@ public class PrimitiveDataTransform {
 
     private static final Scanner scanner = new Scanner(System.in);
 
+    private static  <T> T inputAssistent(String name, Class<T> type, Boolean emptyLineCheck,
+                                         Boolean zeroValueCheck,
+                                         Boolean dateInTheFutureCheck,
+                                         DateTimeFormatter formatter) throws RemoveOfTheNextSymbol {
+        DistributionOfTheOutputStream.print("Enter " + name + ": ");
+        if (!scanner.hasNextLine()) {
+            new Exit().execute("", "");
+            throw new RemoveOfTheNextSymbol();
+        }
+        String input = scanner.nextLine();
+        return transformToRequiredType(name, type, emptyLineCheck,
+                zeroValueCheck, dateInTheFutureCheck, input,
+                false, formatter, false);
+    }
+
     /**
      * Reads and transforms user input into a specified data type.
      *
@@ -37,16 +52,9 @@ public class PrimitiveDataTransform {
      * @throws DataInTheFuture  If input is a future date and dateInTheFutureCheck is enabled.
      */
     public static <T> T input(String name, Class<T> type, Boolean emptyLineCheck, Boolean zeroValueCheck,
-                              Boolean dateInTheFutureCheck, DateTimeFormatter formatter) throws RemoveOfTheNextSymbol{
-        System.out.print("Enter " + name + ": ");
-        if (!scanner.hasNextLine()) {
-            new Exit().execute("");
-            throw new RemoveOfTheNextSymbol();
-        }
-        String input = scanner.nextLine();
-        T result = transformToRequiredType(name, type, emptyLineCheck,
-                zeroValueCheck, dateInTheFutureCheck, input,
-                false, formatter, false);
+                              Boolean dateInTheFutureCheck, DateTimeFormatter formatter) throws RemoveOfTheNextSymbol {
+        T result = inputAssistent(name, type, emptyLineCheck,
+                zeroValueCheck, dateInTheFutureCheck, formatter);
         SavingAnEmergencyStop.addStringToFile(result == null ? " " : result.toString());
         return result;
 
@@ -64,14 +72,8 @@ public class PrimitiveDataTransform {
      * @throws DataInTheFuture  If input is a future date.
      */
     public static <T> T input(String name, Class<T> type) throws RemoveOfTheNextSymbol{
-        System.out.print("Enter " + name + ": ");
-        if (!scanner.hasNextLine()) {
-            new Exit().execute("");
-            throw new RemoveOfTheNextSymbol();
-        }
-        String input = scanner.nextLine();
-        T result = transformToRequiredType(name, type, true, true, true,
-                input, false, DateTimeFormatter.ofPattern("dd/MM/yyyy HH:mm:ss"), false);
+        T result = inputAssistent(name, type, true, true, true,
+                 DateTimeFormatter.ofPattern("dd/MM/yyyy HH:mm:ss"));
         SavingAnEmergencyStop.addStringToFile(result == null ? " " : result.toString());
         return result;
     }
@@ -168,17 +170,17 @@ public class PrimitiveDataTransform {
             return type.cast(dataParser(input, name, type, formatter));
         } catch (EmptyLine | ZeroValue | DataInTheFuture | IncorrectValue e) {
             if (!muteMode)
-                System.out.println(e.getMessage());
+                DistributionOfTheOutputStream.println(e.getMessage());
         } catch (NumberFormatException e) {
             if (!muteMode)
-                System.out.println("Invalid input. Try again");
+                DistributionOfTheOutputStream.println("Invalid input. Try again");
         } catch (Exception e) {
             Logging.log(Logging.makeMessage(e.getMessage(), e.getStackTrace()));
         }
         if (fileMode) {
             return null;
         }
-        return input(name, type, emptyLineCheck, zeroValueCheck, dateInTheFutureCheck, formatter);
+        return inputAssistent(name, type, emptyLineCheck, zeroValueCheck, dateInTheFutureCheck, formatter);
     }
 
     private static <T> void dataValidator(String input, String name, Class<T> type, DateTimeFormatter formatter,
@@ -221,7 +223,7 @@ public class PrimitiveDataTransform {
             LocalDateTime date = applyFormatter(input, formatter);
             return type.cast(date);
         }
-        throw new IncorrectValue(name);
+        throw new IncorrectValue(type.toString());
     }
 
 }

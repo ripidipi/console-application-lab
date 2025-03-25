@@ -29,9 +29,9 @@ public class EnumInput {
         for (T constant : enumConstants) {
             enumValues.add(constant.name());
         }
-        System.out.print("Enter " + enumType.getSimpleName() + " " + enumValues.toString().trim().toLowerCase() + ": ");
+        DistributionOfTheOutputStream.print("Enter " + enumType.getSimpleName() + " " + enumValues.toString().trim().toLowerCase() + ": ");
         if (!scanner.hasNextLine()) {
-            new Exit().execute("");
+            new Exit().execute("", "");
             throw new RemoveOfTheNextSymbol();
         }
         String input = scanner.nextLine().toUpperCase();
@@ -58,7 +58,7 @@ public class EnumInput {
             }
             return Enum.valueOf(enumType, input.toUpperCase());
         } catch (IllegalArgumentException e) {
-            System.out.println(new IncorrectConstant(enumType.getSimpleName()).getMessage());
+            DistributionOfTheOutputStream.println(new IncorrectConstant(enumType.getSimpleName()).getMessage());
         }
         return inputFromConsole(enumType);
     }

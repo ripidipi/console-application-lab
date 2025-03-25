@@ -1,5 +1,6 @@
 package commands;
 
+import input_output.DistributionOfTheOutputStream;
 import related_to_the_collection.Collection;
 import related_to_the_collection.StudyGroup;
 
@@ -17,7 +18,7 @@ public class Show implements Helpable, Command {
         TreeSet<StudyGroup> collection = Collection.getInstance().getCollection();
 
         if (collection.isEmpty()) {
-            System.out.println("Collection is empty");
+            DistributionOfTheOutputStream.println("Collection is empty");
             return;
         }
 
@@ -27,7 +28,7 @@ public class Show implements Helpable, Command {
     }
 
     @Override
-    public void execute(String arg) {
+    public void execute(String arg, String inputMode) {
         show();
     }
 

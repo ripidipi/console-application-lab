@@ -47,8 +47,8 @@ public class SavingAnEmergencyStop {
                         line = line.substring(0, line.length() - 1);
                     }
                     String[] values = line.split(",");
-                    Commands command = Enum.valueOf(Commands.class, (values[0] + "_F").toUpperCase());
-
+                    Commands command = Enum.valueOf(Commands.class, values[0].toUpperCase());
+                    command.execute(line, "M");
         } catch (Exception e) {
             Logging.log(Logging.makeMessage(e.getMessage(), e.getStackTrace()));
         }
@@ -56,6 +56,7 @@ public class SavingAnEmergencyStop {
 
     public static boolean checkIfFile() {
         File file = new File(emergencyFile);
+
         return file.exists();
     }
 

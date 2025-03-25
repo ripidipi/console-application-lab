@@ -15,7 +15,6 @@ public interface IsElementWithId {
      * @return The parsed ID, or null if invalid.
      */
     static Integer validateId(String id) throws RuntimeException {
-
         Integer transformedId =  PrimitiveDataTransform.transformToRequiredType("id", Integer.class, true,
                 true, false, id, true, null, true);
         TreeSet<StudyGroup> collection = Collection.getInstance().getCollection();

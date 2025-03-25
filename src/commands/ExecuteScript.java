@@ -23,6 +23,7 @@ public class ExecuteScript implements Helpable, Command {
      */
     public static void executeScript(String fileName) {
         executeScriptMode = true;
+        DistributionOfTheOutputStream.printlnToFile("Work of the script " + fileName);
         try {
             if (fileName == null || fileName.isEmpty()) {
                 throw new IncorrectValue("File name cannot be empty.");
@@ -35,12 +36,12 @@ public class ExecuteScript implements Helpable, Command {
             RunningFiles.getInstance().addFileName(fileName.toUpperCase());
             CommandsInput.inputFromFile(fileName, CommandsInput::isCommand);
             RunningFiles.getInstance().removeFileName(fileName.toUpperCase());
-
         } catch (IncorrectValue | InfiniteRecursion e) {
             DistributionOfTheOutputStream.println(e.getMessage());
         } catch (Exception e) {
             Logging.log(Logging.makeMessage(e.getMessage(), e.getStackTrace()));
         } finally {
+            DistributionOfTheOutputStream.printlnToFile("");
             executeScriptMode = false;
             DistributionOfTheOutputStream.println("ExecuteScript from " + fileName + " finished");
         }

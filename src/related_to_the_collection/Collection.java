@@ -86,7 +86,7 @@ public class Collection {
      */
     public static void output() {
         TreeSet<StudyGroup> collection = Collection.getInstance().getCollection();
-        String csvFile = "Collection.csv";
+        String csvFile = "collection.csv";
         File file = new File(csvFile);
 
         if (file.exists()) {

@@ -29,7 +29,7 @@ public class Logging {
                 new FileOutputStream(fileName), StandardCharsets.UTF_8)) {
             writer.write("Logging Initialized\n");
         } catch (Exception e) {
-            System.out.println("Logging error");
+            DistributionOfTheOutputStream.println("Logging error");
         }
     }
 
@@ -52,7 +52,7 @@ public class Logging {
             writer.write(message);
             writer.write(System.lineSeparator());
         } catch (Exception e) {
-            System.out.println("Logging error");
+            DistributionOfTheOutputStream.println("Logging error");
         }
     }
 

@@ -1,10 +1,13 @@
 package commands;
 
+import exceptions.InsufficientNumberOfArguments;
 import exceptions.RemoveOfTheNextSymbol;
+import input_output.DistributionOfTheOutputStream;
 import input_output.Logging;
 import input_output.PrimitiveDataTransform;
 import related_to_the_collection.Collection;
 import related_to_the_collection.StudyGroup;
+import related_to_the_collection.StudyGroupFabric;
 
 import java.util.ArrayList;
 import java.util.TreeSet;
@@ -14,43 +17,28 @@ import java.util.TreeSet;
  */
 public class RemoveLower implements Helpable, Command {
 
-    /**
-     * Removes study groups lower than the specified one, based on user input.
-     */
-    public static void removeLower() {
-        try {
-            Integer id = PrimitiveDataTransform.input("id", Integer.class);
-            StudyGroup studyGroup = StudyGroup.input(id.toString());
-            removeLowerFromCollection(studyGroup);
-        } catch (RemoveOfTheNextSymbol e) {
-            System.out.println(e.getMessage());
-            Exit.exit();
-        } catch (Exception e) {
-            Logging.log(Logging.makeMessage(e.getMessage(), e.getStackTrace()));
-        }
-    }
-
-    /**
-     * Removes study groups lower than the given one from the collection.
-     *
-     * @param studyGroup The study group to compare with.
-     */
-    static void removeLowerFromCollection(StudyGroup studyGroup) {
-        TreeSet<StudyGroup> collection = Collection.getInstance().getCollection();
-        ArrayList<StudyGroup> toRemove = new ArrayList<>();
-        for (StudyGroup sG : collection) {
-            if(sG.compareTo(studyGroup) < 0) {
-                toRemove.add(sG);
-            }
-        }
-        for (StudyGroup sG : toRemove) {
-            collection.remove(sG);
-        }
-    }
-
     @Override
-    public void execute(String arg) {
-        removeLower();
+    public void execute(String arg, String inputMode) {
+        try{
+            StudyGroup studyGroup;
+            if (inputMode.equalsIgnoreCase("C")) {
+                Integer id = PrimitiveDataTransform.input("id", Integer.class);
+                studyGroup = StudyGroupFabric.getStudyGroup("C",
+                        new String[]{id.toString()}, false, true);
+            } else {
+                String[] inputSplit = arg.split(",");
+                if (inputMode.equalsIgnoreCase("F") &&
+                        Collection.formatStudyGroupToCSV(StudyGroup.getEmptyStudyGroup()).split(",").length
+                                != inputSplit.length) {
+                    throw new InsufficientNumberOfArguments("Add");
+                }
+                studyGroup = StudyGroupFabric.getStudyGroup(inputMode, inputSplit, false, true);
+            }
+            RemoveFromCollectionIs.remove(studyGroup, false);
+        } catch (RemoveOfTheNextSymbol e) {
+            DistributionOfTheOutputStream.println(e.getMessage());
+            Exit.exit();
+        }
     }
 
     @Override

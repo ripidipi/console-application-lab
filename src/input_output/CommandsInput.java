@@ -9,6 +9,7 @@ import java.io.File;
 import java.io.FileNotFoundException;
 import java.util.Arrays;
 import java.util.Scanner;
+import java.util.function.BiFunction;
 import java.util.function.Function;
 
 /**
@@ -40,22 +41,22 @@ public class CommandsInput {
      * @param inputSplit an array containing the command and its arguments
      * @return null
      */
-    public static Void isCommand(String[] inputSplit) {
+    public static Void isCommand(String[] inputSplit, String inputMode) {
         try {
             if (inputSplit.length!=0 && convertToEnum(inputSplit[0])) {
                 Commands command = Enum.valueOf(Commands.class, inputSplit[0].toUpperCase());
                 SavingAnEmergencyStop.addStringToFile(command.name());
                 if (inputSplit.length >= 2) {
-                    command.execute(String.join(",", Arrays.copyOfRange(inputSplit, 1, inputSplit.length)));
+                    command.execute(String.join(",", Arrays.copyOfRange(inputSplit, 1, inputSplit.length)), inputMode);
                 } else {
-                    command.execute("");
+                    command.execute("", inputMode);
                 }
                 SavingAnEmergencyStop.clearFile();
             } else {
                 throw new IncorrectCommand(inputSplit[0]);
             }
         } catch (IncorrectCommand e) {
-            System.out.println(e.getMessage());
+            DistributionOfTheOutputStream.println(e.getMessage());
         } catch (Exception e) {
             Logging.log(Logging.makeMessage(e.getMessage(), e.getStackTrace()));
         }
@@ -69,17 +70,17 @@ public class CommandsInput {
         try {
             Scanner scanner = new Scanner(System.in);
             if (!scanner.hasNextLine()) {
-                new Exit().execute("");
+                new Exit().execute("", "");
                 throw new RemoveOfTheNextSymbol();
             }
             String input = scanner.nextLine();
             String[] inputSplit = input.split(" ");
 
-            isCommand(inputSplit);
+            isCommand(inputSplit, "C");
         } catch (IllegalArgumentException e) {
-            System.out.println("Invalid input for command. Try again");
+            DistributionOfTheOutputStream.println("Invalid input for command. Try again");
         } catch (RemoveOfTheNextSymbol e) {
-            System.out.println(e.getMessage());
+            DistributionOfTheOutputStream.println(e.getMessage());
             Exit.exit();
         } catch (Exception e) {
             Logging.log(Logging.makeMessage(e.getMessage(), e.getStackTrace()));
@@ -92,7 +93,7 @@ public class CommandsInput {
      * @param filePath the path to the input file
      * @param handler  a function to process each line of input
      */
-    public static void inputFromFile(String filePath, Function<String[], Void> handler) {
+    public static void inputFromFile(String filePath, BiFunction<String[], String, Void> handler) {
         try {
             if (filePath == null || filePath.isEmpty()) {
                 throw new ConnectionToFileFailed("Connection to environment path failed " + filePath);
@@ -109,7 +110,7 @@ public class CommandsInput {
                         if (convertToEnum(values[0] + "_F")) {
                             values[0] = values[0] + "_F";
                         }
-                        handler.apply(values);
+                        handler.apply(values, "F");
                     } catch (Exception e) {
                         Logging.log(Logging.makeMessage(e.getMessage(), e.getStackTrace()));
                     }

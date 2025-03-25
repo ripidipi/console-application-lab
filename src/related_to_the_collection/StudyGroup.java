@@ -3,6 +3,7 @@ package related_to_the_collection;
 import commands.Exit;
 import exceptions.CommandDataFromTheFileIsIncorrect;
 import exceptions.RemoveOfTheNextSymbol;
+import input_output.DistributionOfTheOutputStream;
 import input_output.Logging;
 import input_output.PrimitiveDataTransform;
 import input_output.EnumInput;
@@ -44,13 +45,9 @@ public class StudyGroup implements Comparable<StudyGroup> {
     public StudyGroup(String name, Coordinates coordinates,
                       Integer studentCount, FormOfEducation formOfEducation,
                       Semester semester, Person groupAdmin) {
-        int randomID;
-        SecureRandom random = new SecureRandom();
-        do {
-            randomID = 100000 + random.nextInt(900000); // 6 digits
-        } while (IDs.containsKey(randomID));
-        this.id = randomID;
-        IDs.put(randomID, true);
+
+        this.id = generateId();
+        IDs.put(generateId(), true);
         this.name = name;
         this.coordinates = coordinates;
         this.creationDate = LocalDateTime.now();
@@ -149,6 +146,15 @@ public class StudyGroup implements Comparable<StudyGroup> {
      */
     public Integer getId() { return id; }
 
+    private static Integer generateId() {
+        int randomID;
+        SecureRandom random = new SecureRandom();
+        do {
+            randomID = 100000 + random.nextInt(900000); // 6 digits
+        } while (IDs.containsKey(randomID));
+        return randomID;
+    }
+
     /**
      * Gets the name of the StudyGroup.
      *
@@ -244,7 +250,7 @@ public class StudyGroup implements Comparable<StudyGroup> {
         if (Arg.length > 0) {
             id = PrimitiveDataTransform.inputFromFile("id", Arg[0], Integer.class);
         }
-        System.out.print("Enter information about study group");
+        DistributionOfTheOutputStream.println("Enter information about study group");
         String name = PrimitiveDataTransform.input("name", String.class);
         Coordinates coordinates = Coordinates.input();
         Integer studentCount = PrimitiveDataTransform.input("students count", Integer.class);
@@ -287,13 +293,15 @@ public class StudyGroup implements Comparable<StudyGroup> {
 
     public static StudyGroup inputMixed(String[] inputSplit, boolean notAdded, boolean isId) {
         try {
-            int index = 0;
+            int index = 1;
 
             Integer id = null;
             if (isId) {
                 id = (index < inputSplit.length) ?
                         PrimitiveDataTransform.inputFromFile("id", inputSplit[index++], Integer.class) :
                         PrimitiveDataTransform.input("id", Integer.class);
+            } else {
+                id = generateId();
             }
 
             String name = (index < inputSplit.length) ?
@@ -301,15 +309,15 @@ public class StudyGroup implements Comparable<StudyGroup> {
                     PrimitiveDataTransform.input("name", String.class);
 
             Long coordX = (index < inputSplit.length) ?
-                    ((Objects.equals(inputSplit[index++], " ") ?
+                    (inputSplit[index++].isBlank() ?
                             null :
-                            PrimitiveDataTransform.inputFromFile("x", inputSplit[index++], Long.class))) :
+                            PrimitiveDataTransform.inputFromFile("x", inputSplit[index++], Long.class)) :
                     PrimitiveDataTransform.input("x coordinate", Long.class, false,
                     false, false, null);
             Float coordY = (index < inputSplit.length) ?
-                    ((Objects.equals(inputSplit[index++], " ") ?
+                    (inputSplit[index++].isBlank() ?
                             null :
-                            PrimitiveDataTransform.inputFromFile("y", inputSplit[index++], Float.class))) :
+                            PrimitiveDataTransform.inputFromFile("y", inputSplit[index++], Float.class)) :
                     PrimitiveDataTransform.input("y coordinate", Float.class, false,
                             false, false, null);
             Coordinates coordinates = new Coordinates(coordX, coordY);
@@ -328,7 +336,7 @@ public class StudyGroup implements Comparable<StudyGroup> {
 
             String adminName = (index < inputSplit.length) ?
                     PrimitiveDataTransform.inputFromFile("groupAdminName", inputSplit[index++], String.class) :
-                    PrimitiveDataTransform.input("name", String.class);
+                    PrimitiveDataTransform.input("group admin name", String.class);
             DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd/MM/yyyy");
             LocalDateTime dateTime = (index < inputSplit.length) ?
                     PrimitiveDataTransform.inputFromFile("adminBirthday", inputSplit[index++],
@@ -338,11 +346,11 @@ public class StudyGroup implements Comparable<StudyGroup> {
                             LocalDateTime.class, false, false,
                             true, DateTimeFormatter.ofPattern("dd.MM.yyyy"));
             Double height = (index < inputSplit.length) ?
-                    ((Objects.equals(inputSplit[index++], " ") ?
+                    (inputSplit[index++].isBlank()) ?
                             null :
                             PrimitiveDataTransform.inputFromFile("adminHeight", inputSplit[index++],
                                     Double.class, false, true,
-                                    false, null, false))) :
+                                    false, null, false) :
                     PrimitiveDataTransform.input("height", Double.class, false,
                             true, false, null);
             String adminPassport = (index < inputSplit.length) ?
@@ -353,7 +361,7 @@ public class StudyGroup implements Comparable<StudyGroup> {
             return rightInisilizeStudyGroup(inputSplit, notAdded, id, name, coordinates, studentCount,
                     formOfEducation, semester, groupAdmin);
         } catch (RemoveOfTheNextSymbol e) {
-            System.out.println(e.getMessage());
+            DistributionOfTheOutputStream.println(e.getMessage());
             Exit.exit();
         } catch (Exception e) {
             Logging.log(Logging.makeMessage(e.getMessage(), e.getStackTrace()));

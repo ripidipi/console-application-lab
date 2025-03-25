@@ -23,6 +23,7 @@ public class Main {
         RunningFiles.getInstance();
         Help help = Help.getInstance();
         Logging.initialize();
+        DistributionOfTheOutputStream.clear();
 
         help.addCommand(
                 help, new Add(), new Info(), new Show(),
@@ -57,10 +58,10 @@ public class Main {
 
     private static void runPreviousSession() {
         try {
-            System.out.println("Previous session was urgently completed.\n Print yes if you want to continue it.");
+            System.out.println("Previous session was urgently completed.\nPrint Yes if you want to continue it.");
             Scanner scanner = new Scanner(System.in);
             if (!scanner.hasNextLine()) {
-                new Exit().execute("");
+                new Exit().execute("", "");
                 throw new RemoveOfTheNextSymbol();
             }
             String input = scanner.nextLine();

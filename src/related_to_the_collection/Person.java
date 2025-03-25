@@ -4,6 +4,7 @@ import commands.ExecuteScript;
 import exceptions.EmptyLine;
 import exceptions.RemoveOfTheNextSymbol;
 import exceptions.ZeroValue;
+import input_output.DistributionOfTheOutputStream;
 import input_output.Logging;
 import input_output.PrimitiveDataTransform;
 
@@ -66,7 +67,7 @@ public record Person(String name, LocalDateTime birthday, Double height, String 
      * @throws ZeroValue if the provided numeric value is less than or equal to zero.
      */
     public static Person input() throws RemoveOfTheNextSymbol {
-        System.out.println("Enter information about group admin");
+        DistributionOfTheOutputStream.println("Enter information about group admin");
         String name = PrimitiveDataTransform.input("name", String.class);
         LocalDateTime birthday = PrimitiveDataTransform.input("birthday data in format DD.MM.YYYY",
                 LocalDateTime.class, false, false,

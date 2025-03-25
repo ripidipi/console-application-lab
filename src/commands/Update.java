@@ -1,9 +1,13 @@
 package commands;
 
+import exceptions.InsufficientNumberOfArguments;
 import exceptions.RemoveOfTheNextSymbol;
+import input_output.DistributionOfTheOutputStream;
 import input_output.Logging;
+import input_output.PrimitiveDataTransform;
 import related_to_the_collection.Collection;
 import related_to_the_collection.StudyGroup;
+import related_to_the_collection.StudyGroupFabric;
 
 import java.util.Objects;
 import java.util.TreeSet;
@@ -15,25 +19,14 @@ import java.util.TreeSet;
  */
 public class Update implements Helpable, Command {
 
-    /**
-     * Updates a study group based on user input.
-     *
-     * @param id The ID of the study group to be updated.
-     */
-    public static void update(String id) {
+    public static void update(StudyGroup studyGroup) {
         try {
-            Integer parsedId = IsElementWithId.validateId(id);
-            if (parsedId == null) {
-                System.out.println("Invalid input. Please provide a valid ID.");
-                return;
-            }
-            StudyGroup studyGroup = StudyGroup.input(id);
             replacementInTheCollection(studyGroup);
         } catch (RemoveOfTheNextSymbol e) {
-            System.out.println(e.getMessage());
+            DistributionOfTheOutputStream.println(e.getMessage());
             Exit.exit();
         } catch (RuntimeException e) {
-            System.out.println(e.getMessage());
+            DistributionOfTheOutputStream.println(e.getMessage());
         } catch (Exception e) {
             Logging.log(Logging.makeMessage(e.getMessage(), e.getStackTrace()));
         }
@@ -53,13 +46,32 @@ public class Update implements Helpable, Command {
                 break;
             }
         }
-        System.out.println("Study group " + studyGroup.getId() + " is successfully updated");
+        DistributionOfTheOutputStream.println("Study group " + studyGroup.getId() + " is successfully updated");
     }
 
 
     @Override
-    public void execute(String arg) {
-        update(arg);
+    public void execute(String arg, String inputMode) {
+        try{
+            StudyGroup studyGroup;
+            if (inputMode.equalsIgnoreCase("C")) {
+                Integer id = IsElementWithId.validateId(arg);
+                studyGroup = StudyGroupFabric.getStudyGroup("C",
+                        new String[]{id.toString()}, false, true);
+            } else {
+                String[] inputSplit = arg.split(",");
+                if (inputMode.equalsIgnoreCase("F") &&
+                        Collection.formatStudyGroupToCSV(StudyGroup.getEmptyStudyGroup()).split(",").length
+                                != inputSplit.length) {
+                    throw new InsufficientNumberOfArguments("Add");
+                }
+                studyGroup = StudyGroupFabric.getStudyGroup(inputMode, inputSplit, false, true);
+            }
+            update(studyGroup);
+        } catch (RemoveOfTheNextSymbol e) {
+            DistributionOfTheOutputStream.println(e.getMessage());
+            Exit.exit();
+        }
     }
 
     @Override
