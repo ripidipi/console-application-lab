@@ -1,6 +1,7 @@
 package commands;
 
 import input_output.PrimitiveDataTransform;
+import input_output.SavingAnEmergencyStop;
 import related_to_the_collection.Collection;
 import related_to_the_collection.StudyGroup;
 
@@ -28,6 +29,7 @@ public interface IsElementWithId {
         if (!found) {
             throw new RuntimeException("No element to update with this id in collection");
         }
+        SavingAnEmergencyStop.addStringToFile(transformedId.toString());
         return transformedId;
     }
 

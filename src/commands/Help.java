@@ -29,7 +29,8 @@ public class Help implements Helpable,Command {
      */
     public static void help() {
         for (Helpable command : commands) {
-            DistributionOfTheOutputStream.println(String.join("_", command.getClass().getSimpleName().split("(?=[A-Z])")));
+            DistributionOfTheOutputStream.println(String.join("_",
+                    command.getClass().getSimpleName().split("(?=[A-Z])")));
             DistributionOfTheOutputStream.println("\t" + command.getHelp());
         }
     }

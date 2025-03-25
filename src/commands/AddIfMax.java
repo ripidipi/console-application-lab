@@ -20,17 +20,13 @@ public class AddIfMax implements Helpable, Command {
     /**
      * Adds a new study group if it is the maximum in the collection.
      */
-    public static void addStudyGroupIfMax(StudyGroup studyGroup) {
-        try {
+    private static void addStudyGroupIfMax(StudyGroup studyGroup) {
             if (studyGroup != null && isMax(studyGroup)) {
                 Collection.getInstance().addElement(studyGroup);
                 DistributionOfTheOutputStream.println("Study group added successfully.");
             } else {
                 DistributionOfTheOutputStream.println("The study group is not the maximum and was not added.");
             }
-        } catch (Exception e) {
-            Logging.log(Logging.makeMessage(e.getMessage(), e.getStackTrace()));
-        }
     }
 
     /**
@@ -39,10 +35,10 @@ public class AddIfMax implements Helpable, Command {
      * @param studyGroup The study group to compare.
      * @return {@code true} if the study group is the largest; {@code false} otherwise.
      */
-    static boolean isMax(StudyGroup studyGroup) {
+    private static boolean isMax(StudyGroup studyGroup) {
         TreeSet<StudyGroup> collection = Collection.getInstance().getCollection();
         if (collection.isEmpty()) {
-            return true; // If collection is empty, any element is the max.
+            return true;
         }
         StudyGroup maxStudyGroup = collection.last();
         return maxStudyGroup.compareTo(studyGroup) < 0;
@@ -50,7 +46,7 @@ public class AddIfMax implements Helpable, Command {
 
     @Override
     public void execute(String arg, String inputMode) {
-        try{
+        try {
             StudyGroup studyGroup;
             if (inputMode.equalsIgnoreCase("C")) {
                 Integer id = PrimitiveDataTransform.input("id", Integer.class);
@@ -66,9 +62,13 @@ public class AddIfMax implements Helpable, Command {
                 studyGroup = StudyGroupFabric.getStudyGroup(inputMode, inputSplit, false, true);
             }
             addStudyGroupIfMax(studyGroup);
+        } catch (InsufficientNumberOfArguments e) {
+            DistributionOfTheOutputStream.println(e.getMessage());
         } catch (RemoveOfTheNextSymbol e) {
             DistributionOfTheOutputStream.println(e.getMessage());
             Exit.exit();
+        } catch (Exception e) {
+            Logging.log(Logging.makeMessage(e.getMessage(), e.getStackTrace()));
         }
     }
 

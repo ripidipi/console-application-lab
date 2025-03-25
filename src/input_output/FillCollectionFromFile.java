@@ -15,8 +15,8 @@ public class FillCollectionFromFile {
      */
     public static void fillCollectionFromFile() {
         try {
-            // String fileName = System.getenv("CSV_FILE_NAME");
-            String fileName = ("data/collection.csv");
+            String fileName = System.getenv("CSV_FILE_NAME");
+            //String fileName = ("data/collection.csv");
             CommandsInput.inputFromFile(fileName, FillCollectionFromFile::adderForFill);
             SavingAnEmergencyStop.clearFile();
         } catch (Exception e) {

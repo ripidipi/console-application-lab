@@ -48,6 +48,7 @@ public class SavingAnEmergencyStop {
                     }
                     String[] values = line.split(",");
                     Commands command = Enum.valueOf(Commands.class, values[0].toUpperCase());
+                    DistributionOfTheOutputStream.println("Continue of work " + command.name());
                     command.execute(line, "M");
         } catch (Exception e) {
             Logging.log(Logging.makeMessage(e.getMessage(), e.getStackTrace()));

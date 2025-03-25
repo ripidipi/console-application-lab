@@ -19,25 +19,7 @@ import java.util.TreeSet;
  */
 public class Update implements Helpable, Command {
 
-    public static void update(StudyGroup studyGroup) {
-        try {
-            replacementInTheCollection(studyGroup);
-        } catch (RemoveOfTheNextSymbol e) {
-            DistributionOfTheOutputStream.println(e.getMessage());
-            Exit.exit();
-        } catch (RuntimeException e) {
-            DistributionOfTheOutputStream.println(e.getMessage());
-        } catch (Exception e) {
-            Logging.log(Logging.makeMessage(e.getMessage(), e.getStackTrace()));
-        }
-    }
-
-    /**
-     * Replaces an existing study group in the collection with a new one.
-     *
-     * @param studyGroup The updated study group.
-     */
-    static void replacementInTheCollection(StudyGroup studyGroup) {
+    private static void update(StudyGroup studyGroup) {
         TreeSet<StudyGroup> collection = Collection.getInstance().getCollection();
         for (StudyGroup sG : collection) {
             if (Objects.equals(sG.getId(), studyGroup.getId())) {
@@ -48,7 +30,6 @@ public class Update implements Helpable, Command {
         }
         DistributionOfTheOutputStream.println("Study group " + studyGroup.getId() + " is successfully updated");
     }
-
 
     @Override
     public void execute(String arg, String inputMode) {
@@ -68,9 +49,13 @@ public class Update implements Helpable, Command {
                 studyGroup = StudyGroupFabric.getStudyGroup(inputMode, inputSplit, false, true);
             }
             update(studyGroup);
-        } catch (RemoveOfTheNextSymbol e) {
+        }  catch (RemoveOfTheNextSymbol e) {
             DistributionOfTheOutputStream.println(e.getMessage());
             Exit.exit();
+        } catch (RuntimeException e) {
+            DistributionOfTheOutputStream.println(e.getMessage());
+        } catch (Exception e) {
+            Logging.log(Logging.makeMessage(e.getMessage(), e.getStackTrace()));
         }
     }
 

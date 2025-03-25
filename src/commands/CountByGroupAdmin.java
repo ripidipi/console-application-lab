@@ -21,33 +21,35 @@ public class CountByGroupAdmin implements Helpable, Command{
      * Counts the number of study groups where the user-specified person is the admin.
      */
     public static void countByGroupAdmin(Person person) {
+        TreeSet<StudyGroup> studyGroups = Collection.getInstance().getCollection();
+        int adminCounter = 0;
+        for (StudyGroup studyGroup : studyGroups) {
+            if (Objects.equals(studyGroup.getGroupAdmin(), person)) {
+                adminCounter++;
+            }
+        }
+        DistributionOfTheOutputStream.println("The person is an admin in " + adminCounter + " groups.");
+    }
+
+    @Override
+    public void execute(String arg, String inputMode) {
         try {
-            TreeSet<StudyGroup> studyGroups = Collection.getInstance().getCollection();
-            int adminCounter = 0;
-            for (StudyGroup studyGroup : studyGroups) {
-                if (Objects.equals(studyGroup.getGroupAdmin(), person)) {
-                    adminCounter++;
+            if (inputMode.equalsIgnoreCase("F")) {
+                String[] inputSplit = arg.split(" ");
+                if (inputSplit.length != 4) {
+                    throw new InsufficientNumberOfArguments("CountByGroupAdmin");
                 }
             }
-            DistributionOfTheOutputStream.println("The person is an admin in " + adminCounter + " groups.");
+            Person person = PersonFabric.getPerson(arg, inputMode);
+            countByGroupAdmin(person);
+        } catch (InsufficientNumberOfArguments e) {
+            DistributionOfTheOutputStream.println(e.getMessage());
         } catch (RemoveOfTheNextSymbol e) {
             DistributionOfTheOutputStream.println(e.getMessage());
             Exit.exit();
         } catch (Exception e) {
             Logging.log(Logging.makeMessage(e.getMessage(), e.getStackTrace()));
         }
-    }
-
-    @Override
-    public void execute(String arg, String inputMode) {
-        if (inputMode.equalsIgnoreCase("F")) {
-            String[] inputSplit = arg.split(" ");
-            if (inputSplit.length != 4) {
-                throw new InsufficientNumberOfArguments("CountByGroupAdmin");
-            }
-        }
-        Person person = PersonFabric.getPerson(arg, inputMode);
-        countByGroupAdmin(person);
     }
 
     @Override

@@ -19,12 +19,26 @@ public class Add implements Helpable, Command {
     /**
      * Adds a new study group based on user input.
      */
-    public static void addStudyGroup(StudyGroup studyGroup) {
-        try {
+    private static void addStudyGroup(StudyGroup studyGroup) {
+        Collection.getInstance().addElement(studyGroup);
+        if (studyGroup != null) {
             Collection.getInstance().addElement(studyGroup);
-            if (studyGroup != null) {
-                Collection.getInstance().addElement(studyGroup);
+        }
+    }
+
+    @Override
+    public void execute(String arg, String inputMode) {
+        try {
+            String[] inputSplit = arg.split(",");
+            if (inputMode.equalsIgnoreCase("F") &&
+                    Collection.formatStudyGroupToCSV(StudyGroup.getEmptyStudyGroup()).split(",").length
+                            != inputSplit.length) {
+                throw new InsufficientNumberOfArguments("Add");
             }
+            StudyGroup studyGroup = StudyGroupFabric.getStudyGroup(inputMode, inputSplit, false, false);
+            addStudyGroup(studyGroup);
+            if (!inputMode.equalsIgnoreCase("F") || ExecuteScript.getExecuteScriptMode())
+                DistributionOfTheOutputStream.println("Added successfully");
         } catch (InsufficientNumberOfArguments e) {
             DistributionOfTheOutputStream.println(e.getMessage());
         } catch (RemoveOfTheNextSymbol e) {
@@ -33,19 +47,7 @@ public class Add implements Helpable, Command {
         } catch (Exception e) {
             Logging.log(Logging.makeMessage(e.getMessage(), e.getStackTrace()));
         }
-    }
-
-    @Override
-    public void execute(String arg, String inputMode) {
-        String[] inputSplit = arg.split(",");
-        if (inputMode.equalsIgnoreCase("F") &&
-                Collection.formatStudyGroupToCSV(StudyGroup.getEmptyStudyGroup()).split(",").length
-                        != inputSplit.length) {
-            throw new InsufficientNumberOfArguments("Add");
-        }
-        StudyGroup studyGroup = StudyGroupFabric.getStudyGroup(inputMode, inputSplit, false, false);
-        addStudyGroup(studyGroup);
-    }
+}
 
 
 

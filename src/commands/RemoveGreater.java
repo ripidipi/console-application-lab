@@ -35,9 +35,13 @@ public class RemoveGreater implements Helpable, Command {
                 studyGroup = StudyGroupFabric.getStudyGroup(inputMode, inputSplit, false, true);
             }
             RemoveFromCollectionIs.remove(studyGroup, true);
+        } catch (InsufficientNumberOfArguments e) {
+            DistributionOfTheOutputStream.println(e.getMessage());
         } catch (RemoveOfTheNextSymbol e) {
             DistributionOfTheOutputStream.println(e.getMessage());
             Exit.exit();
+        } catch (Exception e) {
+            Logging.log(Logging.makeMessage(e.getMessage(), e.getStackTrace()));
         }
     }
 

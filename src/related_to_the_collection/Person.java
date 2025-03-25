@@ -111,7 +111,7 @@ public record Person(String name, LocalDateTime birthday, Double height, String 
                 PrimitiveDataTransform.inputFromFile("adminBirthday", inputSplit[index++], LocalDateTime.class,
                         false, false,
                         true, DateTimeFormatter.ofPattern("yyyy-MM-dd'T'HH:mm"), false) :
-                PrimitiveDataTransform.input("birthday data in format DD.MM.YYYY",
+                PrimitiveDataTransform.input("admin birthday data in format DD.MM.YYYY",
                 LocalDateTime.class, false, false,
                 true, DateTimeFormatter.ofPattern("dd.MM.yyyy"));
 
@@ -121,12 +121,12 @@ public record Person(String name, LocalDateTime birthday, Double height, String 
                         PrimitiveDataTransform.inputFromFile("adminHeight", inputSplit[index++],
                                 Double.class, false, true,
                                 false, null, false) :
-                PrimitiveDataTransform.input("height", Double.class, false,
+                PrimitiveDataTransform.input("admin height", Double.class, false,
                         true, false, null);
 
         String adminPassport = (index < inputSplit.length) ?
                 PrimitiveDataTransform.inputFromFile("adminPassportID", inputSplit[index++], String.class) :
-                PrimitiveDataTransform.input("passportID", String.class);
+                PrimitiveDataTransform.input("admin passportID", String.class);
         return new Person(adminName, birthday, height, adminPassport);
     }
 }

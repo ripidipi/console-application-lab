@@ -35,9 +35,13 @@ public class RemoveLower implements Helpable, Command {
                 studyGroup = StudyGroupFabric.getStudyGroup(inputMode, inputSplit, false, true);
             }
             RemoveFromCollectionIs.remove(studyGroup, false);
+        } catch (InsufficientNumberOfArguments e) {
+            DistributionOfTheOutputStream.println(e.getMessage());
         } catch (RemoveOfTheNextSymbol e) {
             DistributionOfTheOutputStream.println(e.getMessage());
             Exit.exit();
+        } catch (Exception e) {
+            Logging.log(Logging.makeMessage(e.getMessage(), e.getStackTrace()));
         }
     }
 

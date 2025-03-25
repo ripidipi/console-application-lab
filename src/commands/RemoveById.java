@@ -19,7 +19,7 @@ public class RemoveById implements Helpable, Command {
      *
      * @param idInput The ID of the study group to remove.
      */
-    public static void removeById(String idInput) {
+    private static void removeById(String idInput) {
         try {
             int id = IsElementWithId.validateId(idInput);
             TreeSet<StudyGroup> collection = Collection.getInstance().getCollection();

@@ -14,7 +14,7 @@ public class Show implements Helpable, Command {
     /**
      * Displays all study groups in the collection.
      */
-    public static void show() {
+    private static void show() {
         TreeSet<StudyGroup> collection = Collection.getInstance().getCollection();
 
         if (collection.isEmpty()) {

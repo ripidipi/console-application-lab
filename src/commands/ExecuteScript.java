@@ -54,6 +54,10 @@ public class ExecuteScript implements Helpable, Command {
         return executeScriptMode;
     }
 
+    public static void setExecuteScriptMode(boolean mode) {
+        executeScriptMode = mode;
+    }
+
     @Override
     public void execute(String arg, String inputMode) {
         executeScript(arg);

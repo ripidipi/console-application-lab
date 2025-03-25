@@ -1,8 +1,10 @@
 package related_to_the_collection;
 
+import exceptions.RemoveOfTheNextSymbol;
+
 public interface PersonFabric {
 
-    static Person getPerson(String input, String inputMode) {
+    static Person getPerson(String input, String inputMode) throws RemoveOfTheNextSymbol {
         String[] inputSplit = input.split(",");
         if (inputMode.equalsIgnoreCase("M")) {
             return Person.inputMixed(inputSplit);

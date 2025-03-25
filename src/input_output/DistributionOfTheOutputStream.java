@@ -10,9 +10,14 @@ import java.nio.charset.StandardCharsets;
 public interface DistributionOfTheOutputStream {
 
     static void clear() {
-        File file = new File("data/output.txt");
-        if(file.exists())
-            file.delete();
+        try {
+            File file = new File("data/output.txt");
+            if (file.exists())
+                file.delete();
+        } catch (Exception e) {
+            System.out.println("Output to file error");
+            ExecuteScript.setExecuteScriptMode(false);
+        }
     }
 
     static void println(String message) {
@@ -24,7 +29,7 @@ public interface DistributionOfTheOutputStream {
 
     static void print(String message) {
         if (ExecuteScript.getExecuteScriptMode()) {
-            printlnToFile(message);
+            printToFile(message);
         } else
             System.out.print(message);
     }
@@ -37,6 +42,18 @@ public interface DistributionOfTheOutputStream {
             writer.write(System.lineSeparator());
         } catch (Exception e) {
             System.out.println("Output to file error");
+            ExecuteScript.setExecuteScriptMode(false);
+        }
+    }
+
+    static void printToFile(String message) {
+        String fileName = "data/output.txt";
+        try (OutputStreamWriter writer = new OutputStreamWriter(
+                new FileOutputStream(fileName, true), StandardCharsets.UTF_8)) {
+            writer.write(message);
+        } catch (Exception e) {
+            System.out.println("Output to file error");
+            ExecuteScript.setExecuteScriptMode(false);
         }
     }
 }

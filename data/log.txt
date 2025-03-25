@@ -1,1 +1,8 @@
 Logging Initialized
+[ERROR] Connection to environment path failed null. Please try again.
+[input_output.CommandsInput.inputFromFile(CommandsInput.java:99)
+, input_output.FillCollectionFromFile.fillCollectionFromFile(FillCollectionFromFile.java:20)
+, Main.initializeApplication(Main.java:41)
+, Main.main(Main.java:14)
+]
+

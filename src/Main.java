@@ -54,6 +54,7 @@ public class Main {
             System.out.print("Enter the command: ");
             CommandsInput.inputFromConsole();
         }
+
     }
 
     private static void runPreviousSession() {

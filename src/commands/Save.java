@@ -8,17 +8,11 @@ import related_to_the_collection.Collection;
  */
 public class Save implements Helpable, Command {
 
-    /**
-     * Saves the collection data to a file.
-     */
-    public static void save() {
-        DistributionOfTheOutputStream.println("Saving...");
-        Collection.output();
-    }
-
     @Override
     public void execute(String arg, String inputMode) {
-        save();
+        DistributionOfTheOutputStream.println("Saving...");
+        Collection.output();
+        DistributionOfTheOutputStream.println("Save finished");
     }
 
     @Override

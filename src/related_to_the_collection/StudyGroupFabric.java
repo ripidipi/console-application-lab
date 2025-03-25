@@ -1,10 +1,13 @@
 package related_to_the_collection;
 
+import exceptions.RemoveOfTheNextSymbol;
+
 import java.util.Objects;
 
 public interface StudyGroupFabric {
 
-    static StudyGroup getStudyGroup(String inputMode, String[] input, boolean notAdd, boolean isId) {
+    static StudyGroup getStudyGroup(String inputMode, String[] input, boolean notAdd, boolean isId)
+            throws RemoveOfTheNextSymbol {
         if (inputMode.equalsIgnoreCase("M")) {
             return StudyGroup.inputMixed(input, notAdd, isId);
         } else if (inputMode.equalsIgnoreCase("F")) {

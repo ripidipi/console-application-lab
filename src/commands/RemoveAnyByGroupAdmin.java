@@ -39,13 +39,15 @@ public class RemoveAnyByGroupAdmin implements Helpable, Command{
     public void execute(String arg, String inputMode) {
         try {
             if (inputMode.equalsIgnoreCase("F")) {
-                String[] inputSplit = arg.split(" ");
+                String[] inputSplit = arg.split(",");
                 if (inputSplit.length != 4) {
                     throw new InsufficientNumberOfArguments("CountByGroupAdmin");
                 }
             }
             Person person = PersonFabric.getPerson(arg, inputMode);
             removeGroupByAdmin(person);
+        } catch (InsufficientNumberOfArguments e) {
+            DistributionOfTheOutputStream.println(e.getMessage());
         } catch (RemoveOfTheNextSymbol e) {
             DistributionOfTheOutputStream.println(e.getMessage());
             Exit.exit();
