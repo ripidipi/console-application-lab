@@ -13,13 +13,15 @@ import java.util.ArrayList;
 import java.util.TreeSet;
 
 /**
- * Command that removes study groups lower than a given one from the collection from console.
+ * Command that removes study groups lower than a given one from the collection.
+ * This command removes all study groups in the collection that have lower values than
+ * the specified study group based on comparison logic defined in the class.
  */
 public class RemoveLower implements Helpable, Command {
 
     @Override
     public void execute(String arg, String inputMode) {
-        try{
+        try {
             StudyGroup studyGroup;
             if (inputMode.equalsIgnoreCase("C")) {
                 Integer id = PrimitiveDataTransform.input("id", Integer.class);
@@ -47,6 +49,6 @@ public class RemoveLower implements Helpable, Command {
 
     @Override
     public String getHelp() {
-        return "Removes all study groups lower than the specified one.";
+        return "Removes all study groups from the collection that are lower than the specified study group.";
     }
 }

@@ -16,11 +16,27 @@ import java.util.Scanner;
 
 /**
  * A utility class for reading and transforming basic data types from user input or file.
+ * This class handles the conversion of various input types, such as numbers and dates, with validation for empty input,
+ * zero values, and future dates, and also provides file input handling.
  */
 public class PrimitiveDataTransform {
 
     private static final Scanner scanner = new Scanner(System.in);
 
+    /**
+     * Assists in reading and transforming user input into the required data type.
+     * Validates input for empty lines, zero values, and future dates based on the provided checks.
+     *
+     * @param name                The name of the expected input.
+     * @param type                The expected data type.
+     * @param emptyLineCheck      Whether to check for empty input.
+     * @param zeroValueCheck      Whether to check for zero or negative values.
+     * @param dateInTheFutureCheck Whether to check if a date is in the future.
+     * @param formatter           The formatter to use for date parsing.
+     * @param <T>                 The type of the expected data.
+     * @return The transformed user input.
+     * @throws RemoveOfTheNextSymbol if there is an issue with the input.
+     */
     private static  <T> T inputAssistent(String name, Class<T> type, Boolean emptyLineCheck,
                                          Boolean zeroValueCheck,
                                          Boolean dateInTheFutureCheck,
@@ -37,7 +53,8 @@ public class PrimitiveDataTransform {
     }
 
     /**
-     * Reads and transforms user input into a specified data type.
+     * Reads and transforms user input into a specified data type with validation for empty lines, zero values,
+     * and future dates.
      *
      * @param name                The name of the expected input.
      * @param type                The expected data type.
@@ -57,11 +74,11 @@ public class PrimitiveDataTransform {
                 zeroValueCheck, dateInTheFutureCheck, formatter);
         SavingAnEmergencyStop.addStringToFile(result == null ? " " : result.toString());
         return result;
-
     }
 
     /**
-     * Reads and transforms user input with default validation settings.
+     * Reads and transforms user input with default validation settings for empty lines, zero values,
+     * and future dates.
      *
      * @param name The name of the expected input.
      * @param type The expected data type.
@@ -71,15 +88,16 @@ public class PrimitiveDataTransform {
      * @throws ZeroValue        If input is a non-positive number.
      * @throws DataInTheFuture  If input is a future date.
      */
-    public static <T> T input(String name, Class<T> type) throws RemoveOfTheNextSymbol{
+    public static <T> T input(String name, Class<T> type) throws RemoveOfTheNextSymbol {
         T result = inputAssistent(name, type, true, true, true,
-                 DateTimeFormatter.ofPattern("dd/MM/yyyy HH:mm:ss"));
+                DateTimeFormatter.ofPattern("dd/MM/yyyy HH:mm:ss"));
         SavingAnEmergencyStop.addStringToFile(result == null ? " " : result.toString());
         return result;
     }
 
     /**
-     * Transforms an input string from a file into a specified data type.
+     * Transforms an input string from a file into a specified data type with validation for empty lines,
+     * zero values, and future dates.
      *
      * @param name The name of the expected input.
      * @param input The input string to transform.
@@ -94,7 +112,6 @@ public class PrimitiveDataTransform {
         return transformToRequiredType(name, type, true, true, true,
                 (Objects.equals(input, " ") ? "" : input),
                 true, DateTimeFormatter.ofPattern("dd/MM/yyyy HH:mm:ss"), false);
-
     }
 
     /**
@@ -124,10 +141,11 @@ public class PrimitiveDataTransform {
 
     /**
      * Parses a date-time string using a specified formatter.
+     * Attempts to parse the input first as a `LocalDateTime`, and if that fails, as a `LocalDate`.
      *
      * @param input The input string to parse.
      * @param formatter The formatter to use.
-     * @return The parsed LocalDateTime.
+     * @return The parsed `LocalDateTime`.
      */
     private static LocalDateTime applyFormatter(String input, DateTimeFormatter formatter) {
         try {
@@ -142,8 +160,8 @@ public class PrimitiveDataTransform {
     }
 
     /**
-     * Transforms an input string into a specified data type.
-     * Supported types - Integer, Double, Long, Float, String, LocalDateTime
+     * Transforms an input string into a specified data type with validation for empty lines, zero values,
+     * and future dates.
      *
      * @param name The name of the expected input.
      * @param type The expected data type.
@@ -164,7 +182,7 @@ public class PrimitiveDataTransform {
                                                 Boolean zeroValueCheck,
                                                 Boolean dateInTheFutureCheck, String input, Boolean fileMode,
                                                 DateTimeFormatter formatter, Boolean muteMode)
-                                                throws EmptyLine, ZeroValue, DataInTheFuture {
+            throws EmptyLine, ZeroValue, DataInTheFuture {
         try {
             dataValidator(input, name, type, formatter, emptyLineCheck, zeroValueCheck, dateInTheFutureCheck);
             return type.cast(dataParser(input, name, type, formatter));
@@ -184,8 +202,8 @@ public class PrimitiveDataTransform {
     }
 
     private static <T> void dataValidator(String input, String name, Class<T> type, DateTimeFormatter formatter,
-                                             Boolean emptyLineCheck, Boolean zeroValueCheck, Boolean dateInTheFutureCheck
-                                            ) throws EmptyLine, ZeroValue, DataInTheFuture, IncorrectValue {
+                                          Boolean emptyLineCheck, Boolean zeroValueCheck, Boolean dateInTheFutureCheck
+    ) throws EmptyLine, ZeroValue, DataInTheFuture, IncorrectValue {
         if (emptyLineCheck && input.isBlank())
             throw new EmptyLine(name);
         if (Number.class.isAssignableFrom(type)) {
@@ -202,7 +220,7 @@ public class PrimitiveDataTransform {
     }
 
     private static <T> T dataParser(String input, String name, Class<T> type, DateTimeFormatter formatter)
-                                    throws NumberFormatException, IncorrectValue {
+            throws NumberFormatException, IncorrectValue {
         if (input.isBlank())
             return type.cast(null);
         if (type == String.class) {

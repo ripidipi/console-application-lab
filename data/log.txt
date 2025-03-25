@@ -1,8 +1,17 @@
 Logging Initialized
-[ERROR] Connection to environment path failed null. Please try again.
-[input_output.CommandsInput.inputFromFile(CommandsInput.java:99)
-, input_output.FillCollectionFromFile.fillCollectionFromFile(FillCollectionFromFile.java:20)
-, Main.initializeApplication(Main.java:41)
-, Main.main(Main.java:14)
+[ERROR] Cannot read field "id" because "other" is null
+[related_to_the_collection.StudyGroup.compareTo(StudyGroup.java:94)
+, commands.RemoveFromCollectionIs.remove(RemoveFromCollectionIs.java:28)
+, commands.RemoveGreater.execute(RemoveGreater.java:39)
+, commands.Commands.execute(Commands.java:76)
+, input_output.CommandsInput.isCommand(CommandsInput.java:53)
+, input_output.CommandsInput.inputFromFile(CommandsInput.java:118)
+, commands.ExecuteScript.executeScript(ExecuteScript.java:39)
+, commands.ExecuteScript.execute(ExecuteScript.java:72)
+, commands.Commands.execute(Commands.java:76)
+, input_output.CommandsInput.isCommand(CommandsInput.java:53)
+, input_output.CommandsInput.inputFromConsole(CommandsInput.java:83)
+, Main.runCommandLoop(Main.java:55)
+, Main.main(Main.java:15)
 ]
 

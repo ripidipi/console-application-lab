@@ -1,0 +1,32 @@
+Starting script execution: commands.csv
+Added successfully
+Added successfully
+51028,holydgh,8888,19.001,123,DISTANCE_EDUCATION,THIRD,Goliaph,01/01/2000,151.0,Pupupu arguments are incorrect run command failed.
+Added successfully
+Added successfully
+Invalid input. Try again
+12/12/122 invalid argument for command
+53928,goossdTut,170d3,17.03,1298,EVENING_CLASSES,FOURTH,Andre,12/12/122,180.0,GOOOLLLL777 arguments are incorrect run command failed.
+Added successfully
+12/13/1212 invalid argument for command
+53928,goossdTut,1703,17.03,1298,EVENING_CLASSES,FOURTH,Andre,12/13/1212,180.0,GOOOLLLL777 arguments are incorrect run command failed.
+Added successfully
+ command doesn't exist.
+There are 4 groups.
+In ID range 1-14620 - 4 elements.
+In ID range 14620-284620 - 4 elements.
+In ID range 284620-865432 - 4 elements.
+In ID range 865432-8678755 - 1 elements.
+
+TreeSet 25.03.2025 19:08:11 13
+Study group added successfully.
+5398,goossdTut,1703,17.03,1298,EVENING_CLASSES,FOURTH,Andre,12/12/1212,180.0,GOOOLLLL777 arguments are incorrect run command failed.
+ command doesn't exist.
+TreeSet 25.03.2025 19:08:11 14
+The person is an admin in 2 groups.
+TreeSet 25.03.2025 19:08:11 13
+ command doesn't exist.
+Starting script execution: Commands.csv
+Running Infinite recursion detected with file: Commands.csv got into an infinite recursion, fix it and try again.
+
+

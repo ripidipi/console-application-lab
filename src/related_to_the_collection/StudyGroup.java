@@ -284,7 +284,7 @@ public class StudyGroup implements Comparable<StudyGroup> {
             return rightInisilizeStudyGroup(inputSplit, notAdded, id, name, coordinates, studentCount,
                     formOfEducation, semester, groupAdmin);
         } catch (CommandDataFromTheFileIsIncorrect e) {
-            // file out
+            DistributionOfTheOutputStream.println(e.getMessage());
         } catch (Exception e) {
             Logging.log(Logging.makeMessage(e.getMessage(), e.getStackTrace()));
         }

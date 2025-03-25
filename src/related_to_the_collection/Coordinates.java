@@ -17,7 +17,7 @@ public record Coordinates(Long x, Float y) {
      * Returns a string representation of the Coordinates object.
      * It includes the x and y coordinates in a readable format.
      *
-     * @return a string representation of the Coordinates object.
+     * @return a string representation of the Coordinates object, displaying the x and y coordinates.
      */
     @Override
     public String toString() {
@@ -48,6 +48,7 @@ public record Coordinates(Long x, Float y) {
 
     /**
      * Checks if the coordinates are correctly filled (not null).
+     * Validates that both x and y coordinates are provided.
      *
      * @param coordinates the Coordinates object to check.
      * @return true if the coordinates are not null, false otherwise.
@@ -58,9 +59,10 @@ public record Coordinates(Long x, Float y) {
 
     /**
      * Prompts the user to input the coordinates (x and y).
-     * Uses the {@link PrimitiveDataTransform} to read and validate the input.
+     * Uses the {@link PrimitiveDataTransform} class to read and validate the input.
      *
      * @return a new Coordinates object with the user-input values.
+     * @throws RemoveOfTheNextSymbol if the input contains invalid or unexpected symbols.
      * @throws EmptyLine if the input is empty and not allowed.
      */
     public static Coordinates input() throws RemoveOfTheNextSymbol {
@@ -82,8 +84,8 @@ public record Coordinates(Long x, Float y) {
      */
     public static Coordinates inputFromFile(String x, String y) {
         return new Coordinates(PrimitiveDataTransform.inputFromFile("CoordinateX", x, Long.class,
-                    false, false, false, null, false),
-                    PrimitiveDataTransform.inputFromFile("CoordinateY", y, Float.class, false,
-                            false, false, null, false));
+                false, false, false, null, false),
+                PrimitiveDataTransform.inputFromFile("CoordinateY", y, Float.class, false,
+                        false, false, null, false));
     }
 }

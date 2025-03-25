@@ -7,16 +7,26 @@ import java.util.Collections;
 
 /**
  * Command that provides information about available commands.
+ * This class is used to retrieve and display help information for all available commands in the system.
  */
-public class Help implements Helpable,Command {
+public class Help implements Helpable, Command {
 
     private static ArrayList<Helpable> commands;
     private static Help instance;
 
+    /**
+     * Private constructor to initialize the list of commands.
+     */
     Help() {
         commands = new ArrayList<>();
     }
 
+    /**
+     * Returns the singleton instance of the Help class.
+     * If the instance is not yet created, it initializes a new instance.
+     *
+     * @return The singleton instance of the Help class.
+     */
     public static Help getInstance() {
         if (instance == null) {
             instance = new Help();
@@ -26,6 +36,7 @@ public class Help implements Helpable,Command {
 
     /**
      * Displays information about all available commands.
+     * Each command's name and description are printed to the output stream.
      */
     public static void help() {
         for (Helpable command : commands) {
@@ -37,6 +48,7 @@ public class Help implements Helpable,Command {
 
     /**
      * Adds commands to the list of supported commands.
+     * The commands added will be available to display in the help section.
      *
      * @param commandArgs array of supporting commands.
      */

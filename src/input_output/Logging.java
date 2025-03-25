@@ -8,6 +8,7 @@ import java.util.Arrays;
 
 /**
  * Logging utility class for handling log messages.
+ * This class provides methods to initialize, log, and create error messages in a log file.
  */
 public class Logging {
 
@@ -19,6 +20,8 @@ public class Logging {
 
     /**
      * Initializes the log file by deleting any existing file and writing an initialization message.
+     * This method will overwrite the existing log file if it already exists.
+     * If there is an error during initialization, it will be caught and printed as a message.
      */
     public static void initialize() {
         File file = new File(fileName);
@@ -36,8 +39,9 @@ public class Logging {
 
     /**
      * Logs a message to the log file.
+     * If the log file does not exist, it will be initialized.
      *
-     * @param message  The message to be logged.
+     * @param message The message to be logged.
      */
     public static void log(String message) {
 
@@ -58,9 +62,10 @@ public class Logging {
 
     /**
      * Creates an error message from a given stack trace.
+     * This method formats the stack trace and combines it with an error message string.
      *
      * @param stackTraceElements The stack trace elements to be included in the error message.
-     * @return A formatted error message string.
+     * @return A formatted error message string containing the error message and stack trace.
      */
     public static String makeMessage(String errorMessage, StackTraceElement[] stackTraceElements) {
         String[] strings = new String[stackTraceElements.length];

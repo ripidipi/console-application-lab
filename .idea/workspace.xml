@@ -36,7 +36,7 @@
   </component>
   <component name="PropertiesComponent"><![CDATA[{
   "keyToString": {
-    "Application.Main.executor": "Debug",
+    "Application.Main.executor": "Run",
     "Application.Unnamed.executor": "Run",
     "RunOnceActivity.ShowReadmeOnStart": "true",
     "RunOnceActivity.git.unshallow": "true",
@@ -103,7 +103,7 @@
       <workItem from="1742129144394" duration="2457000" />
       <workItem from="1742198194007" duration="7447000" />
       <workItem from="1742281224964" duration="9695000" />
-      <workItem from="1742323412499" duration="66003000" />
+      <workItem from="1742323412499" duration="73876000" />
     </task>
     <servers />
   </component>
@@ -135,21 +135,12 @@
         </line-breakpoint>
         <line-breakpoint enabled="true" type="java-method">
           <url>file://$PROJECT_DIR$/src/input_output/SavingAnEmergencyStop.java</url>
-          <line>39</line>
+          <line>56</line>
           <properties class="input_output.SavingAnEmergencyStop" method="recapCommandFromFile">
             <option name="EMULATED" value="true" />
             <option name="WATCH_EXIT" value="false" />
           </properties>
           <option name="timeStamp" value="25" />
-        </line-breakpoint>
-        <line-breakpoint enabled="true" type="java-method">
-          <url>file://$PROJECT_DIR$/src/input_output/EnumInput.java</url>
-          <line>40</line>
-          <properties class="input_output.EnumInput" method="inputFromConsole">
-            <option name="EMULATED" value="true" />
-            <option name="WATCH_EXIT" value="false" />
-          </properties>
-          <option name="timeStamp" value="28" />
         </line-breakpoint>
         <line-breakpoint enabled="true" type="java-method">
           <url>file://$PROJECT_DIR$/src/related_to_the_collection/StudyGroup.java</url>
@@ -162,7 +153,7 @@
         </line-breakpoint>
         <line-breakpoint enabled="true" type="java-method">
           <url>file://$PROJECT_DIR$/src/input_output/PrimitiveDataTransform.java</url>
-          <line>73</line>
+          <line>90</line>
           <properties class="input_output.PrimitiveDataTransform" method="input">
             <option name="EMULATED" value="true" />
             <option name="WATCH_EXIT" value="false" />
@@ -171,7 +162,7 @@
         </line-breakpoint>
         <line-breakpoint enabled="true" type="java-method">
           <url>file://$PROJECT_DIR$/src/input_output/PrimitiveDataTransform.java</url>
-          <line>53</line>
+          <line>70</line>
           <properties class="input_output.PrimitiveDataTransform" method="input">
             <option name="EMULATED" value="true" />
             <option name="WATCH_EXIT" value="false" />
@@ -180,21 +171,21 @@
         </line-breakpoint>
         <line-breakpoint enabled="true" type="java-method">
           <url>file://$PROJECT_DIR$/src/related_to_the_collection/Person.java</url>
-          <line>97</line>
-          <properties class="related_to_the_collection.Person" method="inputMixed">
-            <option name="EMULATED" value="true" />
-            <option name="WATCH_EXIT" value="false" />
-          </properties>
-          <option name="timeStamp" value="35" />
-        </line-breakpoint>
-        <line-breakpoint enabled="true" type="java-method">
-          <url>file://$PROJECT_DIR$/src/related_to_the_collection/Person.java</url>
-          <line>104</line>
+          <line>124</line>
           <properties class="related_to_the_collection.Person" method="PersonMixedInput">
             <option name="EMULATED" value="true" />
             <option name="WATCH_EXIT" value="false" />
           </properties>
           <option name="timeStamp" value="36" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" type="java-method">
+          <url>file://$PROJECT_DIR$/src/commands/CountByGroupAdmin.java</url>
+          <line>34</line>
+          <properties class="commands.CountByGroupAdmin" method="execute">
+            <option name="EMULATED" value="true" />
+            <option name="WATCH_EXIT" value="false" />
+          </properties>
+          <option name="timeStamp" value="37" />
         </line-breakpoint>
       </breakpoints>
     </breakpoint-manager>

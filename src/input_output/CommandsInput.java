@@ -13,12 +13,13 @@ import java.util.function.BiFunction;
 import java.util.function.Function;
 
 /**
- * Handles command input from the console or a file.
+ * This class handles command input either from the console or from a file.
+ * It processes the commands, checks their validity, and executes them accordingly.
  */
 public class CommandsInput {
 
     /**
-     * Checks if a given string can be converted to an enum value of {@link Commands}.
+     * Checks if a given string can be converted to a valid {@link Commands} enum value.
      *
      * @param s the string to check
      * @return true if the string corresponds to a valid command, false otherwise
@@ -37,13 +38,15 @@ public class CommandsInput {
 
     /**
      * Processes and executes a command if it is valid.
+     * If the command requires arguments, they are passed and executed accordingly.
      *
      * @param inputSplit an array containing the command and its arguments
+     * @param inputMode  the mode of input (e.g., console or file)
      * @return null
      */
     public static Void isCommand(String[] inputSplit, String inputMode) {
         try {
-            if (inputSplit.length!=0 && convertToEnum(inputSplit[0])) {
+            if (inputSplit.length != 0 && convertToEnum(inputSplit[0])) {
                 Commands command = Enum.valueOf(Commands.class, inputSplit[0].toUpperCase());
                 SavingAnEmergencyStop.addStringToFile(command.name());
                 if (inputSplit.length >= 2) {
@@ -65,6 +68,7 @@ public class CommandsInput {
 
     /**
      * Reads and processes command input from the console.
+     * If a valid command is entered, it is executed accordingly.
      */
     public static void inputFromConsole() {
         try {
@@ -89,6 +93,7 @@ public class CommandsInput {
 
     /**
      * Reads and processes command input from a file.
+     * Each line of the file is parsed, and commands are executed based on the content.
      *
      * @param filePath the path to the input file
      * @param handler  a function to process each line of input

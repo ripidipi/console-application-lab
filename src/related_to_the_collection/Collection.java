@@ -13,6 +13,8 @@ import java.util.TreeSet;
 
 /**
  * Singleton class managing a collection of study groups.
+ * This class ensures that only one instance of the collection exists
+ * and provides methods to manipulate, retrieve, and save the collection.
  */
 public class Collection {
 
@@ -20,14 +22,18 @@ public class Collection {
     private final LocalDateTime date;
     private static Collection instance;
 
+    /**
+     * Private constructor to initialize the collection and set the creation date.
+     */
     private Collection() {
         date = LocalDateTime.now();
     }
 
     /**
      * Returns the singleton instance of the collection.
+     * If the instance does not exist, it is created.
      *
-     * @return the singleton instance
+     * @return the singleton instance of the collection
      */
     public static Collection getInstance() {
         if (instance == null) {
@@ -37,9 +43,9 @@ public class Collection {
     }
 
     /**
-     * Returns the info about the collection including size and the creation date.
+     * Returns information about the collection, including its size and creation date.
      *
-     * @return the collection info
+     * @return a string with collection info (creation date and size)
      */
     public String getInfo() {
         DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd.MM.yyyy HH:mm:ss");
@@ -47,17 +53,16 @@ public class Collection {
     }
 
     /**
-     * Clears the collection.
+     * Clears all elements from the collection.
      */
     public void clearCollection() {
         collection.clear();
-
     }
 
     /**
-     * Removes an element from the collection.
+     * Removes a specific study group from the collection.
      *
-     * @param studyGroup the study group to remove
+     * @param studyGroup the study group to remove from the collection
      */
     public void removeElement(StudyGroup studyGroup) {
         collection.remove(studyGroup);
@@ -66,14 +71,14 @@ public class Collection {
     /**
      * Returns the collection of study groups.
      *
-     * @return the collection
+     * @return the collection of study groups
      */
     public TreeSet<StudyGroup> getCollection() {
         return collection;
     }
 
     /**
-     * Adds a new element to the collection.
+     * Adds a new study group to the collection.
      *
      * @param studyGroup the study group to add
      */
@@ -82,7 +87,8 @@ public class Collection {
     }
 
     /**
-     * Saves the collection to a CSV file.
+     * Saves the collection of study groups to a CSV file named "collection.csv".
+     * If the file exists, it is overwritten.
      */
     public static void output() {
         TreeSet<StudyGroup> collection = Collection.getInstance().getCollection();
@@ -107,10 +113,11 @@ public class Collection {
     }
 
     /**
-     * Formats the StudyGroup object into a CSV string.
+     * Formats a StudyGroup object into a CSV string representation.
+     * This string is formatted to match the required CSV structure for study group details.
      *
      * @param studyGroup the study group to format
-     * @return the formatted CSV string
+     * @return the formatted CSV string of the study group
      */
     public static String formatStudyGroupToCSV(StudyGroup studyGroup) {
         return studyGroup.getId().toString() + "," + studyGroup.getName() + "," +

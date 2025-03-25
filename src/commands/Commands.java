@@ -1,107 +1,76 @@
 package commands;
 
 /**
- * Enum representing available commands in the system.
+ * Enum representing the available commands in the system.
  * Each command corresponds to a specific action that can be executed.
- * The commands are either parameterless (using Runnable) or require arguments (using Consumer&lt;String&gt;).
  */
 public enum Commands {
-    /**
-     * Add a new study group to the collection.
-     */
-    ADD(new Add()),
-
-    /**
-     * Print information about the collection (type, initialization date, number of elements).
-     */
-    INFO(new Info()),
-
-    /**
-     * Print help information about available commands.
-     */
+    /** help : display help information about available commands */
     HELP(Help.getInstance()),
 
-    /**
-     * Show all the study groups in the collection.
-     */
+    /** info : display information about the collection (type, initialization date, number of elements, etc.) */
+    INFO(new Info()),
+
+    /** show : display all elements of the collection in string representation */
     SHOW(new Show()),
 
-    /**
-     * Clear the entire collection of study groups.
-     */
-    CLEAR(new Clear()),
+    /** add {element} : add a new element to the collection */
+    ADD(new Add()),
 
-    /**
-     * Update an existing study group in the collection by ID.
-     */
+    /** update id {element} : update the value of a collection element whose ID matches the given one */
     UPDATE(new Update()),
 
-    /**
-     * Exit the program.
-     */
-    EXIT(new Exit()),
-
-    /**
-     * Save the current state of the collection to a file.
-     */
-    SAVE(new Save()),
-
-    /**
-     * Remove a study group from the collection by its ID.
-     */
+    /** remove_by_id id : remove an element from the collection by its ID */
     REMOVE_BY_ID(new RemoveById()),
 
-    /**
-     * Execute a script.
+    /** clear : clear the collection */
+    CLEAR(new Clear()),
+
+    /** save : save the collection to a file */
+    SAVE(new Save()),
+
+    /** execute_script file_name : read and execute a script from the specified file.
+     * The script contains commands in the same format as they are entered by the user in interactive mode.
      */
     EXECUTE_SCRIPT(new ExecuteScript()),
 
-    /**
-     * Add a study group if its ID is greater than the maximum ID in the collection.
-     */
+    /** exit : terminate the program (without saving to a file) */
+    EXIT(new Exit()),
+
+    /** add_if_max {element} : add a new element to the collection if its value exceeds the value of the largest element in the collection */
     ADD_IF_MAX(new AddIfMax()),
 
-    /**
-     * Remove study groups greater than a specified one.
-     */
+    /** remove_greater {element} : remove all elements from the collection that exceed the specified one */
     REMOVE_GREATER(new RemoveGreater()),
 
-    /**
-     * Remove study groups lower than a specified one.
-     */
+    /** remove_lower {element} : remove all elements from the collection that are smaller than the specified one */
     REMOVE_LOWER(new RemoveLower()),
 
-    /**
-     * Count the number of study groups managed by a specific group admin.
-     */
-    COUNT_BY_GROUP_ADMIN(new CountByGroupAdmin()),
-
-    /**
-     * Remove a study group managed by a specific group admin.
-     */
+    /** remove_any_by_group_admin groupAdmin : remove a single element from the collection whose groupAdmin field value is equivalent to the given one */
     REMOVE_ANY_BY_GROUP_ADMIN(new RemoveAnyByGroupAdmin()),
 
-    /**
-     * Group the study groups by ID and display the result.
-     */
-    GROUP_COUNTING_BY_ID(new GroupCountingById());
+    /** group_counting_by_id : group the elements of the collection by the ID field and display the number of elements in each group */
+    GROUP_COUNTING_BY_ID(new GroupCountingById()),
+
+    /** count_by_group_admin groupAdmin : display the number of elements whose groupAdmin field value matches the given one */
+    COUNT_BY_GROUP_ADMIN(new CountByGroupAdmin());
 
     private final Command command;
 
     /**
-     * Constructor for commands .
+     * Constructor for a command.
      *
-     * @param command Command .
+     * @param command the command to be executed
      */
     Commands(Command command) {
         this.command = command;
     }
 
     /**
-     * Executes the command with the provided argument.
-     * If the command does not accept arguments, it does nothing.
+     * Executes the command with the provided argument and input mode.
      *
-     * @param arg The argument to pass to the command.
+     * @param arg       the argument to pass to the command
+     * @param inputMode the mode in which the input is provided (e.g., console or file)
      */
     public void execute(String arg, String inputMode) {
         command.execute(arg, inputMode);

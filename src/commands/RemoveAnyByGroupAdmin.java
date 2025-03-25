@@ -15,8 +15,9 @@ import java.util.TreeSet;
 
 /**
  * Command that removes a study group by its group admin from console.
+ * This command removes the first study group whose group admin matches the provided person.
  */
-public class RemoveAnyByGroupAdmin implements Helpable, Command{
+public class RemoveAnyByGroupAdmin implements Helpable, Command {
 
     /**
      * Removes the first study group with the given group admin from the collection.

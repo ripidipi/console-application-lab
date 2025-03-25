@@ -19,6 +19,7 @@ public record Person(String name, LocalDateTime birthday, Double height, String 
 
     /**
      * Formats and returns the birthday of the group admin as a string.
+     *
      * @return the formatted birthday string in "dd/MM/yyyy" format.
      */
     public String getBirthdayString() {
@@ -27,6 +28,7 @@ public record Person(String name, LocalDateTime birthday, Double height, String 
 
     /**
      * Converts the person object to a readable string format.
+     *
      * @return a string representation of the group admin's details.
      */
     @Override
@@ -40,6 +42,7 @@ public record Person(String name, LocalDateTime birthday, Double height, String 
 
     /**
      * Checks if the person object is fully initialized (non-null values for name, birthday, and passportID).
+     *
      * @param person the person object to check.
      * @return true if all required fields are filled; false otherwise.
      */
@@ -52,6 +55,7 @@ public record Person(String name, LocalDateTime birthday, Double height, String 
 
     /**
      * Converts the height to a string, handling null values.
+     *
      * @return the height as a string or an empty string if null.
      */
     public String heightToString() {
@@ -60,7 +64,9 @@ public record Person(String name, LocalDateTime birthday, Double height, String 
 
     /**
      * Input manager for creating a Person object (group admin) from user input.
+     *
      * @return a Person object created from user input.
+     * @throws RemoveOfTheNextSymbol if the input contains invalid or unexpected symbols.
      * @throws EmptyLine if an empty string is provided where it's not allowed.
      * @throws ZeroValue if the provided numeric value is less than or equal to zero.
      */
@@ -78,6 +84,7 @@ public record Person(String name, LocalDateTime birthday, Double height, String 
 
     /**
      * Creates a Person object (group admin) from input values, typically used for reading from a file.
+     *
      * @param name the name of the group admin.
      * @param birthday the birthday of the group admin in string format.
      * @param height the height of the group admin.
@@ -95,13 +102,26 @@ public record Person(String name, LocalDateTime birthday, Double height, String 
                 PrimitiveDataTransform.inputFromFile("adminPassportID", passportID, String.class));
     }
 
+    /**
+     * Processes mixed input data to create a Person object from an array of input strings.
+     * It checks each element in the input array and fills the respective fields for a Person object.
+     *
+     * @param inputSplit an array of input strings.
+     * @return a Person object created from the array of input strings, or null if any required field is missing.
+     */
     public static Person inputMixed(String[] inputSplit) {
         int index = 1;
-        PersonMixedInput(inputSplit, index);
         Person groupAdmin = PersonMixedInput(inputSplit, index);
         return isRightFill(groupAdmin) ? groupAdmin : null;
     }
 
+    /**
+     * Helper method for processing mixed input data to create a Person object.
+     *
+     * @param inputSplit an array of input strings.
+     * @param index the current index in the input array.
+     * @return a Person object created from the array of input strings.
+     */
     static Person PersonMixedInput(String[] inputSplit, int index) {
         String adminName = (index < inputSplit.length) ?
                 PrimitiveDataTransform.inputFromFile("groupAdminName", inputSplit[index++], String.class) :
@@ -112,8 +132,8 @@ public record Person(String name, LocalDateTime birthday, Double height, String 
                         false, false,
                         true, DateTimeFormatter.ofPattern("yyyy-MM-dd'T'HH:mm"), false) :
                 PrimitiveDataTransform.input("admin birthday data in format DD.MM.YYYY",
-                LocalDateTime.class, false, false,
-                true, DateTimeFormatter.ofPattern("dd.MM.yyyy"));
+                        LocalDateTime.class, false, false,
+                        true, DateTimeFormatter.ofPattern("dd.MM.yyyy"));
 
         Double height = (index < inputSplit.length) ?
                 (inputSplit[index++].isBlank()) ?

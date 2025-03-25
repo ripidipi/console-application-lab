@@ -35,7 +35,7 @@ public class CountByGroupAdmin implements Helpable, Command{
     public void execute(String arg, String inputMode) {
         try {
             if (inputMode.equalsIgnoreCase("F")) {
-                String[] inputSplit = arg.split(" ");
+                String[] inputSplit = arg.split(",");
                 if (inputSplit.length != 4) {
                     throw new InsufficientNumberOfArguments("CountByGroupAdmin");
                 }

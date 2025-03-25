@@ -15,6 +15,9 @@ public class GroupCountingById implements Helpable, Command {
 
     /**
      * Groups study groups by their ID and counts the number of elements in each group.
+     * The groups are created based on the size of the collection, and each group
+     * contains study groups with IDs in a certain range.
+     * The result is printed to the output stream.
      */
     public static void groupCountingById() {
         try {
@@ -41,7 +44,7 @@ public class GroupCountingById implements Helpable, Command {
                 if (!group.isEmpty()) {
                     int groupSize = group.size();
                     int endID = group.get(group.size() - 1).getId();
-                    DistributionOfTheOutputStream.println("In ID range " + lastID + "-" + (endID + 1) + " - " + groupSize + " elements, ");
+                    DistributionOfTheOutputStream.println("In ID range " + lastID + "-" + (endID + 1) + " - " + groupSize + " elements.");
                     lastID = endID + 1;
                 }
             }
