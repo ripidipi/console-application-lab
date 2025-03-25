@@ -1,10 +1,12 @@
 package commands;
 
+import exceptions.InsufficientNumberOfArguments;
 import exceptions.RemoveOfTheNextSymbol;
 import input_output.DistributionOfTheOutputStream;
 import input_output.Logging;
 import related_to_the_collection.Collection;
 import related_to_the_collection.Person;
+import related_to_the_collection.PersonFabric;
 import related_to_the_collection.StudyGroup;
 
 import java.util.Iterator;
@@ -33,12 +35,16 @@ public class RemoveAnyByGroupAdmin implements Helpable, Command{
         }
     }
 
-    /**
-     * Removes the first study group with the given group admin from the collection based on user input.
-     */
-    public static void removeAnyByGroupAdmin() {
+    @Override
+    public void execute(String arg, String inputMode) {
         try {
-            Person person = Person.input();
+            if (inputMode.equalsIgnoreCase("F")) {
+                String[] inputSplit = arg.split(" ");
+                if (inputSplit.length != 4) {
+                    throw new InsufficientNumberOfArguments("CountByGroupAdmin");
+                }
+            }
+            Person person = PersonFabric.getPerson(arg, inputMode);
             removeGroupByAdmin(person);
         } catch (RemoveOfTheNextSymbol e) {
             DistributionOfTheOutputStream.println(e.getMessage());
@@ -46,11 +52,6 @@ public class RemoveAnyByGroupAdmin implements Helpable, Command{
         } catch (Exception e) {
             Logging.log(Logging.makeMessage(e.getMessage(), e.getStackTrace()));
         }
-    }
-
-    @Override
-    public void execute(String arg, String inputMode) {
-        removeAnyByGroupAdmin();
     }
 
     @Override

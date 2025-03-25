@@ -15,15 +15,7 @@ public class EnumInput {
 
     final private static Scanner scanner = new Scanner(System.in);
 
-    /**
-     * Reads an enum value from the console.
-     *
-     * @param enumType The enum class type that is expected to be received from the console.
-     * @param <T> The type of the enum.
-     * @return One of the constant enum values.
-     * @throws IncorrectConstant if the input isn't a valid value from the enum.
-     */
-    public static <T extends Enum<T>> T inputFromConsole(Class<T> enumType) {
+    private static <T extends Enum<T>> T inputAssistent(Class<T> enumType) {
         T[] enumConstants = enumType.getEnumConstants();
         ArrayList<String> enumValues = new ArrayList<>();
         for (T constant : enumConstants) {
@@ -35,7 +27,19 @@ public class EnumInput {
             throw new RemoveOfTheNextSymbol();
         }
         String input = scanner.nextLine().toUpperCase();
-        T result = TransformToEnum(enumType, input);
+        return TransformToEnum(enumType, input);
+    }
+
+    /**
+     * Reads an enum value from the console.
+     *
+     * @param enumType The enum class type that is expected to be received from the console.
+     * @param <T> The type of the enum.
+     * @return One of the constant enum values.
+     * @throws IncorrectConstant if the input isn't a valid value from the enum.
+     */
+    public static <T extends Enum<T>> T inputFromConsole(Class<T> enumType) {
+        T result = inputAssistent(enumType);
         SavingAnEmergencyStop.addStringToFile(result.name());
         return result;
     }
@@ -60,6 +64,6 @@ public class EnumInput {
         } catch (IllegalArgumentException e) {
             DistributionOfTheOutputStream.println(new IncorrectConstant(enumType.getSimpleName()).getMessage());
         }
-        return inputFromConsole(enumType);
+        return inputAssistent(enumType);
     }
 }

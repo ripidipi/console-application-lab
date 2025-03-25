@@ -30,7 +30,7 @@ public class RemoveLower implements Helpable, Command {
                 if (inputMode.equalsIgnoreCase("F") &&
                         Collection.formatStudyGroupToCSV(StudyGroup.getEmptyStudyGroup()).split(",").length
                                 != inputSplit.length) {
-                    throw new InsufficientNumberOfArguments("Add");
+                    throw new InsufficientNumberOfArguments("RemoveLower");
                 }
                 studyGroup = StudyGroupFabric.getStudyGroup(inputMode, inputSplit, false, true);
             }

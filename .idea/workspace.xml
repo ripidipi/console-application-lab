@@ -103,7 +103,7 @@
       <workItem from="1742129144394" duration="2457000" />
       <workItem from="1742198194007" duration="7447000" />
       <workItem from="1742281224964" duration="9695000" />
-      <workItem from="1742323412499" duration="56363000" />
+      <workItem from="1742323412499" duration="61404000" />
     </task>
     <servers />
   </component>
@@ -144,7 +144,7 @@
         </line-breakpoint>
         <line-breakpoint enabled="true" type="java-method">
           <url>file://$PROJECT_DIR$/src/input_output/EnumInput.java</url>
-          <line>25</line>
+          <line>40</line>
           <properties class="input_output.EnumInput" method="inputFromConsole">
             <option name="EMULATED" value="true" />
             <option name="WATCH_EXIT" value="false" />
@@ -153,7 +153,7 @@
         </line-breakpoint>
         <line-breakpoint enabled="true" type="java-method">
           <url>file://$PROJECT_DIR$/src/input_output/EnumInput.java</url>
-          <line>53</line>
+          <line>57</line>
           <properties class="input_output.EnumInput" method="TransformToEnum">
             <option name="EMULATED" value="true" />
             <option name="WATCH_EXIT" value="false" />
@@ -162,7 +162,7 @@
         </line-breakpoint>
         <line-breakpoint enabled="true" type="java-method">
           <url>file://$PROJECT_DIR$/src/related_to_the_collection/StudyGroup.java</url>
-          <line>288</line>
+          <line>293</line>
           <properties class="related_to_the_collection.StudyGroup" method="inputMixed">
             <option name="EMULATED" value="true" />
             <option name="WATCH_EXIT" value="false" />
@@ -188,13 +188,22 @@
           <option name="timeStamp" value="32" />
         </line-breakpoint>
         <line-breakpoint enabled="true" type="java-method">
-          <url>file://$PROJECT_DIR$/src/input_output/SavingAnEmergencyStop.java</url>
-          <line>18</line>
-          <properties class="input_output.SavingAnEmergencyStop" method="addStringToFile">
+          <url>file://$PROJECT_DIR$/src/related_to_the_collection/Person.java</url>
+          <line>97</line>
+          <properties class="related_to_the_collection.Person" method="inputMixed">
             <option name="EMULATED" value="true" />
             <option name="WATCH_EXIT" value="false" />
           </properties>
-          <option name="timeStamp" value="34" />
+          <option name="timeStamp" value="35" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" type="java-method">
+          <url>file://$PROJECT_DIR$/src/related_to_the_collection/Person.java</url>
+          <line>104</line>
+          <properties class="related_to_the_collection.Person" method="PersonMixedInput">
+            <option name="EMULATED" value="true" />
+            <option name="WATCH_EXIT" value="false" />
+          </properties>
+          <option name="timeStamp" value="36" />
         </line-breakpoint>
       </breakpoints>
     </breakpoint-manager>

@@ -1,11 +1,9 @@
 package related_to_the_collection;
 
-import commands.ExecuteScript;
 import exceptions.EmptyLine;
 import exceptions.RemoveOfTheNextSymbol;
 import exceptions.ZeroValue;
 import input_output.DistributionOfTheOutputStream;
-import input_output.Logging;
 import input_output.PrimitiveDataTransform;
 
 import java.time.LocalDateTime;
@@ -95,5 +93,40 @@ public record Person(String name, LocalDateTime birthday, Double height, String 
                         false, true,
                         false, null, false),
                 PrimitiveDataTransform.inputFromFile("adminPassportID", passportID, String.class));
+    }
+
+    public static Person inputMixed(String[] inputSplit) {
+        int index = 1;
+        PersonMixedInput(inputSplit, index);
+        Person groupAdmin = PersonMixedInput(inputSplit, index);
+        return isRightFill(groupAdmin) ? groupAdmin : null;
+    }
+
+    static Person PersonMixedInput(String[] inputSplit, int index) {
+        String adminName = (index < inputSplit.length) ?
+                PrimitiveDataTransform.inputFromFile("groupAdminName", inputSplit[index++], String.class) :
+                PrimitiveDataTransform.input("group admin name", String.class);
+
+        LocalDateTime birthday = (index < inputSplit.length) ?
+                PrimitiveDataTransform.inputFromFile("adminBirthday", inputSplit[index++], LocalDateTime.class,
+                        false, false,
+                        true, DateTimeFormatter.ofPattern("yyyy-MM-dd'T'HH:mm"), false) :
+                PrimitiveDataTransform.input("birthday data in format DD.MM.YYYY",
+                LocalDateTime.class, false, false,
+                true, DateTimeFormatter.ofPattern("dd.MM.yyyy"));
+
+        Double height = (index < inputSplit.length) ?
+                (inputSplit[index++].isBlank()) ?
+                        null :
+                        PrimitiveDataTransform.inputFromFile("adminHeight", inputSplit[index++],
+                                Double.class, false, true,
+                                false, null, false) :
+                PrimitiveDataTransform.input("height", Double.class, false,
+                        true, false, null);
+
+        String adminPassport = (index < inputSplit.length) ?
+                PrimitiveDataTransform.inputFromFile("adminPassportID", inputSplit[index++], String.class) :
+                PrimitiveDataTransform.input("passportID", String.class);
+        return new Person(adminName, birthday, height, adminPassport);
     }
 }

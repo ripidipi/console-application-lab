@@ -1,10 +1,12 @@
 package commands;
 
+import exceptions.InsufficientNumberOfArguments;
 import exceptions.RemoveOfTheNextSymbol;
 import input_output.DistributionOfTheOutputStream;
 import input_output.Logging;
 import related_to_the_collection.Collection;
 import related_to_the_collection.Person;
+import related_to_the_collection.PersonFabric;
 import related_to_the_collection.StudyGroup;
 
 import java.util.Objects;
@@ -18,10 +20,9 @@ public class CountByGroupAdmin implements Helpable, Command{
     /**
      * Counts the number of study groups where the user-specified person is the admin.
      */
-    public static void countByGroupAdmin() {
+    public static void countByGroupAdmin(Person person) {
         try {
             TreeSet<StudyGroup> studyGroups = Collection.getInstance().getCollection();
-            Person person = Person.input();
             int adminCounter = 0;
             for (StudyGroup studyGroup : studyGroups) {
                 if (Objects.equals(studyGroup.getGroupAdmin(), person)) {
@@ -39,7 +40,14 @@ public class CountByGroupAdmin implements Helpable, Command{
 
     @Override
     public void execute(String arg, String inputMode) {
-        countByGroupAdmin();
+        if (inputMode.equalsIgnoreCase("F")) {
+            String[] inputSplit = arg.split(" ");
+            if (inputSplit.length != 4) {
+                throw new InsufficientNumberOfArguments("CountByGroupAdmin");
+            }
+        }
+        Person person = PersonFabric.getPerson(arg, inputMode);
+        countByGroupAdmin(person);
     }
 
     @Override

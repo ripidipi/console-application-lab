@@ -294,8 +294,7 @@ public class StudyGroup implements Comparable<StudyGroup> {
     public static StudyGroup inputMixed(String[] inputSplit, boolean notAdded, boolean isId) {
         try {
             int index = 1;
-
-            Integer id = null;
+            Integer id;
             if (isId) {
                 id = (index < inputSplit.length) ?
                         PrimitiveDataTransform.inputFromFile("id", inputSplit[index++], Integer.class) :
@@ -334,29 +333,7 @@ public class StudyGroup implements Comparable<StudyGroup> {
                     EnumInput.TransformToEnum(Semester.class, inputSplit[index++]) :
                     EnumInput.inputFromConsole(Semester.class);
 
-            String adminName = (index < inputSplit.length) ?
-                    PrimitiveDataTransform.inputFromFile("groupAdminName", inputSplit[index++], String.class) :
-                    PrimitiveDataTransform.input("group admin name", String.class);
-            DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd/MM/yyyy");
-            LocalDateTime dateTime = (index < inputSplit.length) ?
-                    PrimitiveDataTransform.inputFromFile("adminBirthday", inputSplit[index++],
-                            LocalDateTime.class, false, false,
-                            true, formatter, false) :
-                    PrimitiveDataTransform.input("birthday data in format DD.MM.YYYY",
-                            LocalDateTime.class, false, false,
-                            true, DateTimeFormatter.ofPattern("dd.MM.yyyy"));
-            Double height = (index < inputSplit.length) ?
-                    (inputSplit[index++].isBlank()) ?
-                            null :
-                            PrimitiveDataTransform.inputFromFile("adminHeight", inputSplit[index++],
-                                    Double.class, false, true,
-                                    false, null, false) :
-                    PrimitiveDataTransform.input("height", Double.class, false,
-                            true, false, null);
-            String adminPassport = (index < inputSplit.length) ?
-                    PrimitiveDataTransform.inputFromFile("adminPassportID", inputSplit[index++], String.class) :
-                    PrimitiveDataTransform.input("passportID", String.class);
-            Person groupAdmin = new Person(adminName, dateTime, height, adminPassport);
+            Person groupAdmin = Person.PersonMixedInput(inputSplit, index);
 
             return rightInisilizeStudyGroup(inputSplit, notAdded, id, name, coordinates, studentCount,
                     formOfEducation, semester, groupAdmin);
